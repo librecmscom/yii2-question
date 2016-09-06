@@ -21,7 +21,8 @@
     }
   ],
   "require": {
-    "yiisoft/yii2": "~2.0.0"
+    "yiisoft/yii2": "~2.0.0",
+    "yuncms/yii2-tag": "~1.0"
   },
   "require-dev": {
     "yii/yii2-codeception": "*",
