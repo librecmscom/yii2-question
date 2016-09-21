@@ -4,7 +4,6 @@ namespace yuncms\question;
 
 use Yii;
 
-
 /**
  * This is the main module class for the QA module.
  *
@@ -23,14 +22,43 @@ use Yii;
  * the URL `http://localhost/path/to/index.php?r=question`
  *
  * You can then access QA via URL: `http://localhost/path/to/index.php/question`
- *
- * @author Nikolay Kostyurin <nikolay@artkost.ru>
- * @since 2.0
  */
 class Module extends \yii\base\Module
 {
 
     public $defaultRoute = 'question';
-    
 
+    /**
+     * 初始化
+     */
+    public function init()
+    {
+        parent::init();
+        $this->registerTranslations();
+    }
+
+    /**
+     * 注册语言包
+     */
+    public function registerTranslations()
+    {
+        Yii::$app->i18n->translations['question/*'] = [
+            'class' => 'yii\i18n\PhpMessageSource',
+            'sourceLanguage' => 'en-US',
+            'basePath' => __DIR__ . '/messages',
+        ];
+    }
+
+    /**
+     * 解析语言包
+     * @param string $category
+     * @param string $message
+     * @param array $params
+     * @param null $language
+     * @return string
+     */
+    public static function t($category, $message, $params = [], $language = null)
+    {
+        return Yii::t('question/' . $category, $message, $params, $language);
+    }
 }

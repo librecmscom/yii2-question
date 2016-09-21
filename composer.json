@@ -14,20 +14,9 @@
     "issues": "https://github.com/yuncms/yii2-question/issues",
     "source": "https://github.com/yuncms/yii2-question"
   },
-  "authors": [
-    {
-      "name": "yuncms",
-      "email": "dev@yuncms.net"
-    }
-  ],
   "require": {
     "yiisoft/yii2": "~2.0.0",
     "yuncms/yii2-tag": "~1.0"
-  },
-  "require-dev": {
-    "yii/yii2-codeception": "*",
-    "codeception/specify": "*",
-    "codeception/verify": "*"
   },
   "autoload": {
     "psr-4": {
