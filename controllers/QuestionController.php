@@ -19,7 +19,6 @@ use yuncms\question\models\Answer;
 use yuncms\question\models\Question;
 use yuncms\question\models\QuestionSearch;
 
-
 /**
  * Class QuestionController
  *
@@ -27,7 +26,6 @@ use yuncms\question\models\QuestionSearch;
  */
 class QuestionController extends Controller
 {
-
     /**
      * @inheritdoc
      */
