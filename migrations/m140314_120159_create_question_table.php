@@ -5,7 +5,7 @@ use yuncms\question\models\Question;
 /**
  * Class m140314_120159_create_question_question_table
  */
-class m140314_120159_create_question_question_table extends Migration
+class m140314_120159_create_question_table extends Migration
 {
     public function up()
     {
