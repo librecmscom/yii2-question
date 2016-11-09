@@ -1,21 +1,13 @@
 <?php
-/**
- * Leaps Framework [ WE CAN DO IT JUST THINK IT ]
- *
- * @link http://www.tintsoft.com/
- * @copyright Copyright (c) 2015 TintSoft Technology Co. Ltd.
- * @license http://www.tintsoft.com/license/
- */
+use yii\helpers\Url;
+use yii\helpers\Html;
+use yii\bootstrap\Nav;
+use yii\widgets\ListView;
+use yii\question\Asset;
 
-use Leaps\Helper\Url;
-use Leaps\Helper\Html;
-use Leaps\Bootstrap\Nav;
-use Leaps\Widget\ListView;
-use Leaps\Question\Asset;
-
-/** @var \Leaps\Data\ActiveDataProvider $dataProvider */
+/** @var \yii\data\ActiveDataProvider $dataProvider */
 Asset::register($this);
-$this->title = Leaps::t('question', 'Tag') . ' ' . $tag;
+$this->title = Yii::t('question', 'Tag') . ' ' . $tag;
 $this->params['breadcrumbs'][] = Leaps::t('question', 'Questions');
 $this->params['breadcrumbs'][] = Leaps::t('question', 'Tag');
 $this->params['breadcrumbs'][] = $tag;
@@ -33,9 +25,9 @@ $this->params['breadcrumbs'][] = $tag;
     <div class="col-md-3">
         <?= Html::a(Leaps::t('question', 'Ask a Question'), ['create'], ['class' => 'question-index-add-button btn btn-primary']); ?>
 
-        <?= \Leaps\Question\Widget\Popular::widget(); ?>
+        <?= \yuncms\question\widgets\Popular::widget(); ?>
 
-        <?= \Leaps\Question\Widget\Tags::widget(); ?>
+        <?= \yuncms\question\widgets\Tags::widget(); ?>
 
     </div>
 
