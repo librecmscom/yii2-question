@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class Asset extends AssetBundle
 {
-    public $sourcePath = '@yuncms/yii2-question/assets';
+    public $sourcePath = '@yuncms/question/assets';
     public $css = [
         'css/question.css',
     ];

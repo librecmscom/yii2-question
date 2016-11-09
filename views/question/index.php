@@ -1,7 +1,7 @@
 <?php
 
-use yii\helper\Url;
-use yii\helper\Html;
+use yii\helpers\Url;
+use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\widgets\ListView;
 use yuncms\question\Asset;

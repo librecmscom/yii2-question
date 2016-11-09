@@ -14,7 +14,7 @@ use yii\helpers\HtmlPurifier;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use yuncms\Tag\behaviors\TagBehavior;
+use yuncms\tag\behaviors\TagBehavior;
 use yuncms\tag\models\Tag;
 use yuncms\user\models\User;
 
@@ -97,7 +97,7 @@ class Question extends ActiveRecord
         return [
             TimestampBehavior::className(),
             [
-                'className' => AttributeBehavior::className(),
+                'class' => AttributeBehavior::className(),
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => 'alias'
                 ],
@@ -106,7 +106,7 @@ class Question extends ActiveRecord
                 }
             ],
             [
-                'className' => AttributeBehavior::className(),
+                'class' => AttributeBehavior::className(),
                 'attributes' => [
                     ActiveRecord::EVENT_AFTER_FIND => 'body'
                 ],
@@ -115,14 +115,14 @@ class Question extends ActiveRecord
                 }
             ],
             'tag' => [
-                'className' => TagBehavior::className(),
+                'class' => TagBehavior::className(),
                 'tagValuesAsArray' => false,
                 'tagRelation' => 'tags',
                 'tagValueAttribute' => 'name',
                 'tagFrequencyAttribute' => 'frequency',
             ],
             'blameable' => [
-                'className' => BlameableBehavior::className(),
+                'class' => BlameableBehavior::className(),
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => 'user_id',
                 ],
