@@ -47,7 +47,7 @@ class QuestionController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'view', 'tag', 'autocomplete'],
+                        'actions' => ['index', 'view', 'tag', 'auto-complete'],
                         'roles' => ['@', '?']
                     ],
                     [
@@ -111,7 +111,7 @@ class QuestionController extends Controller
     {
         $model = new Question();
         if ($model->load(Yii::$app->request->post()) && $model->save() != null) {
-            Yii::$app->session->setFlash('questionFormSubmitted');
+            Yii::$app->session->setFlash('question Submitted');
             return $this->redirect(['view', 'id' => $model->id]);
         }
         return $this->render('create', ['model' => $model]);
@@ -131,7 +131,7 @@ class QuestionController extends Controller
         $model = $this->findModel($id);
         if ($model->isAuthor()) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                Yii::$app->session->setFlash('questionFormSubmitted');
+                Yii::$app->session->setFlash('question Submitted');
                 return $this->redirect(['view', 'id' => $model->id]);
             }
             return $this->render('update', ['model' => $model]);
