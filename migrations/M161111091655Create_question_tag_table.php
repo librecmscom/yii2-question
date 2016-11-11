@@ -1,9 +1,10 @@
 <?php
-use yii\db\Migration;
-use yuncms\tag\models\Tag;
-use yuncms\question\models\Question;
 
-class m160418_040034_create_question_tag_table extends Migration
+namespace yuncms\question\migrations;
+
+use yii\db\Migration;
+
+class M161111091655Create_question_tag_table extends Migration
 {
     public function up()
     {
@@ -17,12 +18,23 @@ class m160418_040034_create_question_tag_table extends Migration
             'tag_id' => $this->integer()->notNull(),
         ], $tableOptions);
         $this->addPrimaryKey('', '{{%question_tag}}', ['question_id', 'tag_id']);
-        $this->addForeignKey('question_tag_ibfk_1', '{{%question_tag}}', 'question_id', Question::tableName(), 'id', 'CASCADE', 'CASCADE');
-        $this->addForeignKey('question_tag_ibfk_2', '{{%question_tag}}', 'tag_id', Tag::tableName(), 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('question_tag_ibfk_1', '{{%question_tag}}', 'question_id', '{{%question}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('question_tag_ibfk_2', '{{%question_tag}}', 'tag_id', '{{%tag}}', 'id', 'CASCADE', 'CASCADE');
     }
 
     public function down()
     {
         $this->dropTable('{{%question_tag}}');
     }
+
+    /*
+    // Use safeUp/safeDown to run migration code within a transaction
+    public function safeUp()
+    {
+    }
+
+    public function safeDown()
+    {
+    }
+    */
 }

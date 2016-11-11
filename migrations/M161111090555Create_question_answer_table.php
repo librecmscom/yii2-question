@@ -1,11 +1,10 @@
 <?php
-use yii\db\Migration;
-use yuncms\question\models\Question;
 
-/**
- * Class m140314_120159_create_question_question_table
- */
-class m140314_120159_create_question_table extends Migration
+namespace yuncms\question\migrations;
+
+use yii\db\Migration;
+
+class M161111090555Create_question_answer_table extends Migration
 {
     public function up()
     {
@@ -14,24 +13,35 @@ class m140314_120159_create_question_table extends Migration
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
-        $this->createTable(Question::tableName(), [
+
+        $this->createTable('{{%question_answer}}', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
-            'title' => $this->string(100)->notNull(),
-            'alias' => $this->string(100)->notNull(),
+            'question_id' => $this->integer()->notNull(),
             'content' => $this->text()->notNull(),
-            'answers' => $this->integer()->notNull()->defaultValue(0),
-            'views' => $this->integer()->notNull()->defaultValue(0),
+            'is_correct' => $this->integer()->notNull()->defaultValue(0),
             'votes' => $this->integer()->notNull()->defaultValue(0),
             'status' => $this->smallInteger()->notNull()->defaultValue(1),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);
-        $this->addForeignKey('question_ibfk_1', Question::tableName(), 'user_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('answer_ibfk_1', '{{%question_answer}}', 'question_id', '{{%question}}', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('answer_ibfk_2', '{{%question_answer}}', 'user_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE');
     }
 
     public function down()
     {
-        $this->dropTable(Question::tableName());
+        $this->dropTable('{{%question_answer}}');
     }
+
+    /*
+    // Use safeUp/safeDown to run migration code within a transaction
+    public function safeUp()
+    {
+    }
+
+    public function safeDown()
+    {
+    }
+    */
 }
