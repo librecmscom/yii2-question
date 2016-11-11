@@ -236,19 +236,6 @@ class Question extends ActiveRecord
     }
 
     /**
-     * 触发收藏
-     * @return bool
-     */
-    public function toggleFavorite()
-    {
-        if ($this->isFavorite()) {
-            return Favorite::Remove($this->id);
-        } else {
-            return Favorite::Add($this->id);
-        }
-    }
-
-    /**
      * 问题被收藏的次数
      * @return int|string
      */
