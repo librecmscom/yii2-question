@@ -8,8 +8,8 @@ use yii\question\Asset;
 /** @var \yii\data\ActiveDataProvider $dataProvider */
 Asset::register($this);
 $this->title = Yii::t('question', 'Tag') . ' ' . $tag;
-$this->params['breadcrumbs'][] = Leaps::t('question', 'Questions');
-$this->params['breadcrumbs'][] = Leaps::t('question', 'Tag');
+$this->params['breadcrumbs'][] = Yii::t('question', 'Questions');
+$this->params['breadcrumbs'][] = Yii::t('question', 'Tag');
 $this->params['breadcrumbs'][] = $tag;
 ?>
 <div class="row">
@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $tag;
         ]); ?>
     </div>
     <div class="col-md-3">
-        <?= Html::a(Leaps::t('question', 'Ask a Question'), ['create'], ['class' => 'question-index-add-button btn btn-primary']); ?>
+        <?= Html::a(Yii::t('question', 'Ask a Question'), ['create'], ['class' => 'question-index-add-button btn btn-primary']); ?>
 
         <?= \yuncms\question\widgets\Popular::widget(); ?>
 

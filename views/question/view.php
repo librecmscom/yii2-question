@@ -2,12 +2,11 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ListView;
-use yii\widgets\LinkPager;
 use yuncms\question\models\Vote;
 use yuncms\question\Asset;
 /**
  * @var yii\web\View $this
- * @var yii\question\models\Question $model
+ * @var yuncms\question\models\Question $model
  */
 Asset::register($this);
 $this->title = Html::encode($model->title);

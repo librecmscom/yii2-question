@@ -3,7 +3,7 @@
 use yuncms\question\Asset;
 
 Asset::register($this);
-$this->title = Leaps::t('question', 'Ask a Question');
+$this->title = Yii::t('question', 'Ask a Question');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('question', 'Questions'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

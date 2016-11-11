@@ -14,6 +14,7 @@ use yii\helpers\HtmlPurifier;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
+use yuncms\user\models\Collection;
 use yuncms\tag\behaviors\TagBehavior;
 use yuncms\tag\models\Tag;
 use yuncms\user\models\User;
@@ -192,7 +193,7 @@ class Question extends ActiveRecord
      */
     public function getFavorite()
     {
-        return $this->hasOne(Favorite::className(), ['question_id' => 'id']);
+        return $this->hasOne(Collection::className(), ['source_id' => 'id'])->onCondition(['source_type'=>get_class($this)]);
     }
 
     /**
@@ -219,7 +220,7 @@ class Question extends ActiveRecord
      */
     public function getFavorites()
     {
-        return $this->hasMany(Favorite::className(), ['question_id' => 'id']);
+        return $this->hasMany(Collection::className(), ['source_id' => 'id'])->onCondition(['source_type'=>get_class($this)]);
     }
 
     /**
@@ -230,8 +231,8 @@ class Question extends ActiveRecord
     public function isFavorite($user = false)
     {
         $user = ($user) ? $user : Yii::$app->user;
+        return (bool) $this->getFavorites()->where(['user_id'=>$user->id])->exists();
 
-        return Favorite::find()->where(['user_id' => $user->id, 'question_id' => $this->id])->exists();
     }
 
     /**
@@ -253,6 +254,6 @@ class Question extends ActiveRecord
      */
     public function getFavoriteCount()
     {
-        return $this->hasMany(Favorite::className(), ['question_id' => 'id'])->count();
+        return $this->getFavorites()->count();
     }
 }

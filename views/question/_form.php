@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\web\JsExpression;
 use yii\widgets\ActiveForm;
 use xutl\typeahead\Bloodhound;
-use xutl\typeahead\TypeAheadPluginAsset;
+use xutl\typeahead\TypeAheadAsset;
 use yuncms\tag\widgets\TagsinputWidget;
 
 /**
@@ -22,7 +22,7 @@ $engine = new Bloodhound([
         ],
     ]
 ]);
-TypeAheadPluginAsset::register($this);
+TypeAheadAsset::register($this);
 $this->registerJs($engine->getClientScript());
 $this->registerCss(".bootstrap-tagsinput {width: 100%;}");
 ?>
