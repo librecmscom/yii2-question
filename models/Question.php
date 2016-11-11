@@ -137,7 +137,7 @@ class Question extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'content','tagValues'], 'required'],
+            [['title', 'content', 'tagValues'], 'required'],
             ['tagValues', 'safe'],
             ['status', 'default', 'value' => self::STATUS_PUBLISHED],
             ['status', 'in', 'range' => [self::STATUS_DRAFT, self::STATUS_PUBLISHED]],
@@ -193,7 +193,7 @@ class Question extends ActiveRecord
      */
     public function getFavorite()
     {
-        return $this->hasOne(Collection::className(), ['source_id' => 'id'])->onCondition(['source_type'=>get_class($this)]);
+        return $this->hasOne(Collection::className(), ['source_id' => 'id'])->onCondition(['source_type' => get_class($this)]);
     }
 
     /**
@@ -220,7 +220,7 @@ class Question extends ActiveRecord
      */
     public function getFavorites()
     {
-        return $this->hasMany(Collection::className(), ['source_id' => 'id'])->onCondition(['source_type'=>get_class($this)]);
+        return $this->hasMany(Collection::className(), ['source_id' => 'id'])->onCondition(['source_type' => get_class($this)]);
     }
 
     /**
@@ -231,7 +231,7 @@ class Question extends ActiveRecord
     public function isFavorite($user = false)
     {
         $user = ($user) ? $user : Yii::$app->user;
-        return (bool) $this->getFavorites()->where(['user_id'=>$user->id])->exists();
+        return (bool)$this->getFavorites()->where(['user_id' => $user->id])->exists();
 
     }
 
