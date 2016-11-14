@@ -100,14 +100,14 @@ use yuncms\question\models\Question;
                        aria-expanded="false" aria-controls="comment-<?= $model->id ?>"><i class="fa fa-comment-o"></i>
                         <?= $model->comments ?> 条评论</a></li>
                 <?php if (!Yii::$app->user->isGuest): ?>
-                    <?php if ($question->status == 1 && $model->isAuthor()): ?>
+                    <?php if ($question->status == Question::STATUS_ACTIVE && $model->isAuthor()): ?>
                         <li><a href="<?= Url::to(['/question/question/answer-update', 'id' => $model->id]) ?>"
                                data-toggle="tooltip"
                                data-placement="right" title="" data-original-title="继续完善回答内容"><i class="fa fa-edit"></i>
                                 编辑</a>
                         </li>
                     <?php endif; ?>
-                    <?php if ($question->status == 1 && $question->isAuthor()): ?>
+                    <?php if ($question->status == Question::STATUS_ACTIVE && $question->isAuthor()): ?>
                         <li><a href="#" class="adopt-answer" data-toggle="modal" data-target="#adoptAnswer"
                                data-answer_id="<?= $model->id ?>"
                                data-answer_content="{{ str_limit($answer->content,200) }}"><i
@@ -123,7 +123,6 @@ use yuncms\question\models\Question;
             </ul>
         </div>
         <?= \yuncms\comment\widgets\Comment::widget(['source_type' => 'question','source_id' => $model->id]); ?>
-        
     </div>
 </div>
 

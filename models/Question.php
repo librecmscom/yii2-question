@@ -40,18 +40,11 @@ use yuncms\user\models\User;
  */
 class Question extends ActiveRecord
 {
-    //待定
-    const STATUS_PENDING = 0;
-
     //正常
-    const STATUS_ACCEPTED = 1;
+    const STATUS_ACTIVE = 0;
 
-    //拒绝
-    const STATUS_REJECTED = 2;
-
-    //删除
-    const STATUS_DELETED = 3;
-
+    //结束
+    const STATUS_END = 2;
 
 
     /**
@@ -74,29 +67,6 @@ class Question extends ActiveRecord
     public static function tableName()
     {
         return '{{%question}}';
-    }
-
-    public function isAnswered(){
-        
-    }
-
-
-    /**
-     * 回答数+1
-     * @param string $id
-     */
-    public static function incrementAnswers($id)
-    {
-        self::updateAllCounters(['answers' => 1], ['id' => $id]);
-    }
-
-    /**
-     * 回答数 -1
-     * @param $id
-     */
-    public static function decrementAnswers($id)
-    {
-        self::updateAllCounters(['answers' => -1], ['id' => $id]);
     }
 
     /**
@@ -148,8 +118,8 @@ class Question extends ActiveRecord
         return [
             [['title', 'content', 'tagValues'], 'required'],
             ['tagValues', 'safe'],
-            ['status', 'default', 'value' => self::STATUS_PUBLISHED],
-            ['status', 'in', 'range' => [self::STATUS_DRAFT, self::STATUS_PUBLISHED]],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_END]],
         ];
     }
 
@@ -215,15 +185,6 @@ class Question extends ActiveRecord
     }
 
     /**
-     * 是否是草稿
-     * @return bool
-     */
-    public function isDraft()
-    {
-        return $this->status == Question::STATUS_DRAFT;
-    }
-
-    /**
      * 收藏关系
      * @return \yii\db\ActiveQueryInterface
      */
@@ -241,7 +202,6 @@ class Question extends ActiveRecord
     {
         $user = ($user) ? $user : Yii::$app->user;
         return (bool)$this->getFavorites()->where(['user_id' => $user->id])->exists();
-
     }
 
     /**
