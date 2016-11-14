@@ -8,6 +8,7 @@ use yuncms\question\models\Question;
  * @var yuncms\question\models\Question $question
  */
 ?>
+<!--
 <article class="question-view-answer row">
     <section class="question-view-answer-aside col-md-2">
         <div class="question-created">
@@ -31,7 +32,7 @@ use yuncms\question\models\Question;
     <section class="panel <?= ($model->isCorrect()) ? 'panel-warning' : 'panel-default' ?> col-md-10">
 
     </section>
-</article>
+</article>-->
 
 <div class="media">
     <div class="media-left">
