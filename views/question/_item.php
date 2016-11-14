@@ -49,9 +49,6 @@ use yuncms\question\models\Question;
     </div>
     <h4 class="question-heading list-group-item-heading">
         <?= Html::a(Html::encode($model->title), ['view', 'id' => $model->id, 'alias' => $model->alias], ['class' => 'question-link', 'title' => Html::encode($model->title)]); ?>
-        <?php if ($model->isDraft()): ?>
-            <small><span class="label label-default"><?= Yii::t('question', 'Draft') ?></span></small>
-        <?php endif; ?>
     </h4>
     <div class="question-tags">
             <span class="question-tags">

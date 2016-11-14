@@ -22,7 +22,6 @@ class Popular extends Widget
     public function run()
     {
         $models = Question::find()
-            ->published()
             ->views($this->views)
             ->limit($this->limit)
             ->all();

@@ -48,7 +48,6 @@ class QuestionSearch extends Model
     public function search($params)
     {
         $query = Question::find()->with('user');
-        $query->andWhere(['status' => Question::STATUS_PUBLISHED]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

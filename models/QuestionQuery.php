@@ -27,20 +27,4 @@ class QuestionQuery extends ActiveQuery
     {
         return $this->andWhere(['>', 'views', $limit]);
     }
-
-    /**
-     * @return static
-     */
-    public function published()
-    {
-        return $this->andWhere(['status' => Question::STATUS_PUBLISHED]);
-    }
-
-    /**
-     * @return static
-     */
-    public function draft()
-    {
-        return $this->andWhere(['status' => Question::STATUS_DRAFT]);
-    }
 }
