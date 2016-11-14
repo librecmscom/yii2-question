@@ -9,22 +9,6 @@ $(function () {
         });
         e.preventDefault();
     });
-    $('.js-favorite').on('click', 'a.js-favorite-link', function (e) {
-        $.post($(this).attr('href'), $(this).data('post'), function (response) {
-            if (response.status) {
-                if (response.isFavorite) {
-                    $('.js-favorite').addClass('question-favorite-active');
-                    $('.js-favorite span').removeClass('glyphicon-star-empty').addClass('glyphicon-star');
-                } else {
-                    $('.js-favorite').removeClass('question-favorite-active');
-                    $('.js-favorite span').removeClass('glyphicon-star').addClass('glyphicon-star-empty');
-                }
-
-                $('.question-favorite-count').html(response.favorites);
-            }
-        });
-        e.preventDefault();
-    });
     $('.js-answer-correct').on('click', 'a.js-answer-correct-link', function (e) {
         var _this = $(this);
         $.post($(this).attr('href'), $(this).data('post'), function (response) {
@@ -50,5 +34,4 @@ $(function () {
         });
         e.preventDefault();
     });
-
 });

@@ -3,9 +3,33 @@
     position: relative;
 }
 
+/*tag样式定义*/
+
+.tag-header{background:#f6f6f6;box-shadow:0 1px 2px 0 rgba(0,0,0,.24);padding:15px;margin-bottom:20px}
+.tag-header-title{margin-top:0;margin-right:15px;vertical-align:middle}
+.tag-header-follow{display:inline-block}
+.tag-header-summary{color:#666;margin-top:15px;margin-bottom:0}
+
+.tag{display:inline-block;padding:0 8px;color:#017e66;background-color:#E7F2ED;height:24px;line-height:24px;font-weight:400;font-size:13px;text-align:center}
+.tag[href]:focus,.tag[href]:hover{background-color:#017e66;color:#fff;text-decoration:none}
+.tag-sm{padding:0 4px;height:18px;line-height:18px;font-size:12px}
+.tag-lg{font-size:16px;font-weight:700;height:30px;line-height:28px}
+.tag-link{background-color:transparent}
+.tag-logo{padding-left:25px;background-repeat:no-repeat;background-position: 4px 2px;background-size:16px 16px;}
+.taglist--block,.taglist-inline{list-style:none;padding:0;font-size:0}
+.taglist--block li,.taglist-inline li{padding:0;font-size:13px}
+.ib.taglist--block,.ib.taglist-inline{margin:0;display:inline-block}
+.taglist-inline>li{display:inline-block;margin-right:5px}
+.taglist-inline>li:last-child{margin-right:0}
+.taglist-inline.multi>li{margin-bottom:5px}
+.taglist--block>li{margin-bottom:8px}
+
 /* 详情页面头部 */
 .widget-question .title{margin: 0 0 10px;}
 .widget-question .best-answer{border: 1px solid #EBEBEB;padding: 10px 20px 20px;}
 .widget-question .trophy-title{color:#ad3a37;}
 .widget-question .adopt_time{font-size: 14px;font-weight: normal;}
 .widget-question .user-info{padding:20px 0px 0px;}
+
+.post-opt a{color:#999}
+.post-title{padding-bottom:15px;border-bottom:1px solid #eee;}
