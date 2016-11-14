@@ -28,22 +28,6 @@ use yuncms\question\models\Question;
                     <?= $model->isCorrect() ? Html::tag('span', Html::tag('span', '', ['class' => 'glyphicon glyphicon-ok']), ['class' => 'btn btn-warning btn-sm question-answer-correct-button']) : ''; ?>
                 <?php endif; ?>
             </span>
-
-
-            <span class="question-like js-answer-vote">
-                <?php if (Vote::isUserCan($model, Yii::$app->user->id)): ?>
-                    <a class="btn btn-success btn-sm js-answer-vote-up"
-                       href="<?= Url::to(['answer-vote', 'id' => $model->id, 'vote' => 'up']) ?>"
-                       title="<?= Yii::t('question', 'Like') ?>">
-                        <span class="glyphicon glyphicon-heart"></span> <?= $model->votes ?>
-                    </a>
-                <?php else: ?>
-                    <span class="btn btn-success btn-sm disabled js-vote-up" title="<?= Yii::t('question', 'Like') ?>">
-                        <span class="glyphicon glyphicon-heart"></span> <?= $model->votes ?>
-                    </span>
-                <?php endif; ?>
-            </span>
-
         </div>
 
         <?php if ($model->isAuthor()) : ?>

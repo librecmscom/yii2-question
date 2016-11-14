@@ -192,24 +192,4 @@ class Question extends ActiveRecord
     {
         return $this->hasMany(Collection::className(), ['source_id' => 'id'])->onCondition(['source_type' => get_class($this)]);
     }
-
-    /**
-     * 是否已经收藏
-     * @param bool $user
-     * @return bool
-     */
-    public function isFavorite($user = false)
-    {
-        $user = ($user) ? $user : Yii::$app->user;
-        return (bool)$this->getFavorites()->where(['user_id' => $user->id])->exists();
-    }
-
-    /**
-     * 问题被收藏的次数
-     * @return int|string
-     */
-    public function getFavoriteCount()
-    {
-        return $this->getFavorites()->count();
-    }
 }
