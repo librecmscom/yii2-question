@@ -42,23 +42,10 @@ class Module extends \yii\base\Module
      */
     public function registerTranslations()
     {
-        Yii::$app->i18n->translations['question/*'] = [
+        Yii::$app->i18n->translations['question*'] = [
             'class' => 'yii\i18n\PhpMessageSource',
             'sourceLanguage' => 'en-US',
             'basePath' => __DIR__ . '/messages',
         ];
-    }
-
-    /**
-     * 解析语言包
-     * @param string $category
-     * @param string $message
-     * @param array $params
-     * @param null $language
-     * @return string
-     */
-    public static function t($category, $message, $params = [], $language = null)
-    {
-        return Yii::t('question/' . $category, $message, $params, $language);
     }
 }
