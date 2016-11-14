@@ -1,8 +1,6 @@
 <?php
-
-use yii\helpers\Html;
 use yii\helpers\Url;
-use yuncms\question\models\Vote;
+use yii\helpers\Html;
 use yuncms\question\models\Question;
 
 /**
@@ -29,21 +27,9 @@ use yuncms\question\models\Question;
                 <?php endif; ?>
             </span>
         </div>
-
-        <?php if ($model->isAuthor()) : ?>
-            <span class="question-edit-links">
-                <?= Html::a(Html::tag('span', '', ['class' => 'glyphicon glyphicon-pencil']), ['/question/question/answer-update', 'id' => $model->id], ['class' => 'label label-success']); ?>
-            </span>
-        <?php endif; ?>
-
-
     </section>
     <section class="panel <?= ($model->isCorrect()) ? 'panel-warning' : 'panel-default' ?> col-md-10">
-        <section class="panel-body">
-            <div class="question-view-text">
-                <?= $model->body ?>
-            </div>
-        </section>
+
     </section>
 </article>
 
@@ -51,8 +37,7 @@ use yuncms\question\models\Question;
     <div class="media-left">
         <a href="<?= Url::to(['/user/profile/show', 'id' => $model->user_id]) ?>" class="avatar-link user-card"
            target="_blank">
-            <img class="avatar-40" src="<?= $model->user->getAvatar('big')?>"
-                 alt="<?= $model->user->username ?>"></a>
+            <img class="avatar-40" src="<?= $model->user->getAvatar('big')?>" alt="<?= $model->user->username ?>"></a>
         </a>
     </div>
     <div class="media-body">
