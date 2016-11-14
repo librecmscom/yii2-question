@@ -18,6 +18,8 @@ class M161111090444Create_question_table extends Migration
             'user_id' => $this->integer()->notNull(),
             'title' => $this->string(100)->notNull(),
             'alias' => $this->string(100)->notNull(),
+            'price'=>$this->smallInteger(6)->unsigned()->defaultValue(0),
+            'hide'=>$this->boolean()->defaultValue(false),
             'content' => $this->text()->notNull(),
             'answers' => $this->integer()->notNull()->defaultValue(0),
             'views' => $this->integer()->notNull()->defaultValue(0),

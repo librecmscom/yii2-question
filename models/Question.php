@@ -40,15 +40,19 @@ use yuncms\user\models\User;
  */
 class Question extends ActiveRecord
 {
-    /**
-     * 草稿
-     */
-    const STATUS_DRAFT = 0;
+    //待定
+    const STATUS_PENDING = 0;
 
-    /**
-     * 发布
-     */
-    const STATUS_PUBLISHED = 1;
+    //正常
+    const STATUS_ACCEPTED = 1;
+
+    //拒绝
+    const STATUS_REJECTED = 2;
+
+    //删除
+    const STATUS_DELETED = 3;
+
+
 
     /**
      * Markdown processed content
@@ -71,6 +75,11 @@ class Question extends ActiveRecord
     {
         return '{{%question}}';
     }
+
+    public function isAnswered(){
+        
+    }
+
 
     /**
      * 回答数+1

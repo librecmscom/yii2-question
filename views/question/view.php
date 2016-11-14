@@ -23,7 +23,13 @@ $answerOrders = [
 <div class="row mt-10">
     <div class="col-xs-12 col-md-9 main">
         <div class="widget-question">
-            <h4 class="title"><?= Html::encode($this->title) ?></h4>
+            <h4 class="title">
+                <?php if ($model->price > 0): ?>
+                    <span class="text-gold">
+                        <i class="fa fa-database"></i> <?= $model->price ?>
+                    </span>
+                <?php endif; ?>
+                <?= Html::encode($this->title) ?></h4>
             <ul class="taglist-inline">
                 <?php foreach ($model->tags as $tag): ?>
                     <li class="tagPopup">
@@ -38,6 +44,8 @@ $answerOrders = [
                 </div>
                 <div class="post-opt mt-10">
                     <ul class="list-inline">
+                        <li><a class="comments"  data-toggle="collapse"  href="#comments-question-<?=$model->id?>" aria-expanded="false" aria-controls="comment-<?=$model->id?>"><i class="fa fa-comment-o"></i> <?=$model->comments?> 条评论</a></li>
+
                         <?php if ($model->isAuthor()) : ?>
                             <li><a href="<?= Url::to(['update', 'id' => $model->id]) ?>" class="edit"
                                    data-toggle="tooltip" data-placement="right" title=""
@@ -49,7 +57,56 @@ $answerOrders = [
                         <?php endif; ?>
                     </ul>
                 </div>
+                <!-- 分享 -->
+                <div class="mb-10">
+                    {!! Setting()->get('website_share_code')  !!}
+                </div>
             </div>
+
+            <!-- 最佳答案 -->
+            <div class="best-answer mt-10">
+                <div class="trophy-title">
+                    <h3>
+                        <i class="fa fa-trophy"></i> 最佳答案
+                        <span class="pull-right text-muted adopt_time">{{ timestamp_format($bestAnswer->created_at) }}</span>
+                    </h3>
+                </div>
+                <div class="text-fmt">
+                    {!! $bestAnswer->content !!}
+                </div>
+                <div class="options clearfix mt-10">
+                    <ul class="list-inline pull-right">
+                        <li class="pull-right">
+                            <a class="comments mr-10" data-toggle="collapse" href="#comments-answer-{{ $bestAnswer->id }}" aria-expanded="false" aria-controls="comment-{{ $bestAnswer->id }}"><i class="fa fa-comment-o"></i> {{ $bestAnswer->comments }} 条评论</a>
+                            <button class="btn btn-default btn-sm btn-support" data-source_id="{{ $bestAnswer->id }}" data-source_type="answer" data-support_num="{{ $bestAnswer->supports }}"><i class="fa fa-thumbs-o-up"></i> {{ $bestAnswer->supports }}</button>
+                        </li>
+                    </ul>
+                </div>
+                @include('theme::comment.collapse',['comment_source_type'=>'answer','comment_source_id'=>$bestAnswer->id,'hide_cancel'=>false])
+
+                <div class="media user-info border-top">
+                    <div class="media-left">
+                        <a href="{{ route('auth.space.index',['user_id'=>$bestAnswer->user_id]) }}" target="_blank">
+                            <img class="avatar-40"  src="{{ route('website.image.avatar',['avatar_name'=>$bestAnswer->user_id.'_middle']) }}" alt="{{ $bestAnswer->user->name }}"></a>
+                        </a>
+                    </div>
+                    <div class="media-body">
+
+                        <div class="media-heading">
+                            <strong><a href="{{ route('auth.space.index',['user_id'=>$bestAnswer->user_id]) }}" class="mr5">{{ $bestAnswer->user->name }}</a> <span class="text-gold">@if($bestAnswer->user->authentication && $bestAnswer->user->authentication->status === 1)<i class="fa fa-graduation-cap" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="" data-original-title="已通过行家认证"></i>@endif</span></strong>
+                            @if($bestAnswer->user->title)
+                            <span class="text-muted"> - {{ $bestAnswer->user->title }}</span>
+                            @endif
+                        </div>
+
+                        <div class="content">
+                            <span class="answer-time text-muted hidden-xs">@if($bestAnswer->user->authentication && $bestAnswer->user->authentication->status === 1)擅长：{{ $bestAnswer->user->authentication->skill }} | @endif采纳率 {{ $bestAnswer->user->userData->adoptPercent() }}% | 回答于 {{ timestamp_format($bestAnswer->created_at) }}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- 最佳答案结束-->
         </div>
         <!-- 回答开始 -->
         <div class="widget-answers mt-15">

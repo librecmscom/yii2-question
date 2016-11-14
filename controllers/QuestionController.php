@@ -151,7 +151,7 @@ class QuestionController extends Controller
     {
         /** @var Question $model */
         $model = $this->findModel($id);
-        if ($model->isDraft() && !$model->isAuthor()) {
+        if (!$model->isAuthor()) {
             throw new NotFoundHttpException (Yii::t('yii', 'The requested page does not exist.'));
         }
 

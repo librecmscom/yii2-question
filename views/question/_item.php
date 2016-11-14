@@ -9,6 +9,7 @@ use yuncms\question\models\Question;
  * @var yuncms\question\models\Question $model
  */
 ?>
+
     <div class="question-panels">
         <div class="question-panel votes">
             <?= Html::tag('div', $model->votes, ['class' => 'question-panel-count']); ?>

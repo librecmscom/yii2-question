@@ -63,14 +63,6 @@ class Answer extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public static function find()
-    {
-        return new AnswerQuery(get_called_class());
-    }
-
-    /**
-     * @inheritdoc
-     */
     public function behaviors()
     {
         return [
@@ -81,7 +73,7 @@ class Answer extends ActiveRecord
                     ActiveRecord::EVENT_AFTER_FIND => 'body'
                 ],
                 'value' => function ($event) {
-                    return HtmlPurifier::process(Markdown::process($event->sender->content, 'gfm-comment'));
+                    return HtmlPurifier::process($event->sender->content);
                 }
             ],
             [
@@ -214,6 +206,5 @@ class Answer extends ActiveRecord
     {
         parent::afterDelete();
         Question::decrementAnswers($this->question_id);
-        Vote::removeRelation($this);
     }
 }
