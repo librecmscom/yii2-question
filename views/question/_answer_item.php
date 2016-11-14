@@ -11,10 +11,6 @@ use yuncms\question\models\Question;
 <!--
 <article class="question-view-answer row">
     <section class="question-view-answer-aside col-md-2">
-        <div class="question-created">
-            <?= Html::tag('div', Html::encode($model->user->username), ['class' => 'question-user']); ?>
-            <?= Html::tag('div', Yii::$app->formatter->asRelativeTime($model->updated_at), ['class' => 'question-time']); ?>
-        </div>
         <div class="question-answer-like">
             <span class="question-answer-correct js-answer-correct">
                 <?php if ($question->isAuthor()): ?>
