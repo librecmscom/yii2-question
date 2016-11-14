@@ -81,27 +81,10 @@ class QuestionSearch extends Model
      * @param int $userID
      * @return ActiveDataProvider
      */
-    public function searchFavorite($params, $userID)
-    {
-        $dataProvider = $this->search($params);
-        $dataProvider->query
-            ->joinWith('favorites', true, 'RIGHT JOIN')
-            ->andWhere([Favorite::tableName() . '.user_id' => $userID]);
-
-        return $dataProvider;
-    }
-
-    /**
-     * @param array $params
-     * @param int $userID
-     * @return ActiveDataProvider
-     */
     public function searchMy($params, $userID)
     {
         $dataProvider = $this->search($params);
-        $dataProvider->query
-            ->andWhere(['status' => Question::STATUS_DRAFT])
-            ->where(['user_id' => $userID]);
+        $dataProvider->query->where(['user_id' => $userID]);
 
         return $dataProvider;
     }
