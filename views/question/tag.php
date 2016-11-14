@@ -3,7 +3,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\widgets\ListView;
-use yii\question\Asset;
+use yuncms\question\Asset;
 
 /** @var \yii\data\ActiveDataProvider $dataProvider */
 Asset::register($this);
