@@ -27,15 +27,15 @@ $this->title = Yii::t('question', 'Questions');
             ]
         ]); ?>
 
-        <div class="stream-list question-stream">
+
             <?= ListView::widget([
                 'dataProvider' => $dataProvider,
                 'itemView' => '_item',//子视图
                 'layout' => "{items}\n{pager}",
                 'options' => ['class' => 'stream-list question-stream'],
-                'itemOptions' => ['class' => 'stream-list-item']
+                'itemOptions' => ['class' => 'stream-list-item','tag'=>'section']
             ]); ?>
-        </div><!-- /.stream-list -->
+        <!-- /.stream-list -->
 
         <div class="text-center">
             {!! str_replace('/?', '?', $questions->render()) !!}
@@ -47,16 +47,7 @@ $this->title = Yii::t('question', 'Questions');
             <?= Html::a(Yii::t('question', 'Ask a Question'), ['create'], ['class' => 'btn btn-primary btn-block mt-10']); ?>
         </div>
 
-        <div class="widget-box">
-            <h2 class="h4 widget-box-title">热议话题 <a href="{{ route('website.topic') }}" title="更多">»</a></h2>
-            <ul class="taglist-inline multi">
-                @foreach($hotTags as $hotTag)
-                <li class="tagPopup"><a class="tag" data-toggle="popover"
-                                        href="{{ route('ask.tag.index',['name'=>$hotTag->name]) }}">{{ $hotTag->name
-                        }}</a></li>
-                @endforeach
-            </ul>
-        </div>
+        <?=Tags::widget()?>
 
         <div class="widget-box mt30">
             <h2 class="widget-box-title">
@@ -78,27 +69,6 @@ $this->title = Yii::t('question', 'Questions');
         </div>
 
     </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-12 col-md-9 main">
-         <?= ListView::widget([
-            'dataProvider' => $dataProvider,
-            'itemView' => '_item',//子视图
-            'layout' => "{items}\n{pager}",
-            'options' => ['class' => 'stream-list question-stream'],
-            'itemOptions' => ['class' => 'stream-list-item']
-        ]); ?>
-    </div>
-    <div class="col-xs-12 col-md-3 side">
-        <?= Html::a(Yii::t('question', 'Ask a Question'), ['create'], ['class' => 'question-index-add-button btn btn-primary']); ?>
-
-        <?= Popular::widget(); ?>
-
-        <?= Tags::widget(); ?>
-
-    </div>
-
 </div>
 
 

@@ -14,7 +14,7 @@ use yuncms\tag\models\Tag;
 class Tags extends Widget
 {
 
-    public $limit = 10;
+    public $limit = 20;
 
     /**
      * @inheritdoc

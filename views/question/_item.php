@@ -9,7 +9,7 @@ use yuncms\question\models\Question;
  * @var yuncms\question\models\Question $model
  */
 ?>
-<section class="stream-list-item">
+
     <div class="qa-rank">
         <div class="answers <?= $model->status == Question::STATUS_END ? 'solved' : 'answered' ?>">
             <?= $model->answers ?>
@@ -45,6 +45,4 @@ use yuncms\question\models\Question;
             </ul>
         <?php endif; ?>
     </div>
-</section>
-
 
