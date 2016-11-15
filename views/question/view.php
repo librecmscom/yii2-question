@@ -2,9 +2,8 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ListView;
-use yuncms\question\models\Vote;
 use yuncms\question\Asset;
-
+use yuncms\question\models\Question;
 /**
  * @var yii\web\View $this
  * @var yuncms\question\models\Question $model
@@ -64,6 +63,7 @@ $answerOrders = [
             </div>
 
             <!-- 最佳答案 -->
+            <?php if($model->status=== Question::STATUS_END && $bestAnswer):?>
             <div class="best-answer mt-10">
                 <div class="trophy-title">
                     <h3>
@@ -106,6 +106,7 @@ $answerOrders = [
 
                 </div>
             </div>
+            <?php endif;?>
             <!-- 最佳答案结束-->
         </div>
         <!-- 回答开始 -->

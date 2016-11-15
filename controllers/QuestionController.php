@@ -151,25 +151,29 @@ class QuestionController extends Controller
     {
         /** @var Question $model */
         $model = $this->findModel($id);
-        if (!$model->isAuthor()) {
-            throw new NotFoundHttpException (Yii::t('yii', 'The requested page does not exist.'));
-        }
 
-        if (!$model->isAuthor()) {
-            $model->updateCounters(['views' => 1]);
+        /*问题查看数+1*/
+        if (!$model->isAuthor()) $model->updateCounters(['views' => 1]);
+
+        /*已解决问题*/
+        $bestAnswer = null;
+        if ($model->status === Question::STATUS_END) {
+            $bestAnswer = $model->getAnswers()->where(['>', 'adopted_at' => '0'])->one();
         }
         /** @var Answer $query 回答列表 */
         $query = $model->getAnswers()->with('user');
 
-        $answerOrder = Answer::applyOrder($query, Yii::$app->request->get('answers', 'votes'));
+        $answerOrder = Answer::applyOrder($query, Yii::$app->request->get('answers', 'supports'));
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => [
-                'pageSize' => 20,
-            ],
         ]);
-        return $this->render('view', ['model' => $model, 'answerOrder' => $answerOrder, 'dataProvider' => $dataProvider]);
+        return $this->render('view', [
+            'model' => $model,
+            'answerOrder' => $answerOrder,
+            'bestAnswer' => $bestAnswer,
+            'dataProvider' => $dataProvider
+        ]);
     }
 
     /**

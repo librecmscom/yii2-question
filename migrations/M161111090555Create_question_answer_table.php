@@ -19,7 +19,7 @@ class M161111090555Create_question_answer_table extends Migration
             'user_id' => $this->integer()->notNull(),
             'question_id' => $this->integer()->notNull(),
             'content' => $this->text()->notNull(),
-            'is_correct' => $this->integer()->notNull()->defaultValue(0),
+            'adopted_at' => $this->integer()->unsigned()->defaultValue(0),
             'supports' => $this->integer()->unsigned()->defaultValue(0),
             'comments'=>$this->integer()->unsigned()->defaultValue(0),
             'status' => $this->smallInteger()->notNull()->defaultValue(1),

@@ -67,16 +67,16 @@ use yuncms\question\models\Question;
                         <?= $model->comments ?> 条评论</a></li>
                 <?php if (!Yii::$app->user->isGuest): ?>
                     <?php if ($question->status == Question::STATUS_ACTIVE && $model->isAuthor()): ?>
-                        <li><a href="<?= Url::to(['/question/question/answer-update', 'id' => $model->id]) ?>"
+                        <li><a href="<?= Url::to(['/question/answer/update', 'id' => $model->id]) ?>"
                                data-toggle="tooltip"
                                data-placement="right" title="" data-original-title="继续完善回答内容"><i class="fa fa-edit"></i>
                                 编辑</a>
                         </li>
                     <?php endif; ?>
-                    <?php if ($question->status == Question::STATUS_ACTIVE && $question->isAuthor()): ?>
+                    <?php if ($question->status == Question::STATUS_ACTIVE && !$question->isAuthor()): ?>
                         <li><a href="#" class="adopt-answer" data-toggle="modal" data-target="#adoptAnswer"
                                data-answer_id="<?= $model->id ?>"
-                               data-answer_content="{{ str_limit($answer->content,200) }}"><i
+                               data-answer_content="<?=mb_substr($answer->content,0,200);?>"><i
                                     class="fa fa-check-square-o"></i> 采纳为最佳答案</a></li>
                     <?php endif; ?>
                 <?php endif; ?>
@@ -88,7 +88,26 @@ use yuncms\question\models\Question;
                 </li>
             </ul>
         </div>
-        <?= \yuncms\comment\widgets\Comment::widget(['source_type' => 'question','source_id' => $model->id]); ?>
+        <div class="modal" id="adoptAnswer" tabindex="-1" role="dialog" aria-labelledby="adoptAnswerLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="adoptModalLabel">采纳回答</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-warning" role="alert" id="adoptAnswerAlert">
+                            <i class="fa fa-exclamation-circle"></i> 确认采纳该回答为最佳答案？
+                        </div>
+                        <blockquote id="answer_quote"></blockquote>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" id="adoptAnswerSubmit">采纳该回答</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

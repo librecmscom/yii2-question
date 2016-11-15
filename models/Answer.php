@@ -179,7 +179,7 @@ class Answer extends ActiveRecord
                 $query->orderBy('created_at ASC');
                 break;
 
-            case 'votes':
+            case 'supports':
             default:
                 $query->orderBy(['votes' => SORT_DESC]);
                 break;
