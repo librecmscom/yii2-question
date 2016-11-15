@@ -58,7 +58,7 @@ class QuestionSearch extends Model
     }
 
     /**
-     * 搜索结果排序
+     * 首页排序
      * @param string $params
      * @param string $order 排序
      * @return ActiveDataProvider
@@ -66,11 +66,13 @@ class QuestionSearch extends Model
     public function searchOrder($params, $order)
     {
         $dataProvider = $this->search($params);
-        if ($order && $order == 'new') {
+        if ($order && $order == 'new') {//按发布时间倒序
             $dataProvider->query->orderBy(['created_at' => SORT_DESC]);
-        } elseif ($order && $order == 'new') {
+        } elseif ($order && $order == 'hottest') {//热门问题
             $dataProvider->query->orderBy(['answers' => SORT_DESC, 'views' => SORT_DESC]);
-        } elseif ($order && $order == 'unanswered') {
+        } elseif ($order && $order == 'reward') {//悬赏问题
+            $dataProvider->query->orderBy(['created_at' => SORT_DESC, 'price' => SORT_DESC, 'views' => SORT_DESC]);
+        } elseif ($order && $order == 'unanswered') {//未回答问题
             $dataProvider->query->andWhere(['answers' => 0]);
         }
         return $dataProvider;
@@ -87,29 +89,5 @@ class QuestionSearch extends Model
         $dataProvider->query->where(['user_id' => $userID]);
 
         return $dataProvider;
-    }
-
-    /**
-     * @param \yii\db\ActiveRecord $query
-     * @param string $attribute
-     * @param bool $partialMatch
-     */
-    protected function addCondition($query, $attribute, $partialMatch = false)
-    {
-        if (($pos = strrpos($attribute, '.')) !== false) {
-            $modelAttribute = substr($attribute, $pos + 1);
-        } else {
-            $modelAttribute = $attribute;
-        }
-
-        $value = $this->$modelAttribute;
-        if (trim($value) === '') {
-            return;
-        }
-        if ($partialMatch) {
-            $query->andWhere(['like', $attribute, $value]);
-        } else {
-            $query->andWhere([$attribute => $value]);
-        }
     }
 }

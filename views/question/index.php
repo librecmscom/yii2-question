@@ -15,13 +15,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-xs-12 col-md-9 main">
         <?= Nav::widget([
-            'options' => ['class' => 'nav nav-tabs nav-question'],
+            'options' => ['class' => 'nav nav-tabs nav-tabs-zen mb10'],
             'items' => [
                 ['label' => Yii::t('question', 'New question'), 'url' => ['/question/question/index'],
                     'active' => !isset($_GET['order']) ? true : ($_GET['order'] == 'new' ? true : false)],
-                ['label' => Yii::t('question', 'Hot question'), 'url' => ['/question/question/index', 'order' => 'hot']],
+                ['label' => Yii::t('question', 'Hot question'), 'url' => ['/question/question/index', 'order' => 'hottest']],
+                ['label' => Yii::t('question', 'Reward question'), 'url' => ['/question/question/index', 'order' => 'reward']],
                 ['label' => Yii::t('question', 'Unanswered question'), 'url' => ['/question/question/index', 'order' => 'unanswered']],
             ]
         ]); ?>
@@ -29,11 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataProvider' => $dataProvider,
             'itemView' => '_item',//子视图
             'layout' => "{items}\n{pager}",
-            'options' => ['class' => 'question-list list-group'],
-            'itemOptions' => ['class' => 'list-group-item clearfix question-item']
+            'options' => ['class' => 'stream-list question-stream'],
+            'itemOptions' => ['class' => 'stream-list-item']
         ]); ?>
     </div>
-    <div class="col-md-3">
+    <div class="col-xs-12 col-md-3 side">
         <?= Html::a(Yii::t('question', 'Ask a Question'), ['create'], ['class' => 'question-index-add-button btn btn-primary']); ?>
 
         <?= Popular::widget(); ?>
