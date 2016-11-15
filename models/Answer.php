@@ -135,34 +135,6 @@ class Answer extends ActiveRecord
     }
 
     /**
-     * 检查这个答案是否正确
-     * @return bool
-     */
-    public function isCorrect()
-    {
-        return $this->is_correct;
-    }
-
-    /**
-     * 切换是否正确
-     * @return bool
-     */
-    public function toggleCorrect()
-    {
-        $this->is_correct = !$this->isCorrect();
-        return $this->save();
-    }
-
-    /**
-     * @param int $question_id
-     * @return int
-     */
-    public static function removeRelation($question_id)
-    {
-        return self::deleteAll(['question_id' => $question_id]);
-    }
-
-    /**
      * Apply possible answers order to query
      * @param ActiveQuery $query
      * @param $order

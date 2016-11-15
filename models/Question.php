@@ -170,7 +170,7 @@ class Question extends ActiveRecord
      * Favorite Relation
      * @return \yii\db\ActiveQueryInterface
      */
-    public function getFavorite()
+    public function getCollection()
     {
         return $this->hasOne(Collection::className(), ['source_id' => 'id'])->onCondition(['source_type' => get_class($this)]);
     }
@@ -188,8 +188,17 @@ class Question extends ActiveRecord
      * 收藏关系
      * @return \yii\db\ActiveQueryInterface
      */
-    public function getFavorites()
+    public function getCollections()
     {
         return $this->hasMany(Collection::className(), ['source_id' => 'id'])->onCondition(['source_type' => get_class($this)]);
+    }
+
+    /**
+     * This is invoked after the record is deleted.
+     */
+    public function afterDelete()
+    {
+        Answer::deleteAll(['question_id' => $this->id]);
+        parent::afterDelete();
     }
 }
