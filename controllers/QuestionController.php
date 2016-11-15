@@ -67,7 +67,7 @@ class QuestionController extends Controller
     {
         return [
             'auto-complete' => [
-                'className' => 'yuncms\tag\actions\AutoCompleteAction',
+                'class' => 'yuncms\tag\actions\AutoCompleteAction',
                 'clientIdGetParamName' => 'query'
             ]
         ];

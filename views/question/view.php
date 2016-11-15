@@ -1,22 +1,31 @@
 <?php
+
 use yii\helpers\Url;
 use yii\helpers\Html;
+use frontend\assets\QuestionAsset;
 use yii\widgets\ListView;
-use yuncms\question\Asset;
+use yii\widgets\LinkPager;
+use yii\bootstrap\Modal;
 use yuncms\question\models\Question;
+
 /**
  * @var yii\web\View $this
- * @var yuncms\question\models\Question $model
+ * @var common\models\Question $model
  */
-Asset::register($this);
+$this->registerJs('$(".navbar-nav").find("li:eq(2)").addClass("active");$(".btn-unlogin,.go-login").click(function(){jQuery(\'#modal\').modal({remote: \'/user/security/login\'});});');
+QuestionAsset::register($this);
+
+$this->registerCss(".markdown-body {
+    font-size: 14px;
+}");
 $this->title = Html::encode($model->title);
-//$this->params['breadcrumbs'][] = ['label' => Yii::t('question', 'Questions'), 'url' => ['index']];
+//$this->params['breadcrumbs'][] = ['label' => Yii::t('frontend/app', 'Questions'), 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="row mt-10">
+<div class="row mt-20">
     <div class="col-xs-12 col-md-9 main">
         <div class="widget-question">
-            <h4 class="title">
+            <h4 class="title" style="font-size: 18px;">
                 <?php if ($model->price > 0): ?>
                     <span class="text-gold">
                         <i class="fa fa-database"></i> <?= $model->price ?>
@@ -37,7 +46,9 @@ $this->title = Html::encode($model->title);
                 </div>
                 <div class="post-opt mt-10">
                     <ul class="list-inline">
-                        <li><a class="comments"  data-toggle="collapse"  href="#comments-question-<?=$model->id?>" aria-expanded="false" aria-controls="comment-<?=$model->id?>"><i class="fa fa-comment-o"></i> <?=$model->comments?> 条评论</a></li>
+                        <li><a class="comments" data-toggle="collapse" href="#comments-question-<?= $model->id ?>"
+                               aria-expanded="false" aria-controls="comment-<?= $model->id ?>"><i
+                                    class="fa fa-comment-o"></i> <?= $model->comments ?> 条评论</a></li>
 
                         <?php if ($model->isAuthor()) : ?>
                             <li><a href="<?= Url::to(['update', 'id' => $model->id]) ?>" class="edit"
@@ -50,57 +61,89 @@ $this->title = Html::encode($model->title);
                         <?php endif; ?>
                     </ul>
                 </div>
-                <!-- 分享 -->
+
+                <?= \yuncms\comment\widgets\Comment::widget(['source_type' => 'question', 'source_id' => $model->id, 'hide_cancel' => false]) ?>
+
+                <!-- 分享
                 <div class="mb-10">
-                    {!! Setting()->get('website_share_code')  !!}
-                </div>
+                    这里是分享代码
+                </div>-->
             </div>
 
             <!-- 最佳答案 -->
-            <?php if($model->status=== Question::STATUS_END && $bestAnswer):?>
-            <div class="best-answer mt-10">
-                <div class="trophy-title">
-                    <h3>
-                        <i class="fa fa-trophy"></i> 最佳答案
-                        <span class="pull-right text-muted adopt_time">{{ timestamp_format($bestAnswer->created_at) }}</span>
-                    </h3>
-                </div>
-                <div class="text-fmt">
-                    {!! $bestAnswer->content !!}
-                </div>
-                <div class="options clearfix mt-10">
-                    <ul class="list-inline pull-right">
-                        <li class="pull-right">
-                            <a class="comments mr-10" data-toggle="collapse" href="#comments-answer-{{ $bestAnswer->id }}" aria-expanded="false" aria-controls="comment-{{ $bestAnswer->id }}"><i class="fa fa-comment-o"></i> {{ $bestAnswer->comments }} 条评论</a>
-                            <button class="btn btn-default btn-sm btn-support" data-source_id="{{ $bestAnswer->id }}" data-source_type="answer" data-support_num="{{ $bestAnswer->supports }}"><i class="fa fa-thumbs-o-up"></i> {{ $bestAnswer->supports }}</button>
-                        </li>
-                    </ul>
-                </div>
-                @include('theme::comment.collapse',['comment_source_type'=>'answer','comment_source_id'=>$bestAnswer->id,'hide_cancel'=>false])
-
-                <div class="media user-info border-top">
-                    <div class="media-left">
-                        <a href="{{ route('auth.space.index',['user_id'=>$bestAnswer->user_id]) }}" target="_blank">
-                            <img class="avatar-40"  src="{{ route('website.image.avatar',['avatar_name'=>$bestAnswer->user_id.'_middle']) }}" alt="{{ $bestAnswer->user->name }}"></a>
-                        </a>
+            <?php if ($model->status === Question::STATUS_END && $bestAnswer): ?>
+                <div class="best-answer mt-10">
+                    <div class="trophy-title">
+                        <h3>
+                            <i class="fa fa-trophy"></i> 最佳答案
+                            <span
+                                class="pull-right text-muted adopt_time"><?= Yii::$app->formatter->asRelativeTime($bestAnswer->created_at); ?></span>
+                        </h3>
                     </div>
-                    <div class="media-body">
-
-                        <div class="media-heading">
-                            <strong><a href="{{ route('auth.space.index',['user_id'=>$bestAnswer->user_id]) }}" class="mr5">{{ $bestAnswer->user->name }}</a> <span class="text-gold">@if($bestAnswer->user->authentication && $bestAnswer->user->authentication->status === 1)<i class="fa fa-graduation-cap" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="" data-original-title="已通过行家认证"></i>@endif</span></strong>
-                            @if($bestAnswer->user->title)
-                            <span class="text-muted"> - {{ $bestAnswer->user->title }}</span>
-                            @endif
-                        </div>
-
-                        <div class="content">
-                            <span class="answer-time text-muted hidden-xs">@if($bestAnswer->user->authentication && $bestAnswer->user->authentication->status === 1)擅长：{{ $bestAnswer->user->authentication->skill }} | @endif采纳率 {{ $bestAnswer->user->userData->adoptPercent() }}% | 回答于 {{ timestamp_format($bestAnswer->created_at) }}</span>
-                        </div>
+                    <div class="text-fmt">
+                        <?= $bestAnswer->content; ?>
+                    </div>
+                    <div class="options clearfix mt-10">
+                        <ul class="list-inline pull-right">
+                            <li class="pull-right">
+                                <a class="comments mr-10" data-toggle="collapse"
+                                   href="#comments-answer-<?= $bestAnswer->id; ?>" aria-expanded="false"
+                                   aria-controls="comment-<?= $bestAnswer->id; ?>"><i
+                                        class="fa fa-comment-o"></i> <?= $bestAnswer->comments; ?> 条评论</a>
+                                <button class="btn btn-default btn-sm"
+                                        data-source_id="<?= $bestAnswer->id; ?>" data-target="support-button"
+                                        data-source_type="answer"
+                                        data-support_num="<?= $bestAnswer->supports; ?>"><i
+                                        class="fa fa-thumbs-o-up"></i>
+                                    <?= $bestAnswer->supports; ?>
+                                </button>
+                            </li>
+                        </ul>
                     </div>
 
+                    <!-- 评论 -->
+                    <?= \yuncms\comment\widgets\Comment::widget(['source_type' => 'answer', 'source_id' => $bestAnswer->id, 'hide_cancel' => false]) ?>
+                    <!-- 评论结束 -->
+                    <div class="media user-info border-top">
+                        <div class="media-left">
+                            <a href="<?= Url::to(['/user/profile/show', 'id' => $bestAnswer->user_id]) ?>"
+                               target="_blank">
+                                <img class="avatar-40"
+                                     src="<?= $bestAnswer->user->getAvatar('big') ?>"
+                                     alt="<?= $bestAnswer->user->username ?>"></a>
+                            </a>
+                        </div>
+                        <div class="media-body">
+
+                            <div class="media-heading">
+                                <strong><a href="<?= Url::to(['/user/profile/show', 'id' => $bestAnswer->user_id]) ?>"
+                                           class="mr5"><?= $bestAnswer->user->username ?></a>
+                                    <span class="text-gold">
+                                        <i
+                                            class="fa fa-graduation-cap" aria-hidden="true" data-toggle="tooltip"
+                                            data-placement="right" title=""
+                                            data-original-title="已通过行家认证"></i>
+                                    </span>
+                                </strong>
+                                <?php if ($bestAnswer->user->profile->company_position): ?>
+                                    <span
+                                        class="text-muted"> - <?= $bestAnswer->user->profile->company_position ?></span>
+                                <?php endif; ?>
+                            </div>
+
+                            <div class="content">
+                                <span class="answer-time text-muted hidden-xs">
+                                    <!--@if($bestAnswer->user->authentication && $bestAnswer->user->authentication->status === 1)
+                                    擅长：{{ $bestAnswer->user->authentication->skill }} | @endif
+                                    采纳率 {{ $bestAnswer->user->userData->adoptPercent() }}% |-->
+                                    回答于 <?= Yii::$app->formatter->asRelativeTime($bestAnswer->created_at); ?>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-            <?php endif;?>
+            <?php endif; ?>
             <!-- 最佳答案结束-->
         </div>
         <!-- 回答开始 -->
@@ -116,16 +159,20 @@ $this->title = Html::encode($model->title);
                 </a>
             </div>
             <h2 class="h4 post-title"><?= Yii::t('question', '{n, plural, =0{No answers yet} =1{One answer} other{# answers}}', ['n' => $dataProvider->totalCount]); ?></h2>
+            <?= ListView::widget([
+                'options' => ['class' => null],
+                'itemOptions' => ['class' => 'media'],
+                'dataProvider' => $dataProvider,
+                'itemView' => '_answer_item',//子视图
+                'layout' => "{items}\n{pager}",
+                'viewParams' => ['question' => $model],
+            ]); ?>
             <div class="text-center">
-                <?= ListView::widget([
-                    'dataProvider' => $dataProvider,
-                    'itemView' => '_answer_item',//子视图
-                    'layout' => "{items}\n{pager}",
-                    'viewParams' => ['question' => $model],
-                ]); ?>
+
             </div>
         </div>
         <div class="widget-answer-form mt-15">
+
             <?= \yuncms\question\widgets\Answer::widget(['questionId' => $model->id]); ?>
         </div>
     </div>
@@ -135,13 +182,13 @@ $this->title = Html::encode($model->title);
                 <!-- 关注部分 -->
                 <li>
                     <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isFollowed($model, $model->id)): ?>
-                        <button type="button" data-target="follow-button" class="btn mr-10 btn-success active"
+                        <button type="button" data-target="follow-button" class="btn btn-success btn-sm active"
                                 data-source_type="question" data-source_id="<?= $model->id ?>" data-show_num="true"
                                 data-toggle="tooltip" data-placement="right" title="" data-original-title="关注后将获得更新提醒">
                             已关注
                         </button>
                     <?php else: ?>
-                        <button type="button" data-target="follow-button" class="btn mr-10 btn-success"
+                        <button type="button" data-target="follow-button" class="btn btn-success btn-sm"
                                 data-source_type="question" data-source_id="<?= $model->id ?>" data-show_num="true"
                                 data-toggle="tooltip" data-placement="right" title="" data-original-title="关注后将获得更新提醒">
                             关注
@@ -152,13 +199,13 @@ $this->title = Html::encode($model->title);
                 <!-- 收藏部分 -->
                 <li>
                     <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isCollected($model, $model->id)): ?>
-                        <button type="button" data-target="collect-button" class="btn mr-10 btn-success active"
+                        <button type="button" data-target="collect-button" class="btn btn-default btn-sm active"
                                 data-source_type="question" data-source_id="<?= $model->id ?>" data-show_num="true"
                                 data-toggle="tooltip" data-placement="right" title="" data-original-title="关注后将获得更新提醒">
                             已收藏
                         </button>
                     <?php else: ?>
-                        <button type="button" data-target="collect-button" class="btn mr-10 btn-success"
+                        <button type="button" data-target="collect-button" class="btn btn-default btn-sm"
                                 data-source_type="question" data-source_id="<?= $model->id ?>" data-show_num="true"
                                 data-toggle="tooltip" data-placement="right" title="" data-original-title="关注后将获得更新提醒">
                             收藏
@@ -177,7 +224,24 @@ $this->title = Html::encode($model->title);
         <div class="widget-box">
             <h2 class="h4 widget-box__title">相似问题</h2>
             <ul class="widget-links list-unstyled list-text">
+                <?= \frontend\widgets\GuessSearch::widget(['limit' => 10]); ?>
             </ul>
         </div>
     </div>
 </div>
+<?php
+Modal::begin([
+    'header' => '<h4 class="modal-title" id="adoptModalLabel">采纳回答</h4>',
+    'options' => ['id' => 'adoptAnswer'],
+    'footer' => '<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="adoptAnswerSubmit">采纳该回答</button>',
+]);
+?>
+<div class="alert alert-warning" role="alert" id="adoptAnswerAlert">
+    <i class="fa fa-exclamation-circle"></i> 确认采纳该回答为最佳答案？
+</div>
+<blockquote id="answer_quote"></blockquote>
+<?php
+Modal::end();
+?>
+

@@ -94,10 +94,10 @@ class AnswerController extends Controller
         if (!$answer) {
             throw new NotFoundHttpException ();
         }
-//        if (Yii::$app->user->id !== $answer->question->user_id) {
-//            Yii::$app->session->setFlash('danger', Yii::t('question', 'You can not take your own answer.'));
-//            return $this->redirect(['/question/question/view','id'=>$answer->question_id]);
-//        }
+        if (Yii::$app->user->id !== $answer->question->user_id) {
+            Yii::$app->session->setFlash('danger', Yii::t('question', 'You can not take your own answer.'));
+            return $this->redirect(['/question/question/view','id'=>$answer->question_id]);
+        }
         $transaction = Yii::$app->db->beginTransaction();
         try {
             $answer->adopted_at = time();
