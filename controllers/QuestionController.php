@@ -176,42 +176,9 @@ class QuestionController extends Controller
         ]);
     }
 
-    /**
-     * 提交回答
-     * @param int $id
-     * @return Response|string
-     */
-    public function actionAnswer($id)
-    {
-        $model = new Answer(['question_id' => $id]);
-        /** @var Question $question */
-        $question = $model->question;
-        if ($model->load(Yii::$app->request->post()) && $model->save() != null) {
-            Yii::$app->session->setFlash('answerFormSubmitted');
-            return $this->redirect(['view', 'id' => $id]);
-        }
-        return $this->render('answer', ['model' => $model, 'question' => $question]);
-    }
 
-    /**
-     * 修改回答
-     * @param int $id 回答ID
-     * @return Response|string
-     * @throws ForbiddenHttpException
-     * @throws NotFoundHttpException
-     */
-    public function actionAnswerUpdate($id)
-    {
-        $model = $this->findAnswerModel($id);
-        if ($model->isAuthor()) {
-            if ($model->load(Yii::$app->request->post()) && $model->save() != null) {
-                Yii::$app->session->setFlash('answerFormSubmitted');
-                return $this->redirect(['view', 'id' => $model->question_id]);
-            }
-            return $this->render('answer', ['model' => $model]);
-        }
-        throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
-    }
+
+
 
     /**
      * 删除问题
@@ -230,21 +197,7 @@ class QuestionController extends Controller
         throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
     }
 
-    /**
-     * 获取回答模型
-     *
-     * @param int $id
-     * @return Answer
-     * @throws NotFoundHttpException
-     */
-    public function findAnswerModel($id)
-    {
-        if (($model = Answer::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException (Yii::t('yii', 'The requested page does not exist.'));
-        }
-    }
+    
 
     /**
      * 获取模型

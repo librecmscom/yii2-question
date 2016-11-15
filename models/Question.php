@@ -41,7 +41,7 @@ use yuncms\user\models\User;
 class Question extends ActiveRecord
 {
     //正常
-    const STATUS_ACTIVE = 0;
+    const STATUS_ACTIVE = 1;
 
     //结束
     const STATUS_END = 2;

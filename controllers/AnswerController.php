@@ -35,12 +35,51 @@ class AnswerController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['adopt'],
+                        'actions' => ['create','update', 'adopt'],
                         'roles' => ['@'],
                     ],
                 ],
             ],
         ];
+    }
+
+    /**
+     * 提交回答
+     * @param int $id
+     * @return Response|string
+     */
+    public function actionCreate()
+    {
+        $id = Yii::$app->request->post('question_id');
+        if (($question = Question::findOne($id)) == null) {
+            return $this->goBack();
+        }
+        $model = new Answer(['question_id' => $question->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save() != null) {
+            Yii::$app->session->setFlash('answerFormSubmitted');
+            return $this->redirect(['/question/question/view', 'id' => $id]);
+        }
+        return $this->render('create', ['model' => $model, 'question' => $question]);
+    }
+
+    /**
+     * 修改回答
+     * @param int $id 回答ID
+     * @return Response|string
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->isAuthor()) {
+            if ($model->load(Yii::$app->request->post()) && $model->save() != null) {
+                Yii::$app->session->setFlash('answerFormSubmitted');
+                return $this->redirect(['/question/question/view', 'id' => $model->question_id]);
+            }
+            return $this->render('update', ['model' => $model]);
+        }
+        throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
     }
 
     /**
@@ -75,10 +114,26 @@ class AnswerController extends Controller
             }
             $transaction->commit();
             Yii::$app->session->setFlash('success', Yii::t('question', 'Answer to adopt success.'));
-            return $this->redirect(['/question/question/view','id'=>$answer->question_id]);
+            return $this->redirect(['/question/question/view', 'id' => $answer->question_id]);
         } catch (\Exception $e) {
             Yii::$app->session->setFlash('danger', Yii::t('question', 'Answer failed. Please try again later.'));
-            return $this->redirect(['/question/question/view','id'=>$answer->question_id]);
+            return $this->redirect(['/question/question/view', 'id' => $answer->question_id]);
+        }
+    }
+
+    /**
+     * 获取回答模型
+     *
+     * @param int $id
+     * @return Answer
+     * @throws NotFoundHttpException
+     */
+    public function findModel($id)
+    {
+        if (($model = Answer::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException (Yii::t('yii', 'The requested page does not exist.'));
         }
     }
 }

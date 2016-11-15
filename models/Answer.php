@@ -171,17 +171,13 @@ class Answer extends ActiveRecord
     public static function applyOrder(ActiveQuery $query, $order)
     {
         switch ($order) {
-            case 'oldest':
-                $query->orderBy('created_at DESC');
-                break;
-
             case 'active':
                 $query->orderBy('created_at ASC');
                 break;
 
             case 'supports':
             default:
-                $query->orderBy(['votes' => SORT_DESC]);
+                $query->orderBy(['supports' => SORT_DESC]);
                 break;
         }
 
@@ -195,7 +191,7 @@ class Answer extends ActiveRecord
     {
         parent::afterSave($insert, $changedAttributes);
         if ($insert) {
-            Question::incrementAnswers($this->question_id);
+            $this->question->updateCounters(['answers' => 1]);
         }
     }
 
@@ -205,6 +201,6 @@ class Answer extends ActiveRecord
     public function afterDelete()
     {
         parent::afterDelete();
-        Question::decrementAnswers($this->question_id);
+        $this->question->updateCounters(['answers' => -1]);
     }
 }

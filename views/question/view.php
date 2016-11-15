@@ -12,12 +12,6 @@ Asset::register($this);
 $this->title = Html::encode($model->title);
 //$this->params['breadcrumbs'][] = ['label' => Yii::t('question', 'Questions'), 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
-
-$answerOrders = [
-    'Active' => 'active',
-    'Oldest' => 'oldest',
-    'Votes' => 'votes'
-];
 ?>
 <div class="row mt-10">
     <div class="col-xs-12 col-md-9 main">
@@ -112,12 +106,14 @@ $answerOrders = [
         <!-- 回答开始 -->
         <div class="widget-answers mt-15">
             <div class="btn-group pull-right" role="group">
-                <?php foreach ($answerOrders as $aId => $aOrder): ?>
-                    <a class="btn btn-default btn-xs <?= ($aOrder == $answerOrder) ? 'active' : '' ?>"
-                       href="<?= Url::to(['view', 'id' => $model->id, 'alias' => $model->alias, 'answers' => $aOrder]) ?>">
-                        <?= Yii::t('question', $aId) ?>
-                    </a>
-                <?php endforeach; ?>
+                <a class="btn btn-default btn-xs <?= ($answerOrder == 'supports') ? 'active' : '' ?>"
+                   href="<?= Url::to(['view', 'id' => $model->id, 'alias' => $model->alias]) ?>">
+                    <?= Yii::t('question', 'Default Sort') ?>
+                </a>
+                <a class="btn btn-default btn-xs <?= ($answerOrder == 'created_at') ? 'active' : '' ?>"
+                   href="<?= Url::to(['view', 'id' => $model->id, 'alias' => $model->alias, 'answers' => 'created_at']) ?>">
+                    <?= Yii::t('question', 'Time Sort') ?>
+                </a>
             </div>
             <h2 class="h4 post-title"><?= Yii::t('question', '{n, plural, =0{No answers yet} =1{One answer} other{# answers}}', ['n' => $dataProvider->totalCount]); ?></h2>
             <div class="text-center">
