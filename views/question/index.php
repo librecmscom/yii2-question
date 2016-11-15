@@ -26,28 +26,21 @@ $this->title = Yii::t('question', 'Questions');
                 ['label' => Yii::t('question', 'Unanswered question'), 'url' => ['/question/question/index', 'order' => 'unanswered']],
             ]
         ]); ?>
-
-
-            <?= ListView::widget([
-                'dataProvider' => $dataProvider,
-                'itemView' => '_item',//子视图
-                'layout' => "{items}\n{pager}",
-                'options' => ['class' => 'stream-list question-stream'],
-                'itemOptions' => ['class' => 'stream-list-item','tag'=>'section']
-            ]); ?>
+        <?= ListView::widget([
+            'dataProvider' => $dataProvider,
+            'itemView' => '_item',//子视图
+            'layout' => "{items}\n{pager}",
+            'options' => ['class' => 'stream-list question-stream'],
+            'itemOptions' => ['class' => 'stream-list-item', 'tag' => 'section']
+        ]); ?>
         <!-- /.stream-list -->
-
-        <div class="text-center">
-            {!! str_replace('/?', '?', $questions->render()) !!}
-        </div>
     </div><!-- /.main -->
     <div class="col-xs-12 col-md-3 side">
         <div class="side-alert alert alert-warning">
-            <p>今天，你的网站遇到什么问题呢？</p>
+            <p>智慧求问，智慧回答。集思广益，让全世界的人都来帮助你。</p>
             <?= Html::a(Yii::t('question', 'Ask a Question'), ['create'], ['class' => 'btn btn-primary btn-block mt-10']); ?>
         </div>
-
-        <?=Tags::widget()?>
+        <?= Tags::widget() ?>
 
         <div class="widget-box mt30">
             <h2 class="widget-box-title">
