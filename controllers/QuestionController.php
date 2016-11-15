@@ -94,8 +94,8 @@ class QuestionController extends Controller
      */
     public function actionTag($tag)
     {
-        $query = Question::find()->anyTagValues($tag)->with('user');
-        $query->andWhere(['status' => Question::STATUS_PUBLISHED]);
+        $query = Question::find()->anyTagValues($tag,'name')->with('user');
+        $query->andWhere(['status' => Question::STATUS_ACTIVE]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -158,7 +158,7 @@ class QuestionController extends Controller
         /*已解决问题*/
         $bestAnswer = null;
         if ($model->status === Question::STATUS_END) {
-            $bestAnswer = $model->getAnswers()->where(['>', 'adopted_at' => '0'])->one();
+            $bestAnswer = $model->getAnswers()->where(['>', 'adopted_at' , '0'])->one();
         }
         /** @var Answer $query 回答列表 */
         $query = $model->getAnswers()->with('user');

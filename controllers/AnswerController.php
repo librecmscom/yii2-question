@@ -8,6 +8,8 @@ namespace yuncms\question\controllers;
 
 use Yii;
 use yii\web\Controller;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use yuncms\question\models\Question;
 use yuncms\question\models\Answer;
 
@@ -18,18 +20,45 @@ use yuncms\question\models\Answer;
 class AnswerController extends Controller
 {
 
+    /** @inheritdoc */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'adopt' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['adopt'],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     /**
      * 采纳回答
      * @param int $id
      * @return \yii\web\Response
      */
-    public function actionAdopt($id)
+    public function actionAdopt()
     {
-        $answer = Answer::findOne($id);
-        if (Yii::$app->user->id !== $answer->question->user_id) {
-            Yii::$app->session->setFlash('danger', Yii::t('question', 'You can not take your own answer.'));
-            return $this->goBack();
+        $answerId = Yii::$app->request->post('answerId');
+        $answer = Answer::findOne($answerId);
+        if (!$answer) {
+            throw new NotFoundHttpException ();
         }
+//        if (Yii::$app->user->id !== $answer->question->user_id) {
+//            Yii::$app->session->setFlash('danger', Yii::t('question', 'You can not take your own answer.'));
+//            return $this->redirect(['/question/question/view','id'=>$answer->question_id]);
+//        }
         $transaction = Yii::$app->db->beginTransaction();
         try {
             $answer->adopted_at = time();
@@ -45,11 +74,11 @@ class AnswerController extends Controller
                 Yii::$app->getModule('user')->point($answer->user_id, $answer->question->price, 'answer_adopted', get_class($answer->question), $answer->question->id, $answer->question->title);
             }
             $transaction->commit();
-            Yii::$app->session->setFlash('danger', Yii::t('question', 'Answer to adopt success.'));
-            return $this->goBack();
+            Yii::$app->session->setFlash('success', Yii::t('question', 'Answer to adopt success.'));
+            return $this->redirect(['/question/question/view','id'=>$answer->question_id]);
         } catch (\Exception $e) {
             Yii::$app->session->setFlash('danger', Yii::t('question', 'Answer failed. Please try again later.'));
-            return $this->goBack();
+            return $this->redirect(['/question/question/view','id'=>$answer->question_id]);
         }
     }
 }

@@ -8,27 +8,6 @@ use yuncms\question\models\Question;
  * @var yuncms\question\models\Question $question
  */
 ?>
-<!--
-<article class="question-view-answer row">
-    <section class="question-view-answer-aside col-md-2">
-        <div class="question-answer-like">
-            <span class="question-answer-correct js-answer-correct">
-                <?php if ($question->isAuthor()): ?>
-                    <a title="<?= Yii::t('question', 'Mark answer as correct') ?>"
-                       class="btn btn-sm question-answer-correct-link js-answer-correct-link <?= ($model->isCorrect()) ? 'btn-warning' : 'btn-default' ?>"
-                       href="<?= Url::to(['/question/question/answer-correct', 'id' => $model->id, 'question_id' => $question->id]) ?>">
-                        <span class="glyphicon glyphicon-ok"></span>
-                    </a>
-                <?php else: ?>
-                    <?= $model->isCorrect() ? Html::tag('span', Html::tag('span', '', ['class' => 'glyphicon glyphicon-ok']), ['class' => 'btn btn-warning btn-sm question-answer-correct-button']) : ''; ?>
-                <?php endif; ?>
-            </span>
-        </div>
-    </section>
-    <section class="panel <?= ($model->isCorrect()) ? 'panel-warning' : 'panel-default' ?> col-md-10">
-
-    </section>
-</article>-->
 
 <div class="media">
     <div class="media-left">
@@ -81,7 +60,7 @@ use yuncms\question\models\Question;
                     <?php endif; ?>
                 <?php endif; ?>
                 <li class="pull-right">
-                    <button class="btn btn-default btn-sm btn-support" data-source_id="<?= $model->id ?>"
+                    <button class="btn btn-default btn-sm" data-target="support-button" data-source_id="<?= $model->id ?>"
                             data-source_type="answer" data-support_num="<?= $model->supports ?>"><i
                             class="fa fa-thumbs-o-up"></i> <?= $model->supports ?>
                     </button>

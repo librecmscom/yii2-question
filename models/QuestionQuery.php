@@ -19,6 +19,42 @@ class QuestionQuery extends ActiveQuery
         ];
     }
 
+    /*
+     * 热门问题
+     */
+    public function hottest($limit = 20)
+    {
+        $list = $this->andWhere(['>', 'status', '0'])->orderBy(['views' => SORT_DESC, 'answers' => SORT_DESC, 'created_at' => SORT_DESC])->limit($limit);
+        return $list;
+    }
+
+    /**
+     * 最新问题
+     */
+    public function newest($limit = 20)
+    {
+        $list = $this->andWhere(['>', 'status', '0'])->orderBy(['created_at' => SORT_DESC])->limit($limit);
+        return $list;
+    }
+
+    /**
+     * 未回答的
+     */
+    public function unAnswered($limit = 20)
+    {
+        $list = $this->andWhere(['>', 'status', '0'])->andWhere(['answers' => 0])->orderBy(['created_at' => SORT_DESC])->limit($limit);
+        return $list;
+    }
+
+    /**
+     * 悬赏问题
+     */
+    public function reward($limit = 20)
+    {
+        $list = $this->andWhere(['>', 'status', '0'])->andWhere(['>', 'price', 0])->orderBy(['created_at' => SORT_DESC])->limit($limit);
+        return $list;
+    }
+
     /**
      * @param $limit
      * @return static
