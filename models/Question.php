@@ -117,6 +117,8 @@ class Question extends ActiveRecord
     {
         return [
             [['title', 'content', 'tagValues'], 'required'],
+            ['price','integer'],
+            ['hide','boolean'],
             ['tagValues', 'safe'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_END]],

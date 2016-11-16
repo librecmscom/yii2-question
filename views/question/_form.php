@@ -48,16 +48,13 @@ $this->registerCss(".bootstrap-tagsinput {width: 100%;}");
 
 <div class="row mt-20">
     <div class="col-md-8">
-        <?= $form->field($model, 'price', [
-            'options' => ['class' => 'checkbox pull-left'],
-            'inputOptions' => ['class' => null],
-            'template' => "悬赏{input} 金币" .
-                '<span class="span-line">|</span>' .
-                $form->field($model, 'hide', [
-                    'options' => ['class' => null, 'tag' => 'label'],
-                    'checkboxTemplate' => "{input}\n{labelTitle}"
-                ])->checkbox(),
-        ])->dropDownList([0 => 0, 1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9, 10 => 10]); ?>
+        <div class="form-inline">
+            <?= $form->field($model, 'price', [
+                'template' => "{label}\n{input} " . Yii::t('question', 'Point') . "\n{hint}\n{error}"
+            ])->dropDownList([0 => 0, 1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9, 10 => 10]); ?>
+            <span class="span-line">|</span>
+            <?= $form->field($model, 'hide')->checkbox() ?>
+        </div>
     </div>
     <div class="col-md-4">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('question', 'Submit Question') : Yii::t('question', 'Update Question'), ['class' => $model->isNewRecord ? 'btn btn-success pull-right' : 'btn btn-primary pull-right']) ?>

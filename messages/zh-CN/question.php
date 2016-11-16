@@ -31,6 +31,7 @@ return [
     'ID' => '',
     'Reward' => '悬赏',
     'Hide' => '匿名',
+    'Point'=>'积分',
     'Markdown powered content' => '支持 Markdown 语法',
     'New question' => '最新的',
     'No popular questions' => '',
