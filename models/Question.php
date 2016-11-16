@@ -131,6 +131,8 @@ class Question extends ActiveRecord
         return [
             'id' => Yii::t('question', 'ID'),
             'title' => Yii::t('question', 'Title'),
+            'price' => Yii::t('question', 'Reward'),
+            'hide' => Yii::t('question', 'Hide'),
             'alias' => Yii::t('question', 'Alias'),
             'content' => Yii::t('question', 'Content'),
             'tagValues' => Yii::t('question', 'Tags'),
@@ -191,6 +193,18 @@ class Question extends ActiveRecord
     public function getCollections()
     {
         return $this->hasMany(Collection::className(), ['source_id' => 'id'])->onCondition(['source_type' => get_class($this)]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        if ($insert) {
+            /* 用户提问数+1 */
+            Yii::$app->user->identity->userData->updateCounters(['questions' => 1]);
+        }
     }
 
     /**

@@ -3,7 +3,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\web\JsExpression;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 use xutl\typeahead\Bloodhound;
 use xutl\typeahead\TypeAheadAsset;
 use yuncms\tag\widgets\TagsinputWidget;
@@ -26,16 +26,11 @@ TypeAheadAsset::register($this);
 $this->registerJs($engine->getClientScript());
 $this->registerCss(".bootstrap-tagsinput {width: 100%;}");
 ?>
-
 <?php $form = ActiveForm::begin([
-    'id' => 'question-form',
+
 ]); ?>
-<?= $form->errorSummary($model); ?>
-
-<?= $form->field($model, 'title')
-    ->textInput()
-    ->hint(Yii::t('question', "What's your question? Be specific.")); ?>
-
+<?= $form->field($model, 'title')->textInput(['class' => 'form-control input-lg', 'placeholder' => '请在这里概述您的问题',])->label(false); ?>
+<?= $form->field($model, 'content')->textarea(['rows' => 5])->hint(Yii::t('question', 'Markdown powered content')); ?>
 <?= $form->field($model, 'tagValues')->widget(TagsinputWidget::className(), [
     'options' => [
         'class' => 'form-control',
@@ -51,33 +46,22 @@ $this->registerCss(".bootstrap-tagsinput {width: 100%;}");
     ]
 ]); ?>
 
-<?= $form->field($model, 'content')
-    ->textarea(['rows' => 5])
-    ->hint(Yii::t('question', 'Markdown powered content')); ?>
-
-
-<div class="form-group">
-    <div class="btn-group btn-group-lg">
-        <?= Html::submitButton(Yii::t('question', 'Draft'), [
-            'class' => 'btn',
-            'name' => 'Question[status]',
-            'value' => 0
-        ]) ?>
-        <?php if ($model->isNewRecord): ?>
-            <?= Html::submitButton(Yii::t('question', 'Publish'), [
-                'class' => 'btn btn-primary',
-                'name' => 'Question[status]',
-                'value' => 1
-            ]) ?>
-        <?php else: ?>
-            <?= Html::submitButton(Yii::t('question', 'Update'), [
-                'class' => 'btn btn-success',
-                'name' => 'Question[status]',
-                'value' => 1
-            ]) ?>
-        <?php endif; ?>
+<div class="row mt-20">
+    <div class="col-md-8">
+        <?= $form->field($model, 'price', [
+            'options' => ['class' => 'checkbox pull-left'],
+            'inputOptions' => ['class' => null],
+            'template' => "悬赏{input} 金币" .
+                '<span class="span-line">|</span>' .
+                $form->field($model, 'hide', [
+                    'options' => ['class' => null, 'tag' => 'label'],
+                    'checkboxTemplate' => "{input}\n{labelTitle}"
+                ])->checkbox(),
+        ])->dropDownList([0 => 0, 1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9, 10 => 10]); ?>
+    </div>
+    <div class="col-md-4">
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('question', 'Submit Question') : Yii::t('question', 'Update Question'), ['class' => $model->isNewRecord ? 'btn btn-success pull-right' : 'btn btn-primary pull-right']) ?>
     </div>
 </div>
-
 <?php ActiveForm::end(); ?>
 
