@@ -164,6 +164,8 @@ class Answer extends ActiveRecord
         parent::afterSave($insert, $changedAttributes);
         if ($insert) {
             $this->question->updateCounters(['answers' => 1]);
+            /* 用户回答数+1 */
+            Yii::$app->user->identity->userData->updateCounters(['answers' => 1]);
         }
     }
 

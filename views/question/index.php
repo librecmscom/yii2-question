@@ -40,23 +40,26 @@ $this->title = Yii::t('question', 'Questions');
             <p>智慧求问，智慧回答。集思广益，让全世界的人都来帮助你。</p>
             <?= Html::a(Yii::t('question', 'Ask a Question'), ['create'], ['class' => 'btn btn-primary btn-block mt-10']); ?>
         </div>
+
         <?= Tags::widget() ?>
 
         <div class="widget-box mt30">
             <h2 class="widget-box-title">
-                回答榜
-                <a href="{{ route('auth.top.coins') }}" title="更多">»</a>
+                回答榜<a href="<?= Url::to(['/question/top/answers']) ?>" title="更多">»</a>
             </h2>
             <ol class="widget-top10">
-                @foreach($topAnswerUsers as $index => $topAnswerUser)
-                <li class="text-muted">
-                    <img class="avatar-32"
-                         src="{{ route('website.image.avatar',['avatar_name'=>$topAnswerUser['id'].'_middle'])}}">
-                    <a href="{{ route('auth.space.index',['user_id'=>$topAnswerUser['id']]) }}" class="ellipsis">{{
-                        $topAnswerUser['name'] }}</a>
-                    <span class="text-muted pull-right">{{ $topAnswerUser['answers'] }} 回答</span>
-                </li>
-                @endforeach
+                <?php
+                $topAnswerUsers = \yuncms\user\models\Data::top('answers', 8);
+                ?>
+                <?php foreach ($topAnswerUsers as $index => $topAnswerUser): ?>
+                    <li class="text-muted">
+                        <img class="avatar-32"
+                             src="<?= $topAnswerUser->user->getAvatar('big') ?>">
+                        <a href="<?= Url::to(['/user/profile/show', 'id' => $topAnswerUser->user_id]) ?>"
+                           class="ellipsis"><?= $topAnswerUser->user->username ?></a>
+                        <span class="text-muted pull-right"><?= $topAnswerUser->answers ?> 回答</span>
+                    </li>
+                <?php endforeach; ?>
 
             </ol>
         </div>
