@@ -117,7 +117,8 @@ class Question extends ActiveRecord
     {
         return [
             [['title', 'content', 'tagValues'], 'required'],
-            ['price', 'integer'],
+            ['price', 'integer', 'min' => 0, 'max' => Yii::$app->user->identity->userData->point, 'tooBig' => Yii::t('question','Insufficient points, please recharge.'),
+            'tooSmall'=>Yii::t('question','Please enter the correct points.')],
             ['hide', 'boolean'],
             ['tagValues', 'safe'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
