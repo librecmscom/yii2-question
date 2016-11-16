@@ -20,31 +20,20 @@ use yii\behaviors\TimestampBehavior;
  * @package yuncms\question
  *
  * @property integer $id
- * @property integer $user_id
- * @property integer $question_id
- * @property string $content
- * @property integer $votes
- * @property integer $status
- * @property integer $is_correct
- * @property integer $created_at
- * @property integer $updated_at
+ * @property integer $user_id 用户ID
+ * @property integer $question_id 问题ID
+ * @property string $content 回答内容
+ * @property integer $comments 评论数
+ * @property integer $supports 赞数
+ * @property integer $adopted_at 采纳时间
+ * @property integer $created_at 回答时间
+ * @property integer $updated_at 更新时间
  *
  * @property Question $question
- *
- * @author Nikolay Kostyurin <nikolay@artkost.ru>
- * @since 2.0
+ * @since 1.0
  */
 class Answer extends ActiveRecord
 {
-    /**
-     * 草稿
-     */
-    const STATUS_DRAFT = 0;
-
-    /**
-     * 发布
-     */
-    const STATUS_PUBLISHED = 1;
 
     /**
      * Markdown processed content

@@ -22,7 +22,6 @@ class M161111090555Create_question_answer_table extends Migration
             'adopted_at' => $this->integer()->unsigned()->defaultValue(0),
             'supports' => $this->integer()->unsigned()->defaultValue(0),
             'comments'=>$this->integer()->unsigned()->defaultValue(0),
-            'status' => $this->smallInteger()->notNull()->defaultValue(1),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);
