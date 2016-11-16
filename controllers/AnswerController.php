@@ -56,7 +56,7 @@ class AnswerController extends Controller
         }
         $model = new Answer(['question_id' => $question->id]);
         if ($model->load(Yii::$app->request->post()) && $model->save() != null) {
-            Yii::$app->session->setFlash('answerFormSubmitted');
+            Yii::$app->session->setFlash('success',Yii::t('question','Operation completed.'));
             return $this->redirect(['/question/question/view', 'id' => $id]);
         }
         return $this->render('create', ['model' => $model, 'question' => $question]);
@@ -74,7 +74,7 @@ class AnswerController extends Controller
         $model = $this->findModel($id);
         if ($model->isAuthor()) {
             if ($model->load(Yii::$app->request->post()) && $model->save() != null) {
-                Yii::$app->session->setFlash('answerFormSubmitted');
+                Yii::$app->session->setFlash('success',Yii::t('question','Operation completed.'));
                 return $this->redirect(['/question/question/view', 'id' => $model->question_id]);
             }
             return $this->render('update', ['model' => $model]);
