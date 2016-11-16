@@ -32,14 +32,6 @@
 /**采纳的答案**/
 .best-answer .options a{color:#666;}
 
-
-.widget-action{color:#999}
-.widget-action li{margin-top:10px}
-.widget-action li:first-child{margin-top:0}
-.widget-action button{margin-right:8px;min-width:58px}
-.widget-action strong{color:#333}
-.widget-action .no-stress{font-weight:400}
-
 /**问题回答**/
 .post-col{float:left;width:36px;position:relative}
 .post-col .unlike-alert{position:absolute;z-index:100;top:60px}
@@ -54,4 +46,9 @@
 .widget-answers .media{border-bottom:1px solid #eee;}
 .widget-answers .answer-time{float:right;}
 .widget-answers .media-footer a{color:#999;}
+
+/*评论样式*/
+.widget-comments {list-style: none;font-size: 13px;color: #444;padding:10px;border: 1px solid #ddd;border-radius: 2px;resize: none;min-height:32px}
+.widget-comments .media{border-bottom:1px solid #eee;font-size: 13px;}
+.media-footer{margin-bottom: 10px;}
 
