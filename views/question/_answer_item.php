@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\helpers\HtmlPurifier;
 use yuncms\question\models\Question;
 use yuncms\comment\widgets\Comment;
 /**
@@ -36,7 +37,7 @@ use yuncms\comment\widgets\Comment;
     <div class="content">
 
         <!--<span class="text-muted">擅长：擅长</span>-->
-        <?= HTMLPurifier::process($bestAnswer->content); ?>
+        <?= HTMLPurifier::process($model->content); ?>
        
     </div>
     <div class="media-footer">
