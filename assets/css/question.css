@@ -25,3 +25,33 @@
 .qa-rank .plus{color:#009a61}
 .qa-rank .minus{color:#AD3A37}
 
+/* 文字format */
+.text-fmt {overflow: hidden;font-size: 14px;line-height: 1.6;word-wrap: break-word;}
+.gold,.text-gold{color:#ff8a00;}
+
+/**采纳的答案**/
+.best-answer .options a{color:#666;}
+
+
+.widget-action{color:#999}
+.widget-action li{margin-top:10px}
+.widget-action li:first-child{margin-top:0}
+.widget-action button{margin-right:8px;min-width:58px}
+.widget-action strong{color:#333}
+.widget-action .no-stress{font-weight:400}
+
+/**问题回答**/
+.post-col{float:left;width:36px;position:relative}
+.post-col .unlike-alert{position:absolute;z-index:100;top:60px}
+.post-col .unlike-alert .close{right:auto}
+.post-opt a{color:#999}
+.post-title{padding-bottom:15px;border-bottom:1px solid #eee;}
+
+.post-offset {margin-left: 50px;}
+.post-offset .answer-time{float:right;}
+
+/*回答模块*/
+.widget-answers .media{border-bottom:1px solid #eee;}
+.widget-answers .answer-time{float:right;}
+.widget-answers .media-footer a{color:#999;}
+
