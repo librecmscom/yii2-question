@@ -7,6 +7,7 @@
 namespace yuncms\question\controllers;
 
 use Yii;
+use yii\helpers\Url;
 use yii\web\Response;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -101,7 +102,24 @@ class QuestionController extends Controller
 
         return $this->render('index', ['dataProvider' => $dataProvider]);
     }
-    
+
+    /**
+     * 显示标签页
+     *
+     * @param string $tag 标签
+     * @return string
+     */
+    public function actionTag($tag)
+    {
+        Url::remember('', 'actions-redirect');
+        $query = Question::find()->anyTagValues($tag)->with('user');
+        $query->andWhere(['>', Question::tableName() . '.status', 0]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+        return $this->render('tag', ['tag' => $tag, 'dataProvider' => $dataProvider]);
+    }
+
     /**
      * 提问
      *
@@ -157,7 +175,7 @@ class QuestionController extends Controller
         /*已解决问题*/
         $bestAnswer = null;
         if ($model->status === Question::STATUS_END) {
-            $bestAnswer = $model->getAnswers()->where(['>', 'adopted_at' , '0'])->one();
+            $bestAnswer = $model->getAnswers()->where(['>', 'adopted_at', '0'])->one();
         }
         /** @var Answer $query 回答列表 */
         $query = $model->getAnswers()->with('user');
