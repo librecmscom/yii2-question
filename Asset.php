@@ -17,6 +17,8 @@ class Asset extends AssetBundle
         'js/question.js',
     ];
     public $depends = [
+        'yii\web\JqueryAsset',
+        'yii\jui\JuiAsset',
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',

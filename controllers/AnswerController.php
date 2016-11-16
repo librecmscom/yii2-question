@@ -90,14 +90,12 @@ class AnswerController extends Controller
     public function actionAdopt()
     {
         $answerId = Yii::$app->request->post('answerId');
-        $answer = Answer::findOne($answerId);
-        if (!$answer) {
-            throw new NotFoundHttpException ();
-        }
+        $answer = $this->findModel($answerId);
         if (Yii::$app->user->id !== $answer->question->user_id) {
             Yii::$app->session->setFlash('danger', Yii::t('question', 'You can not take your own answer.'));
             return $this->redirect(['/question/question/view','id'=>$answer->question_id]);
         }
+
         $transaction = Yii::$app->db->beginTransaction();
         try {
             $answer->adopted_at = time();
@@ -116,7 +114,7 @@ class AnswerController extends Controller
             Yii::$app->session->setFlash('success', Yii::t('question', 'Answer to adopt success.'));
             return $this->redirect(['/question/question/view', 'id' => $answer->question_id]);
         } catch (\Exception $e) {
-            Yii::$app->session->setFlash('danger', Yii::t('question', 'Answer failed. Please try again later.'));
+            Yii::$app->session->setFlash('danger', Yii::t('question', 'Adopte failed. Please try again later.'));
             return $this->redirect(['/question/question/view', 'id' => $answer->question_id]);
         }
     }
