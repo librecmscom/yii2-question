@@ -216,8 +216,10 @@ $this->title = Html::encode($model->title);
                 </li>
                 <li>
                     <i class="fa fa-clock-o"></i>
-                    <a href="<?= Url::to(['/user/profile/show', 'id' => $model->user_id]) ?>"
-                       target="_blank"><?= Html::encode($model->user->username) ?></a>
+                    <?php if(!$model->isHide()):?>
+                        <a href="<?= Url::to(['/user/profile/show', 'id' => $model->user_id]) ?>"
+                           target="_blank"><?= Html::encode($model->user->username) ?></a>
+                    <?php endif;?>
                     提出于 <?= Yii::$app->formatter->asRelativeTime($model->updated_at); ?></li>
             </ul>
         </div>

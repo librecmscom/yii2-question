@@ -1,58 +1,44 @@
 <?php
-
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\web\JsExpression;
 use yii\bootstrap\ActiveForm;
-use xutl\typeahead\Bloodhound;
-use xutl\typeahead\TypeAheadAsset;
-use yuncms\tag\widgets\TagsinputWidget;
+use yii\helpers\ArrayHelper;
+use xutl\select2\Select2;
+use xutl\summernote\SummerNote;
 
-/**
- * @var yii\web\View $this
- */
-$engine = new Bloodhound([
-    'name' => 'countriesEngine',
-    'clientOptions' => [
-        'datumTokenizer' => new JsExpression("Bloodhound.tokenizers.obj.whitespace('name')"),
-        'queryTokenizer' => new JsExpression("Bloodhound.tokenizers.whitespace"),
-        'remote' => [
-            'url' => Url::to(['/question/question/auto-complete', 'query' => 'QRY']),
-            'wildcard' => 'QRY'
-        ],
-    ]
-]);
-TypeAheadAsset::register($this);
-$this->registerJs($engine->getClientScript());
-$this->registerCss(".bootstrap-tagsinput {width: 100%;}");
 ?>
-<?php $form = ActiveForm::begin([
-
-]); ?>
+<?php $form = ActiveForm::begin([]); ?>
 <?= $form->field($model, 'title')->textInput(['class' => 'form-control input-lg', 'placeholder' => '请在这里概述您的问题',])->label(false); ?>
-<?= $form->field($model, 'content')->textarea(['rows' => 5])->hint(Yii::t('question', 'Markdown powered content')); ?>
-<?= $form->field($model, 'tagValues')->widget(TagsinputWidget::className(), [
-    'options' => [
-        'class' => 'form-control',
-        'placeholder' => '添加标签'
-    ],
+<?= $form->field($model, 'content')->widget(SummerNote::className()); ?>
+<?= $form->field($model, 'tagValues')->widget(Select2::className(), [
+    'options' => ['multiple' => true],
+    'items' => ArrayHelper::map($model->tags, 'id', 'name'),
     'clientOptions' => [
-        'trimValue' => true,
-        'typeaheadjs' => [
-            'displayKey' => 'name',
-            'valueKey' => 'name',
-            'source' => $engine->getAdapterScript(),
-        ]
-    ]
-]); ?>
+        'placeholder' => Yii::t('app', 'Add the tag you are looking for'),
+        'tags' => true,
+        'minimumInputLength' => 2,
+        'ajax' => [
+            'url' => Url::to(['/question/question/auto-complete']),
+            'dataType' => 'json',
+            //延迟250ms发送请求
+            'delay' => 250,
+            'cache' => true,
+            'data' => new \yii\web\JsExpression('function (params) {return {query: params.term};}'),
+            'processResults' => new \yii\web\JsExpression('function (data) {return {results: data};}'),
+        ],
+    ],
+]) ?>
 
 <div class="row mt-20">
     <div class="col-md-8">
-        <div class="form-inline">
-            <?= $form->field($model, 'price', [
-                'template' => "{label}\n{input} " . Yii::t('question', 'Point') . "\n{hint}\n{error}"
-            ])->dropDownList([0 => 0, 1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9, 10 => 10]); ?>
-            <span class="span-line">|</span>
+        <div class="form-inline" role="form">
+            <?php if ($model->isNewRecord): ?>
+                <?= $form->field($model, 'price', [
+                    'template' => "{label}\n<div class=\"input-group\">{input}<div class=\"input-group-addon\">" . Yii::t('question', 'Point') . "</div></div>" . "\n{hint}\n{error}"
+                ])->dropDownList([0 => 0, 1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8, 9 => 9, 10 => 10]); ?>
+                <span class="span-line">|</span>
+            <?php endif; ?>
             <?= $form->field($model, 'hide')->checkbox() ?>
         </div>
     </div>

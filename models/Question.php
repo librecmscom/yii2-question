@@ -98,7 +98,7 @@ class Question extends ActiveRecord
                 'class' => TagBehavior::className(),
                 'tagValuesAsArray' => false,
                 'tagRelation' => 'tags',
-                'tagValueAttribute' => 'name',
+                'tagValueAttribute' => 'id',
                 'tagFrequencyAttribute' => 'frequency',
             ],
             'blameable' => [
@@ -117,8 +117,8 @@ class Question extends ActiveRecord
     {
         return [
             [['title', 'content', 'tagValues'], 'required'],
-            ['price','integer'],
-            ['hide','boolean'],
+            ['price', 'integer'],
+            ['hide', 'boolean'],
             ['tagValues', 'safe'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_END]],
@@ -186,6 +186,11 @@ class Question extends ActiveRecord
     public function isAuthor()
     {
         return $this->user_id == Yii::$app->user->id;
+    }
+
+    public function isHide()
+    {
+        return $this->hide == 1;
     }
 
     /**
