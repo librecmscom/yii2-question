@@ -1,3 +1,7 @@
+/* 文字format */
+.text-fmt {overflow: hidden;font-size: 14px;line-height: 1.6;word-wrap: break-word;}
+.gold,.text-gold{color:#ff8a00;}
+
 /* 列表样式 */
 .question-list{margin-bottom:10px}
 .question-list.top-indent{margin-top:-10px}
@@ -25,10 +29,6 @@
 .qa-rank .plus{color:#009a61}
 .qa-rank .minus{color:#AD3A37}
 
-/* 文字format */
-.text-fmt {overflow: hidden;font-size: 14px;line-height: 1.6;word-wrap: break-word;}
-.gold,.text-gold{color:#ff8a00;}
-
 /*详情页面头部*/
 .widget-question .title{margin: 0 0 10px;}
 .widget-question .best-answer{border: 1px solid #EBEBEB;padding: 10px 20px 20px;}
@@ -36,7 +36,6 @@
 .widget-question .adopt_time{font-size: 14px;font-weight: normal;}
 .widget-question .user-info{padding:20px 0px 0px;}
 
-.widget-article .quote{padding: 25px;background: #f3f5f9;line-height: 24px;}
 /**采纳的答案**/
 .best-answer .options a{color:#666;}
 .post-opt a{color:#999}
