@@ -163,9 +163,16 @@ class Answer extends ActiveRecord
     {
         parent::afterSave($insert, $changedAttributes);
         if ($insert) {
+            /* 问题回答数+1 */
             $this->question->updateCounters(['answers' => 1]);
             /* 用户回答数+1 */
             Yii::$app->user->identity->userData->updateCounters(['answers' => 1]);
+
+            /*记录动态*/
+            Yii::$app->getModule('user')->doing($this->user_id, 'answer', get_class($this->question), $this->question->id, $this->question->title, $this->content);
+
+            /*记录通知*/
+            Yii::$app->getModule('user')->notify($this->user_id, $this->question->user_id, 'answer', $this->question->title, $this->question->id, $this->content);
         }
     }
 
@@ -176,5 +183,7 @@ class Answer extends ActiveRecord
     {
         parent::afterDelete();
         $this->question->updateCounters(['answers' => -1]);
+        /* 用户回答数-1 */
+        Yii::$app->user->identity->userData->updateCounters(['answers' => -1]);
     }
 }
