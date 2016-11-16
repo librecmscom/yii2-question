@@ -36,8 +36,8 @@ use yuncms\comment\widgets\Comment;
     <div class="content">
 
         <!--<span class="text-muted">擅长：擅长</span>-->
-
-        <p><?= $model->body ?></p>
+        <?= HTMLPurifier::process($bestAnswer->content); ?>
+       
     </div>
     <div class="media-footer">
         <ul class="list-inline mb-20">

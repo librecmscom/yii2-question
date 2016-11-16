@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ListView;
 use yii\widgets\LinkPager;
 use yii\bootstrap\Modal;
+use yii\helpers\HtmlPurifier;
 use yuncms\question\models\Question;
 use yuncms\question\Asset;
 /**
@@ -36,7 +37,7 @@ $this->title = Html::encode($model->title);
             </ul>
             <div class="description mt-10">
                 <div class="text-fmt ">
-                    <?= $model->body ?>
+                    <?= HTMLPurifier::process($model->content); ?>
                 </div>
                 <div class="post-opt mt-10">
                     <ul class="list-inline">
@@ -75,7 +76,7 @@ $this->title = Html::encode($model->title);
                         </h3>
                     </div>
                     <div class="text-fmt">
-                        <?= $bestAnswer->content; ?>
+                        <?= HTMLPurifier::process($bestAnswer->content); ?>
                     </div>
                     <div class="options clearfix mt-10">
                         <ul class="list-inline pull-right">
