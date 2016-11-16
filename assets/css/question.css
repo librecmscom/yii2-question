@@ -1,35 +1,17 @@
-.wrap {
-    padding-bottom: 30px;
-    position: relative;
-}
+/* 列表样式 */
+.question-list{margin-bottom:10px}
+.question-list.top-indent{margin-top:-10px}
+.question-list-item{margin:0;border-bottom:1px solid #eee;padding:10px 0}
+.question-list-item .author{margin-bottom:5px;color:#999;font-size:13px}
+.question-list-item .author a{color:#999}
+.question-list-item .author small{color:#ddd}
+.question-list-item .title{display:inline;margin:0 5px 0 0;font-size:16px}
+.question-list-item .title a{color:#333}
+.question-list-item .title a:hover{color:#017e66}
+.question-list-item .title a:visited{font-weight:400}
+.question-list-item .small-title{margin:0 0 5px;font-size:16px}
+.question-list-item .split:before{content:"·";color:#ddd}
+.question-list-item .summary{overflow:auto;overflow-x:hidden}
+.question-list-item .excerpt{margin:5px 0 0;height:42px;color:#777;font-size:13px;line-height:1.6;overflow:hidden}
+.question-list-item.highlight{background:#FFF9EB}
 
-/*tag样式定义*/
-
-.tag-header{background:#f6f6f6;box-shadow:0 1px 2px 0 rgba(0,0,0,.24);padding:15px;margin-bottom:20px}
-.tag-header-title{margin-top:0;margin-right:15px;vertical-align:middle}
-.tag-header-follow{display:inline-block}
-.tag-header-summary{color:#666;margin-top:15px;margin-bottom:0}
-
-.tag{display:inline-block;padding:0 8px;color:#017e66;background-color:#E7F2ED;height:24px;line-height:24px;font-weight:400;font-size:13px;text-align:center}
-.tag[href]:focus,.tag[href]:hover{background-color:#017e66;color:#fff;text-decoration:none}
-.tag-sm{padding:0 4px;height:18px;line-height:18px;font-size:12px}
-.tag-lg{font-size:16px;font-weight:700;height:30px;line-height:28px}
-.tag-link{background-color:transparent}
-.tag-logo{padding-left:25px;background-repeat:no-repeat;background-position: 4px 2px;background-size:16px 16px;}
-.taglist--block,.taglist-inline{list-style:none;padding:0;font-size:0}
-.taglist--block li,.taglist-inline li{padding:0;font-size:13px}
-.ib.taglist--block,.ib.taglist-inline{margin:0;display:inline-block}
-.taglist-inline>li{display:inline-block;margin-right:5px}
-.taglist-inline>li:last-child{margin-right:0}
-.taglist-inline.multi>li{margin-bottom:5px}
-.taglist--block>li{margin-bottom:8px}
-
-/* 详情页面头部 */
-.widget-question .title{margin: 0 0 10px;}
-.widget-question .best-answer{border: 1px solid #EBEBEB;padding: 10px 20px 20px;}
-.widget-question .trophy-title{color:#ad3a37;}
-.widget-question .adopt_time{font-size: 14px;font-weight: normal;}
-.widget-question .user-info{padding:20px 0px 0px;}
-
-.post-opt a{color:#999}
-.post-title{padding-bottom:15px;border-bottom:1px solid #eee;}

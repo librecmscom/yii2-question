@@ -30,8 +30,8 @@ $this->title = Yii::t('question', 'Questions');
             'dataProvider' => $dataProvider,
             'itemView' => '_item',//子视图
             'layout' => "{items}\n{pager}",
-            'options' => ['class' => 'stream-list question-stream'],
-            'itemOptions' => ['class' => 'stream-list-item', 'tag' => 'section']
+            'options' => ['class' => 'question-list question-stream'],
+            'itemOptions' => ['class' => 'question-list-item', 'tag' => 'section']
         ]); ?>
         <!-- /.stream-list -->
     </div><!-- /.main -->
