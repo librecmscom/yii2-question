@@ -101,23 +101,7 @@ class QuestionController extends Controller
 
         return $this->render('index', ['dataProvider' => $dataProvider]);
     }
-
-    /**
-     * 显示标签页
-     *
-     * @param string $tag 标签
-     * @return string
-     */
-    public function actionTag($tag)
-    {
-        $query = Question::find()->anyTagValues($tag,'name')->with('user');
-        $query->andWhere(['status' => Question::STATUS_ACTIVE]);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-        return $this->render('tag', ['tag' => $tag, 'dataProvider' => $dataProvider]);
-    }
-
+    
     /**
      * 提问
      *
