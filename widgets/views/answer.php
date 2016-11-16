@@ -2,7 +2,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use xutl\summernote\SummerNote;
 ?>
 <?php if (Yii::$app->getUser()->getIsGuest()): ?>
     请登录
@@ -17,11 +17,9 @@ use yii\widgets\ActiveForm;
         ]);
         ?>
         <?= Html::hiddenInput('question_id', $question_id) ?>
-
         <div class="editor" id="questionText">
-            <?= $form->field($model, 'content')
-                ->textarea(['rows' => 6])
-                ->label(false); ?>
+        <?= $form->field($model, 'content')->widget(SummerNote::className())->label(false); ?>
+
         </div>
         <div id="answerSubmit" class="mt-15 clearfix">
 <!--            <div class="checkbox pull-left">-->
