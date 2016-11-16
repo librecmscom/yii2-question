@@ -2,27 +2,21 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
-use frontend\assets\QuestionAsset;
 use yii\widgets\ListView;
 use yii\widgets\LinkPager;
 use yii\bootstrap\Modal;
 use yuncms\question\models\Question;
-
+use yuncms\question\Asset;
 /**
  * @var yii\web\View $this
  * @var common\models\Question $model
  */
-$this->registerJs('$(".navbar-nav").find("li:eq(2)").addClass("active");$(".btn-unlogin,.go-login").click(function(){jQuery(\'#modal\').modal({remote: \'/user/security/login\'});});');
-QuestionAsset::register($this);
-
-$this->registerCss(".markdown-body {
-    font-size: 14px;
-}");
+Asset::register($this);
 $this->title = Html::encode($model->title);
 //$this->params['breadcrumbs'][] = ['label' => Yii::t('frontend/app', 'Questions'), 'url' => ['index']];
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="row mt-20">
+<div class="row mt-10">
     <div class="col-xs-12 col-md-9 main">
         <div class="widget-question">
             <h4 class="title" style="font-size: 18px;">

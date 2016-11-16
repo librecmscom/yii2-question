@@ -14,7 +14,7 @@ Asset::register($this);
 $this->title = Yii::t('question', 'Questions');
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="row mt-10">
+<div class="row">
     <div class="col-xs-12 col-md-9 main">
         <?= Nav::widget([
             'options' => ['class' => 'nav nav-tabs nav-tabs-zen mb10'],

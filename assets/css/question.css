@@ -15,3 +15,13 @@
 .question-list-item .excerpt{margin:5px 0 0;height:42px;color:#777;font-size:13px;line-height:1.6;overflow:hidden}
 .question-list-item.highlight{background:#FFF9EB}
 
+.qa-rank{float:left;margin-right:5px;font-size:16px;text-align:center;line-height:1.2;color:#666}
+.qa-rank small{display:block;font-size:12px}
+.qa-rank .answers,.qa-rank .views,.qa-rank .votes{display:inline-block;padding-top:3px;width:40px;height:40px;-moz-border-radius:1px;-webkit-border-radius:1px;border-radius:1px}
+.qa-rank .answers{background-color:#AD3A37;color:#fff}
+.qa-rank .answered{background-color:#009a61;color:#fff}
+.qa-rank .solved{background-color:#808B87}
+.qa-rank .views{width:50px;color:#999}
+.qa-rank .plus{color:#009a61}
+.qa-rank .minus{color:#AD3A37}
+

@@ -14,8 +14,8 @@ $form = ActiveForm::begin(['id' => 'answer-form']);
     ->hint(Yii::t('question', 'Markdown powered content'))
     ->label(false); ?>
 
-<div class="form-group">
-    <?= Html::submitButton($model->isNewRecord ? Yii::t('question', 'Answer') : Yii::t('question', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-</div>
+    <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('question', 'Answer') : Yii::t('question', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    </div>
 
 <?php ActiveForm::end() ?>
