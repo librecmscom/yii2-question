@@ -128,8 +128,8 @@ $this->title = Html::encode($model->title);
                             <div class="content">
                                 <span class="answer-time text-muted hidden-xs">
                                     <!--@if($bestAnswer->user->authentication && $bestAnswer->user->authentication->status === 1)
-                                    擅长：{{ $bestAnswer->user->authentication->skill }} | @endif
-                                    采纳率 {{ $bestAnswer->user->userData->adoptPercent() }}% |-->
+                                    擅长：{{ $bestAnswer->user->authentication->skill }} | @endif-->
+                                    采纳率 <?=round($bestAnswer->user->userData->adoptions / $bestAnswer->user->userData->answers, 2) * 100?>% |
                                     回答于 <?= Yii::$app->formatter->asRelativeTime($bestAnswer->created_at); ?>
                                 </span>
                             </div>
