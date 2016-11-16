@@ -16,8 +16,8 @@
   },
   "require": {
     "yiisoft/yii2": "~2.0.0",
-    "yuncms/yii2-tag": "*",
-    "yuncms/yii2-user": "*",
+    "yuncms/yii2-tag": ">=1.0.7",
+    "yuncms/yii2-user": ">=1.1.5",
     "xutl/yii2-select2-widget":"*"
   },
   "autoload": {
