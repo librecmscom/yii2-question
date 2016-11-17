@@ -28,6 +28,7 @@ return [
     'Delete' => '删除',
     'Operation completed.'=>'操作完成。',
     'Edit' => '修改',
+    'No introduction'=>'暂无介绍',
     'Question & Answer'=>'问答',
     'Edit Answer' => '编辑回答',
     'Hot question' => '热门问题',

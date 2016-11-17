@@ -19,6 +19,7 @@ use yuncms\question\models\Vote;
 use yuncms\question\models\Answer;
 use yuncms\question\models\Question;
 use yuncms\question\models\QuestionSearch;
+use yuncms\tag\models\Tag;
 
 /**
  * Class QuestionController
@@ -112,12 +113,16 @@ class QuestionController extends Controller
     public function actionTag($tag)
     {
         Url::remember('', 'actions-redirect');
-        $query = Question::find()->anyTagValues($tag)->with('user');
-        $query->andWhere(['>', Question::tableName() . '.status', 0]);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
-        return $this->render('tag', ['tag' => $tag, 'dataProvider' => $dataProvider]);
+        if (($model = Tag::findOne(['name' => $tag])) != null) {
+            $query = Question::find()->anyTagValues($tag, 'name')->with('user');
+            $query->andWhere(['>', Question::tableName() . '.status', 0]);
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query,
+            ]);
+            return $this->render('tag', ['model' => $model, 'dataProvider' => $dataProvider]);
+        } else {
+            throw new NotFoundHttpException (Yii::t('yii', 'The requested page does not exist.'));
+        }
     }
 
     /**
