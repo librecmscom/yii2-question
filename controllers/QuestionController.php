@@ -9,7 +9,9 @@ namespace yuncms\question\controllers;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Response;
+use yii\web\UploadedFile;
 use yii\web\Controller;
+use yii\helpers\FileHelper;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
@@ -21,6 +23,7 @@ use yuncms\question\models\Answer;
 use yuncms\question\models\Question;
 use yuncms\question\models\QuestionSearch;
 use yuncms\tag\models\Tag;
+use xutl\summernote\SummerNoteAction;
 
 /**
  * Class QuestionController
@@ -55,7 +58,7 @@ class QuestionController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['create', 'update', 'answer', 'answer-update', 'delete', 'favorite', 'answer-vote', 'vote', 'favorite', 'answer-correct'],
+                        'actions' => ['create', 'update', 'sn-upload','answer', 'answer-update', 'delete', 'favorite', 'answer-vote', 'vote', 'favorite', 'answer-correct'],
                         'roles' => ['@']
                     ],
                 ],
@@ -72,7 +75,18 @@ class QuestionController extends Controller
             'auto-complete' => [
                 'class' => 'yuncms\tag\actions\AutoCompleteAction',
                 'clientIdGetParamName' => 'query'
-            ]
+            ],
+            'sn-upload' => [
+                'class' => SummerNoteAction::className(),
+                'onComplete' => function (UploadedFile $uploadedFile, $params) {
+                    $fileSavePath = Yii::getAlias('@uploads/question/' . date("Y/") . date('md'));
+                    if (!is_dir($fileSavePath)) {
+                        FileHelper::createDirectory($fileSavePath);
+                    }
+                    $uploadedFile->saveAs($fileSavePath . '/' . $uploadedFile->name);
+                    return Url::to('@uploadUrl/question/' . date("Y/") . date('md') . '/' . $uploadedFile->name, true);
+                }
+            ],
         ];
     }
 

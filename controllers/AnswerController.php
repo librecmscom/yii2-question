@@ -8,10 +8,13 @@ namespace yuncms\question\controllers;
 
 use Yii;
 use yii\web\Controller;
+use yii\web\UploadedFile;
+use yii\helpers\FileHelper;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yuncms\question\models\Question;
 use yuncms\question\models\Answer;
+use xutl\summernote\SummerNoteAction;
 
 /**
  * Class AnswerController
@@ -35,10 +38,30 @@ class AnswerController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create','update', 'adopt'],
+                        'actions' => ['create','update', 'adopt','sn-upload'],
                         'roles' => ['@'],
                     ],
                 ],
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function actions()
+    {
+        return [
+            'sn-upload' => [
+                'class' => SummerNoteAction::className(),
+                'onComplete' => function (UploadedFile $uploadedFile, $params) {
+                    $fileSavePath = Yii::getAlias('@uploads/question/' . date("Y/") . date('md'));
+                    if (!is_dir($fileSavePath)) {
+                        FileHelper::createDirectory($fileSavePath);
+                    }
+                    $uploadedFile->saveAs($fileSavePath . '/' . $uploadedFile->name);
+                    return Url::to('@uploadUrl/question/' . date("Y/") . date('md') . '/' . $uploadedFile->name, true);
+                }
             ],
         ];
     }

@@ -1,5 +1,5 @@
 <?php
-
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use xutl\summernote\SummerNote;
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?php $form = ActiveForm::begin(['id' => 'answer-form']); ?>
-<?= $form->field($model, 'content')->widget(SummerNote::className())->label(Yii::t('question', 'My Answer')); ?>
+<?= $form->field($model, 'content')->widget(SummerNote::className(),['uploadUrl'=>Url::to(['/question/question/sn-upload'])])->label(Yii::t('question', 'My Answer')); ?>
     <div class="row mt-20">
         <div class="col-md-12">
             <?= Html::submitButton($model->isNewRecord ? Yii::t('question', 'Answer') : Yii::t('question', 'Confirm Changes'), ['class' => $model->isNewRecord ? 'btn btn-success  pull-right' : 'btn btn-primary  pull-right']) ?>

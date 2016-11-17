@@ -57,7 +57,7 @@ use yuncms\comment\widgets\Comment;
                 <?php if ($question->status == Question::STATUS_ACTIVE && $question->isAuthor()): ?>
                     <li><a href="#" class="adopt-answer" data-toggle="modal" data-target="#adoptAnswer"
                            data-answer_id="<?= $model->id ?>"
-                           data-answer_content="<?= mb_substr($model->content, 0, 200); ?>"><i
+                           data-answer_content="<?= mb_substr(strip_tags($model->content), 0, 200); ?>"><i
                                 class="fa fa-check-square-o"></i> 采纳为最佳答案</a></li>
                 <?php endif; ?>
             <?php endif; ?>

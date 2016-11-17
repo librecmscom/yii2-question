@@ -10,7 +10,9 @@ use xutl\summernote\SummerNote;
 ?>
 <?php $form = ActiveForm::begin([]); ?>
 <?= $form->field($model, 'title')->textInput(['class' => 'form-control input-lg', 'placeholder' => '请在这里概述您的问题',])->label(false); ?>
-<?= $form->field($model, 'content')->widget(SummerNote::className()); ?>
+<?= $form->field($model, 'content')->widget(SummerNote::className(),[
+    'uploadUrl'=>Url::to(['/question/question/sn-upload'])
+]); ?>
 <?= $form->field($model, 'tagValues')->widget(Select2::className(), [
     'options' => ['multiple' => true],
     'items' => ArrayHelper::map($model->tags, 'id', 'name'),
