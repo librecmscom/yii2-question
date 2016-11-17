@@ -36,6 +36,7 @@ return [
     'Edit Answer' => '编辑回答',
     'Hot question' => '热门问题',
     'ID' => '',
+    'Update Question'=>'编辑问题',
     'Reward' => '悬赏',
     'My Answer' => '我的回答',
     'Confirm Changes' => '确认修改',
