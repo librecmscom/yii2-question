@@ -146,6 +146,17 @@ class Answer extends ActiveRecord
     }
 
     /**
+     * 检查指定用户是否回答过指定问题
+     * @param int $user_id
+     * @param int $question_id
+     * @return bool
+     */
+    public static function isAnswered($user_id, $question_id)
+    {
+        return !static::find()->where(['user_id' => $user_id, 'question_id' => $question_id])->exists();
+    }
+
+    /**
      * @inheritdoc
      */
     public function afterSave($insert, $changedAttributes)

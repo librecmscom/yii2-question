@@ -6,6 +6,7 @@ use yii\widgets\ListView;
 use yii\widgets\LinkPager;
 use yii\bootstrap\Modal;
 use yii\helpers\HtmlPurifier;
+use yuncms\question\models\Answer;
 use yuncms\question\models\Question;
 use yuncms\question\Asset;
 /**
@@ -14,8 +15,6 @@ use yuncms\question\Asset;
  */
 Asset::register($this);
 $this->title = Html::encode($model->title);
-//$this->params['breadcrumbs'][] = ['label' => Yii::t('frontend/app', 'Questions'), 'url' => ['index']];
-//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row mt-10">
     <div class="col-xs-12 col-md-9 main">
@@ -42,13 +41,16 @@ $this->title = Html::encode($model->title);
                 <div class="post-opt mt-10">
                     <ul class="list-inline">
                         <li><a class="comments" data-toggle="collapse" href="#comments-question-<?= $model->id ?>"
-                               aria-expanded="false" aria-controls="comment-<?= $model->id ?>"><i
-                                    class="fa fa-comment-o"></i> <?= $model->comments ?> 条评论</a></li>
+                               aria-expanded="false" aria-controls="comment-<?= $model->id ?>">
+                                <i
+                                    class="fa fa-comment-o"></i>
+                                <?= Yii::t('question', '{n, plural, =0{No comment} =1{One comment} other{# reviews}}', ['n' => $model->comments]); ?>
+                            </a></li>
 
                         <?php if ($model->isAuthor()) : ?>
                             <li><a href="<?= Url::to(['update', 'id' => $model->id]) ?>" class="edit"
                                    data-toggle="tooltip" data-placement="right" title=""
-                                   data-original-title="补充细节，以得到更准确的答案"><i
+                                   data-original-title="<?=Yii::t('question','Add details to get a more accurate answer.')?>"><i
                                         class="fa fa-edit"></i> <?= Yii::t('question', 'Edit'); ?></a></li>
                             <li><a href="<?= Url::to(['delete', 'id' => $model->id]) ?>" class="edit" data-method="post"
                                    data-confirm="<?= Yii::t('question', 'Sure?'); ?>"><i
@@ -70,7 +72,7 @@ $this->title = Html::encode($model->title);
                 <div class="best-answer mt-10">
                     <div class="trophy-title">
                         <h3>
-                            <i class="fa fa-trophy"></i> 最佳答案
+                            <i class="fa fa-trophy"></i> <?=Yii::t('question','Best answer')?>
                             <span
                                 class="pull-right text-muted adopt_time"><?= Yii::$app->formatter->asRelativeTime($bestAnswer->created_at); ?></span>
                         </h3>
@@ -84,7 +86,7 @@ $this->title = Html::encode($model->title);
                                 <a class="comments mr-10" data-toggle="collapse"
                                    href="#comments-answer-<?= $bestAnswer->id; ?>" aria-expanded="false"
                                    aria-controls="comment-<?= $bestAnswer->id; ?>"><i
-                                        class="fa fa-comment-o"></i> <?= $bestAnswer->comments; ?> 条评论</a>
+                                        class="fa fa-comment-o"></i> <?= Yii::t('question', '{n, plural, =0{No comment} =1{One comment} other{# reviews}}', ['n' => $bestAnswer->comments]); ?></a>
                                 <button class="btn btn-default btn-sm"
                                         data-source_id="<?= $bestAnswer->id; ?>" data-target="support-button"
                                         data-source_type="answer"
@@ -166,10 +168,14 @@ $this->title = Html::encode($model->title);
 
             </div>
         </div>
+        <?php if ($model->status != Question::STATUS_END): ?>
         <div class="widget-answer-form mt-15">
-
-            <?= \yuncms\question\widgets\Answer::widget(['questionId' => $model->id]); ?>
+            <?php if (!Yii::$app->user->isGuest && ($model->user_id != Yii::$app->user->id && Answer::isAnswered(Yii::$app->user->id, $model->id))): ?>
+                <h4>我来回答</h4>
+                <?= \yuncms\question\widgets\Answer::widget(['questionId' => $model->id]); ?>
+            <?php endif;?>
         </div>
+        <?php endif; ?>
     </div>
     <div class="col-xs-12 col-md-3 side">
         <div class="widget-box">

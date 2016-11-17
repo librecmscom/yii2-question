@@ -19,6 +19,24 @@ class QuestionQuery extends ActiveQuery
         ];
     }
 
+    /**
+     * Apply possible questions order to query
+     * @param string $order
+     * @return string
+     */
+    public function applyOrder($order)
+    {
+        if ($order == 'new') {//按发布时间倒序
+            $this->orderBy(['created_at' => SORT_DESC]);
+        } elseif ($order == 'hottest') {//热门问题
+            $this->orderBy(['answers' => SORT_DESC, 'views' => SORT_DESC]);
+        } elseif ($order == 'reward') {//悬赏问题
+            $this->orderBy(['created_at' => SORT_DESC, 'price' => SORT_DESC, 'views' => SORT_DESC]);
+        } elseif ($order == 'unanswered') {//未回答问题
+            $this->andWhere(['answers' => 0]);
+        }
+    }
+
     /*
      * 热门问题
      */

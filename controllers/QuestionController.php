@@ -15,6 +15,7 @@ use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\web\ForbiddenHttpException;
+use yuncms\question\models\QuestionQuery;
 use yuncms\question\models\Vote;
 use yuncms\question\models\Answer;
 use yuncms\question\models\Question;
@@ -89,17 +90,7 @@ class QuestionController extends Controller
             'query' => $query,
         ]);
 
-        $order = Yii::$app->request->get('order', 'new');
-
-        if ($order && $order == 'new') {//按发布时间倒序
-            $query->orderBy(['created_at' => SORT_DESC]);
-        } elseif ($order && $order == 'hottest') {//热门问题
-            $query->orderBy(['answers' => SORT_DESC, 'views' => SORT_DESC]);
-        } elseif ($order && $order == 'reward') {//悬赏问题
-            $query->orderBy(['created_at' => SORT_DESC, 'price' => SORT_DESC, 'views' => SORT_DESC]);
-        } elseif ($order && $order == 'unanswered') {//未回答问题
-            $query->andWhere(['answers' => 0]);
-        }
+        $query->applyOrder(Yii::$app->request->get('order', 'new'));
 
         return $this->render('index', ['dataProvider' => $dataProvider]);
     }

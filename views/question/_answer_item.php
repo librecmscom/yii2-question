@@ -44,7 +44,8 @@ use yuncms\comment\widgets\Comment;
         <ul class="list-inline mb-20">
             <li><a class="comments" data-toggle="collapse" href="#comments-answer-<?= $model->id ?>"
                    aria-expanded="false" aria-controls="comment-<?= $model->id ?>"><i class="fa fa-comment-o"></i>
-                    <?= $model->comments ?> 条评论</a></li>
+                    <?= Yii::t('question', '{n, plural, =0{No comment} =1{One comment} other{# reviews}}', ['n' => $model->comments]); ?>
+                    </a></li>
             <?php if (!Yii::$app->user->isGuest): ?>
                 <?php if ($question->status == Question::STATUS_ACTIVE && $model->isAuthor()): ?>
                     <li><a href="<?= Url::to(['/question/answer/update', 'id' => $model->id]) ?>"
