@@ -34,6 +34,7 @@ return [
     'No introduction'=>'暂无介绍',
     'Question & Answer'=>'问答',
     'Edit Answer' => '编辑回答',
+    'Submit Question' => '提交问题',
     'Hot question' => '热门问题',
     'ID' => '',
     'Update Question'=>'编辑问题',
