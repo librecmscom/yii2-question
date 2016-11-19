@@ -9,4 +9,12 @@ jQuery(document).ready(function () {
     jQuery("#adoptAnswerSubmit").click(function () {
         jQuery.post("/question/answer/adopt", {answerId: jQuery(this).data('answer_id')});
     });
+
+    jQuery(".widget-comments").on('show.bs.collapse', function () {
+        load_comments(jQuery(this).data('source_type'),jQuery(this).data('source_id'));
+    });
+
+    jQuery(".widget-comments").on('hide.bs.collapse', function () {
+        clear_comments(jQuery(this).data('source_type'),jQuery(this).data('source_id'));
+    });
 });
