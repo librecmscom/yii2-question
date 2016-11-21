@@ -37,40 +37,48 @@ class QuestionQuery extends ActiveQuery
         }
     }
 
-    /*
+    /**
+     * 查询活动的代码
+     * @return $this
+     */
+    public function active()
+    {
+        return $this->andWhere(['>','status' ,0]);
+    }
+
+    /**
      * 热门问题
      */
-    public function hottest($limit = 20)
+    public function hottest()
     {
-        $list = $this->andWhere(['>', 'status', '0'])->orderBy(['views' => SORT_DESC, 'answers' => SORT_DESC, 'created_at' => SORT_DESC])->limit($limit);
-        return $list;
+        return $this->active()->orderBy(['views' => SORT_DESC, 'answers' => SORT_DESC, 'created_at' => SORT_DESC]);
     }
 
     /**
      * 最新问题
+     * @return $this
      */
-    public function newest($limit = 20)
+    public function newest()
     {
-        $list = $this->andWhere(['>', 'status', '0'])->orderBy(['created_at' => SORT_DESC])->limit($limit);
-        return $list;
+        return $this->active()->orderBy(['created_at' => SORT_DESC]);
     }
 
     /**
      * 未回答的
+     * @return $this
      */
-    public function unAnswered($limit = 20)
+    public function unAnswered()
     {
-        $list = $this->andWhere(['>', 'status', '0'])->andWhere(['answers' => 0])->orderBy(['created_at' => SORT_DESC])->limit($limit);
-        return $list;
+        return $this->active()->andWhere(['answers' => 0])->orderBy(['created_at' => SORT_DESC]);
     }
 
     /**
      * 悬赏问题
+     * @return $this
      */
-    public function reward($limit = 20)
+    public function reward()
     {
-        $list = $this->andWhere(['>', 'status', '0'])->andWhere(['>', 'price', 0])->orderBy(['created_at' => SORT_DESC])->limit($limit);
-        return $list;
+        return $this->active()->andWhere(['>', 'price', 0])->orderBy(['created_at' => SORT_DESC]);
     }
 
     /**
@@ -79,6 +87,6 @@ class QuestionQuery extends ActiveQuery
      */
     public function views($limit)
     {
-        return $this->andWhere(['>', 'views', $limit]);
+        return $this->active()->andWhere(['>', 'views', $limit]);
     }
 }
