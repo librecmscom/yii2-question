@@ -218,7 +218,7 @@ class Question extends ActiveRecord
         if ($insert) {
             /*悬赏提问*/
             if ($this->price > 0) {
-                //$this->credit($this->user_id, 'ask', -$this->price, $this->id, $this->title);
+                Yii::$app->getModule('user')->credit($this->user_id, 'ask', -$this->price, $this->id, $this->title);
             }
             //记录动态
             Yii::$app->getModule('user')->doing($this->user_id, 'ask', get_class($this), $this->id, $this->title, mb_substr(strip_tags($this->content), 0, 200));

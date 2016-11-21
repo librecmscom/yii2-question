@@ -7,11 +7,15 @@
 namespace yuncms\question\controllers;
 
 use Yii;
+use yii\helpers\Url;
+use yii\web\Response;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 use yii\helpers\FileHelper;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\ForbiddenHttpException;
+use yii\web\NotFoundHttpException;
 use yuncms\question\models\Question;
 use yuncms\question\models\Answer;
 use xutl\summernote\SummerNoteAction;
@@ -68,7 +72,6 @@ class AnswerController extends Controller
 
     /**
      * 提交回答
-     * @param int $id
      * @return Response|string
      */
     public function actionCreate()
@@ -131,7 +134,7 @@ class AnswerController extends Controller
             }
             /*悬赏处理*/
             if ($answer->question->price > 0) {
-                Yii::$app->getModule('user')->point($answer->user_id, $answer->question->price, 'answer_adopted', get_class($answer->question), $answer->question->id, $answer->question->title);
+                Yii::$app->getModule('user')->credit($answer->user_id, 'answer_adopted',$answer->question->price,$answer->question->price,  $answer->question->id, $answer->question->title);
             }
             $transaction->commit();
             Yii::$app->session->setFlash('success', Yii::t('question', 'Answer to adopt success.'));

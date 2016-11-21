@@ -58,7 +58,7 @@ class QuestionController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['create','append-reward', 'update', 'sn-upload','answer', 'answer-update', 'delete', 'favorite', 'answer-vote', 'vote', 'favorite', 'answer-correct'],
+                        'actions' => ['create', 'append-reward', 'update', 'sn-upload', 'answer', 'answer-update', 'delete', 'favorite', 'answer-vote', 'vote', 'favorite', 'answer-correct'],
                         'roles' => ['@']
                     ],
                 ],
@@ -181,9 +181,18 @@ class QuestionController extends Controller
         if ($model->isAuthor()) {
             $coins = Yii::$app->request->post('coins', 0);
             //此处开始扣钱
-            //
-            $model->updateCounters(['price'=>$coins]);
-            $model->save();
+            $transaction = Question::getDb()->beginTransaction();
+            try {
+                Yii::$app->getModule('user')->credit($model->user_id, 'answer_adopted', -$coins, 0, $model->id, $model->title);
+                $model->updateCounters(['price' => $coins]);
+                $model->save();
+                Yii::$app->getModule('user')->doing($model->user_id, 'append_reward', get_class($model), $model->id, $model->title, "追加了 " . $coins . " 个积分");
+                Yii::$app->session->setFlash('success', 'question Submitted');
+                $transaction->commit();
+            } catch (\Exception $e) {
+                $transaction->rollBack();
+                Yii::$app->session->setFlash('error', 'question Submitted');
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
         throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this page.'));
