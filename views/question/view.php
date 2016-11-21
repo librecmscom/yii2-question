@@ -3,15 +3,16 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ListView;
-use yii\widgets\LinkPager;
 use yii\bootstrap\Modal;
 use yii\helpers\HtmlPurifier;
+use yii\widgets\ActiveForm;
 use yuncms\question\models\Answer;
 use yuncms\question\models\Question;
 use yuncms\question\Asset;
+
 /**
  * @var yii\web\View $this
- * @var common\models\Question $model
+ * @var yuncms\question\models\Question $model
  */
 Asset::register($this);
 $this->title = Html::encode($model->title);
@@ -50,11 +51,13 @@ $this->title = Html::encode($model->title);
                         <?php if ($model->isAuthor()) : ?>
                             <li><a href="<?= Url::to(['update', 'id' => $model->id]) ?>" class="edit"
                                    data-toggle="tooltip" data-placement="right" title=""
-                                   data-original-title="<?=Yii::t('question','Add details to get a more accurate answer.')?>"><i
+                                   data-original-title="<?= Yii::t('question', 'Add details to get a more accurate answer.') ?>"><i
                                         class="fa fa-edit"></i> <?= Yii::t('question', 'Edit'); ?></a></li>
                             <li><a href="<?= Url::to(['delete', 'id' => $model->id]) ?>" class="edit" data-method="post"
                                    data-confirm="<?= Yii::t('question', 'Sure?'); ?>"><i
                                         class="fa fa-remove"></i> <?= Yii::t('question', 'Remove'); ?></a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#appendReward"><i
+                                        class="fa fa-database"></i> 追加悬赏</a></li>
                         <?php endif; ?>
                     </ul>
                 </div>
@@ -72,7 +75,7 @@ $this->title = Html::encode($model->title);
                 <div class="best-answer mt-10">
                     <div class="trophy-title">
                         <h3>
-                            <i class="fa fa-trophy"></i> <?=Yii::t('question','Best answer')?>
+                            <i class="fa fa-trophy"></i> <?= Yii::t('question', 'Best answer') ?>
                             <span
                                 class="pull-right text-muted adopt_time"><?= Yii::$app->formatter->asRelativeTime($bestAnswer->created_at); ?></span>
                         </h3>
@@ -86,7 +89,8 @@ $this->title = Html::encode($model->title);
                                 <a class="comments mr-10" data-toggle="collapse"
                                    href="#comments-answer-<?= $bestAnswer->id; ?>" aria-expanded="false"
                                    aria-controls="comment-<?= $bestAnswer->id; ?>"><i
-                                        class="fa fa-comment-o"></i> <?= Yii::t('question', '{n, plural, =0{No comment} =1{One comment} other{# reviews}}', ['n' => $bestAnswer->comments]); ?></a>
+                                        class="fa fa-comment-o"></i> <?= Yii::t('question', '{n, plural, =0{No comment} =1{One comment} other{# reviews}}', ['n' => $bestAnswer->comments]); ?>
+                                </a>
                                 <button class="btn btn-default btn-sm"
                                         data-source_id="<?= $bestAnswer->id; ?>" data-target="support-button"
                                         data-source_type="answer"
@@ -132,7 +136,8 @@ $this->title = Html::encode($model->title);
                                 <span class="answer-time text-muted hidden-xs">
                                     <!--@if($bestAnswer->user->authentication && $bestAnswer->user->authentication->status === 1)
                                     擅长：{{ $bestAnswer->user->authentication->skill }} | @endif-->
-                                    采纳率 <?=round($bestAnswer->user->userData->adoptions / $bestAnswer->user->userData->answers, 2) * 100?>% |
+                                    采纳率 <?= round($bestAnswer->user->userData->adoptions / $bestAnswer->user->userData->answers, 2) * 100 ?>
+                                    % |
                                     回答于 <?= Yii::$app->formatter->asRelativeTime($bestAnswer->created_at); ?>
                                 </span>
                             </div>
@@ -169,12 +174,12 @@ $this->title = Html::encode($model->title);
             </div>
         </div>
         <?php if ($model->status != Question::STATUS_END): ?>
-        <div class="widget-answer-form mt-15">
-            <?php if (!Yii::$app->user->isGuest && ($model->user_id != Yii::$app->user->id && Answer::isAnswered(Yii::$app->user->id, $model->id))): ?>
-                <h4>我来回答</h4>
-                <?= \yuncms\question\widgets\Answer::widget(['questionId' => $model->id]); ?>
-            <?php endif;?>
-        </div>
+            <div class="widget-answer-form mt-15">
+                <?php if (!Yii::$app->user->isGuest && ($model->user_id != Yii::$app->user->id && Answer::isAnswered(Yii::$app->user->id, $model->id))): ?>
+                    <h4>我来回答</h4>
+                    <?= \yuncms\question\widgets\Answer::widget(['questionId' => $model->id]); ?>
+                <?php endif; ?>
+            </div>
         <?php endif; ?>
     </div>
     <div class="col-xs-12 col-md-3 side">
@@ -217,10 +222,10 @@ $this->title = Html::encode($model->title);
                 </li>
                 <li>
                     <i class="fa fa-clock-o"></i>
-                    <?php if(!$model->isHide()):?>
+                    <?php if (!$model->isHide()): ?>
                         <a href="<?= Url::to(['/user/profile/show', 'id' => $model->user_id]) ?>"
                            target="_blank"><?= Html::encode($model->user->username) ?></a>
-                    <?php endif;?>
+                    <?php endif; ?>
                     提出于 <?= Yii::$app->formatter->asRelativeTime($model->updated_at); ?></li>
             </ul>
         </div>
@@ -244,6 +249,47 @@ Modal::begin([
     <i class="fa fa-exclamation-circle"></i> 确认采纳该回答为最佳答案？
 </div>
 <blockquote id="answer_quote"></blockquote>
+<?php
+Modal::end();
+?>
+
+
+<?php
+Modal::begin([
+    'header' => '<h4 class="modal-title" id="adoptModalLabel">追加悬赏</h4>',
+    'options' => ['id' => 'appendReward'],
+    'footer' => '<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="appendRewardSubmit">确认追加</button>',
+]);
+?>
+<div class="alert alert-success" role="alert" id="rewardAlert">
+    <i class="fa fa-exclamation-circle"></i> 提高悬赏，以提高问题的关注度！
+</div>
+<?= ActiveForm::begin([
+    'layout' => 'inline',
+    'action' => Url::to(['/question/question/append-reward', 'id' => $model->id]),
+    'method' => 'post',
+    'options' => ['id' => 'rewardForm']
+]) ?>
+<div class="form-group">
+    <label for="reward">追加</label>
+    <select class="form-control" name="coins" id="question_coins">
+        <option value="1" selected="">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="30">30</option>
+        <option value="50">50</option>
+        <option value="80">80</option>
+        <option value="100">100</option>
+    </select> 个积分
+</div>
+<div class="form-group">
+    （您目前共有 <span class="text-gold"><?= Yii::$app->user->identity->point ?></span> 个积分）
+</div>
+<?= ActiveForm::end() ?>
 <?php
 Modal::end();
 ?>
