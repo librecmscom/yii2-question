@@ -17,18 +17,4 @@ jQuery(document).ready(function () {
     jQuery(".widget-comments").on('hide.bs.collapse', function () {
         clear_comments(jQuery(this).data('source_type'),jQuery(this).data('source_id'));
     });
-
-    jQuery("#appendRewardSubmit").click(function(){
-        var user_total_conis = '14';
-        var reward = jQuery("#question_coins").val();
-
-        if(reward>parseInt(user_total_conis)){
-            jQuery("#rewardAlert").attr('class','alert alert-warning');
-            jQuery("#rewardAlert").html('积分数不能大于'+user_total_conis);
-        }else{
-            jQuery("#rewardAlert").empty();
-            jQuery("#rewardAlert").attr('class','');
-            jQuery("#rewardForm").submit();
-        }
-    });
 });

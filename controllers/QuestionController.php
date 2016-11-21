@@ -182,7 +182,7 @@ class QuestionController extends Controller
             $coins = Yii::$app->request->post('coins', 0);
             //此处开始扣钱
             //
-            $model->price = $model->price + $coins;
+            $model->updateCounters(['price'=>$coins]);
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }

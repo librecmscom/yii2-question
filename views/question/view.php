@@ -16,6 +16,21 @@ use yuncms\question\Asset;
  */
 Asset::register($this);
 $this->title = Html::encode($model->title);
+$this->registerJs('
+    jQuery("#appendRewardSubmit").click(function(){
+        var user_total_conis = \'14\';
+        var reward = jQuery("#question_coins").val();
+
+        if(reward>parseInt(user_total_conis)){
+            jQuery("#rewardAlert").attr(\'class\',\'alert alert-warning\');
+            jQuery("#rewardAlert").html(\'积分数不能大于\'+user_total_conis);
+        }else{
+            jQuery("#rewardAlert").empty();
+            jQuery("#rewardAlert").attr(\'class\',\'\');
+            jQuery("#rewardForm").submit();
+        }
+    });
+');
 ?>
 <div class="row mt-10">
     <div class="col-xs-12 col-md-9 main">
