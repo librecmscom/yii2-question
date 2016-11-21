@@ -58,7 +58,7 @@ class QuestionController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['create', 'update', 'sn-upload','answer', 'answer-update', 'delete', 'favorite', 'answer-vote', 'vote', 'favorite', 'answer-correct'],
+                        'actions' => ['create','append-reward', 'update', 'sn-upload','answer', 'answer-update', 'delete', 'favorite', 'answer-vote', 'vote', 'favorite', 'answer-correct'],
                         'roles' => ['@']
                     ],
                 ],
@@ -165,6 +165,28 @@ class QuestionController extends Controller
             return $this->render('update', ['model' => $model]);
         }
         throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
+    }
+
+    /**
+     * 追加悬赏
+     * @param int $id
+     * @return \yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
+     */
+    public function actionAppendReward($id)
+    {
+        /** @var Question $model */
+        $model = $this->findModel($id);
+        if ($model->isAuthor()) {
+            $coins = Yii::$app->request->post('coins', 0);
+            //此处开始扣钱
+            //
+            $model->price = $model->price + $coins;
+            $model->save();
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+        throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this page.'));
     }
 
     /**
