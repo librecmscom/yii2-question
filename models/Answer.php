@@ -77,6 +77,14 @@ class Answer extends ActiveRecord
     /**
      * @inheritdoc
      */
+    public static function find()
+    {
+        return new AnswerQuery(get_called_class());
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
@@ -121,28 +129,6 @@ class Answer extends ActiveRecord
     public function isAuthor()
     {
         return $this->user_id == Yii::$app->user->id;
-    }
-
-    /**
-     * Apply possible answers order to query
-     * @param ActiveQuery $query
-     * @param $order
-     * @return string
-     */
-    public static function applyOrder(ActiveQuery $query, $order)
-    {
-        switch ($order) {
-            case 'active':
-                $query->orderBy('created_at ASC');
-                break;
-
-            case 'supports':
-            default:
-                $query->orderBy(['supports' => SORT_DESC]);
-                break;
-        }
-
-        return $order;
     }
 
     /**
