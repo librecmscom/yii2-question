@@ -127,7 +127,7 @@ class AnswerController extends Controller
             $answer->adopted_at = time();
             $answer->save();
             $answer->question->status = Question::STATUS_END;
-            $answer->question->save();
+            $answer->question->save(false);
 
             if (isset(Yii::$app->user->identity->userData->adoptions)) {
                 Yii::$app->user->identity->userData->updateCounters(['adoptions' => 1]);
