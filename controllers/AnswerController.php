@@ -104,8 +104,10 @@ class AnswerController extends Controller
                 return $this->redirect(['/question/question/view', 'id' => $model->question_id]);
             }
             return $this->render('update', ['model' => $model]);
+        } else {
+            Yii::$app->session->setFlash('danger', Yii::t('yii', 'You are not allowed to perform this action.'));
+            return $this->redirect(['/question/question/view', 'id' => $model->question_id]);
         }
-        throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
     }
 
     /**

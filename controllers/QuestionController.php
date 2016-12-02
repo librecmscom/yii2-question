@@ -163,8 +163,10 @@ class QuestionController extends Controller
                 return $this->redirect(['view', 'id' => $model->id]);
             }
             return $this->render('update', ['model' => $model]);
+        } else {
+            Yii::$app->session->setFlash('danger', Yii::t('yii', 'You are not allowed to perform this action.'));
+            return $this->redirect(['/question/question/view', 'id' => $model->id]);
         }
-        throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
     }
 
     /**
@@ -194,8 +196,10 @@ class QuestionController extends Controller
                 Yii::$app->session->setFlash('error', 'question Submitted');
             }
             return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            Yii::$app->session->setFlash('danger', Yii::t('yii', 'You are not allowed to perform this action.'));
+            return $this->redirect(['/question/question/view', 'id' => $model->id]);
         }
-        throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this page.'));
     }
 
     /**
@@ -247,8 +251,10 @@ class QuestionController extends Controller
         $model = $this->findModel($id);
         if ($model->isAuthor() && $model->delete()) {
             return $this->redirect(['index']);
+        } else {
+            Yii::$app->session->setFlash('danger', Yii::t('yii', 'You are not allowed to perform this action.'));
+            return $this->redirect(['/question/question/view', 'id' => $model->id]);
         }
-        throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
     }
 
     /**
