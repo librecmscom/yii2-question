@@ -114,6 +114,7 @@ class QuestionController extends Controller
      *
      * @param string $tag 标签
      * @return string
+     * @throws NotFoundHttpException
      */
     public function actionTag($tag)
     {

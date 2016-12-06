@@ -19,13 +19,13 @@ class AnswerQuery extends ActiveQuery
     public static function applyOrder(ActiveQuery $query, $order)
     {
         switch ($order) {
-            case 'active':
-                $query->orderBy('created_at ASC');
+            case 'time':
+                $query->orderBy(['created_at' => SORT_ASC]);
                 break;
 
             case 'supports':
             default:
-                $query->orderBy(['supports' => SORT_DESC]);
+                $query->orderBy(['(supports / pow((((UNIX_TIMESTAMP(NOW()) - created_at) / 3600) + 2),1.8) )' => SORT_DESC]);
                 break;
         }
 

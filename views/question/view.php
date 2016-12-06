@@ -170,8 +170,8 @@ $this->registerJs('
                    href="<?= Url::to(['view', 'id' => $model->id, 'alias' => $model->alias]) ?>">
                     <?= Yii::t('question', 'Default Sort') ?>
                 </a>
-                <a class="btn btn-default btn-xs <?= ($answerOrder == 'created_at') ? 'active' : '' ?>"
-                   href="<?= Url::to(['view', 'id' => $model->id, 'alias' => $model->alias, 'answers' => 'created_at']) ?>">
+                <a class="btn btn-default btn-xs <?= ($answerOrder == 'time') ? 'active' : '' ?>"
+                   href="<?= Url::to(['view', 'id' => $model->id, 'alias' => $model->alias, 'answers' => 'time']) ?>">
                     <?= Yii::t('question', 'Time Sort') ?>
                 </a>
             </div>
