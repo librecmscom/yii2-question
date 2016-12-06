@@ -27,13 +27,13 @@ class QuestionQuery extends ActiveQuery
     public function applyOrder($order)
     {
         if ($order == 'new') {//按发布时间倒序
-            $this->orderBy(['created_at' => SORT_DESC]);
+            $this->newest();
         } elseif ($order == 'hottest') {//热门问题
-            $this->orderBy(['(answers / pow((((UNIX_TIMESTAMP(NOW()) - created_at) / 3600) + 2),1.8) )' => SORT_DESC]);
+            $this->hottest();
         } elseif ($order == 'reward') {//悬赏问题
-            $this->andWhere(['>', 'price', 0])->orderBy(['created_at' => SORT_DESC, 'views' => SORT_DESC]);
+            $this->reward();
         } elseif ($order == 'unanswered') {//未回答问题
-            $this->andWhere(['answers' => 0])->orderBy(['created_at' => SORT_DESC]);
+            $this->unAnswered();
         }
     }
 
@@ -51,7 +51,7 @@ class QuestionQuery extends ActiveQuery
      */
     public function hottest()
     {
-        return $this->active()->orderBy(['views' => SORT_DESC, 'answers' => SORT_DESC, 'created_at' => SORT_DESC]);
+        return $this->active()->orderBy(['(answers / pow((((UNIX_TIMESTAMP(NOW()) - created_at) / 3600) + 2),1.8) )' => SORT_DESC]);
     }
 
     /**
