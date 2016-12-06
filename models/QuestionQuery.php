@@ -29,11 +29,11 @@ class QuestionQuery extends ActiveQuery
         if ($order == 'new') {//按发布时间倒序
             $this->orderBy(['created_at' => SORT_DESC]);
         } elseif ($order == 'hottest') {//热门问题
-            $this->orderBy(['answers' => SORT_DESC, 'views' => SORT_DESC]);
+            $this->orderBy(['(answers / pow((((UNIX_TIMESTAMP(NOW()) - created_at) / 3600) + 2),1.8) )' => SORT_DESC]);
         } elseif ($order == 'reward') {//悬赏问题
             $this->andWhere(['>', 'price', 0])->orderBy(['created_at' => SORT_DESC, 'views' => SORT_DESC]);
         } elseif ($order == 'unanswered') {//未回答问题
-            $this->andWhere(['answers' => 0]);
+            $this->andWhere(['answers' => 0])->orderBy(['created_at' => SORT_DESC]);
         }
     }
 
