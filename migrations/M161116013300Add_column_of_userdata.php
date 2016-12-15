@@ -8,9 +8,9 @@ class M161116013300Add_column_of_userdata extends Migration
 {
     public function up()
     {
-        $this->addColumn('{{%user_data}}', 'questions', $this->integer()->unsigned()->defaultValue(0));
-        $this->addColumn('{{%user_data}}', 'answers', $this->integer()->unsigned()->defaultValue(0));
-        $this->addColumn('{{%user_data}}', 'adoptions', $this->integer()->unsigned()->defaultValue(0));
+        $this->addColumn('{{%user_data}}', 'questions', $this->integer()->unsigned()->defaultValue(0)->comment('提问数'));
+        $this->addColumn('{{%user_data}}', 'answers', $this->integer()->unsigned()->defaultValue(0)->comment('回答数'));
+        $this->addColumn('{{%user_data}}', 'adoptions', $this->integer()->unsigned()->defaultValue(0)->comment('采纳数'));
     }
 
     public function down()
