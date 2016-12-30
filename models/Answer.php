@@ -115,7 +115,7 @@ class Answer extends ActiveRecord
     }
 
     /**
-     * @return Question
+     * @return \yii\db\ActiveQuery
      */
     public function getQuestion()
     {

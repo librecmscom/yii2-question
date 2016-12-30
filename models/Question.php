@@ -17,7 +17,6 @@ use yii\behaviors\TimestampBehavior;
 use yuncms\user\models\Collection;
 use yuncms\tag\behaviors\TagBehavior;
 use yuncms\tag\models\Tag;
-use yuncms\user\models\User;
 
 
 /**
@@ -145,7 +144,7 @@ class Question extends ActiveRecord
 
     /**
      * Tag Relation
-     * @return $this
+     * @return \yii\db\ActiveQueryInterface
      */
     public function getTags()
     {
@@ -168,7 +167,7 @@ class Question extends ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(Yii::$app->user->identityClass, ['id' => 'user_id']);
     }
 
     /**
