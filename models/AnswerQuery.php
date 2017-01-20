@@ -12,20 +12,19 @@ class AnswerQuery extends ActiveQuery
 {
     /**
      * Apply possible answers order to query
-     * @param ActiveQuery $query
      * @param $order
      * @return string
      */
-    public function applyOrder(ActiveQuery $query, $order)
+    public function applyOrder($order)
     {
         switch ($order) {
             case 'time':
-                $query->orderBy(['created_at' => SORT_ASC]);
+                $this->orderBy(['created_at' => SORT_ASC]);
                 break;
 
             case 'supports':
             default:
-                $query->orderBy(['(supports / pow((((UNIX_TIMESTAMP(NOW()) - created_at) / 3600) + 2),1.8) )' => SORT_DESC]);
+                $this->orderBy(['(supports / pow((((UNIX_TIMESTAMP(NOW()) - created_at) / 3600) + 2),1.8) )' => SORT_DESC]);
                 break;
         }
 

@@ -226,7 +226,7 @@ class QuestionController extends Controller
         /** @var Answer $query 回答列表 */
         $query = $model->getAnswers()->with('user');
 
-        $answerOrder = $query->applyOrder($query, Yii::$app->request->get('answers', 'supports'));
+        $answerOrder = $query->applyOrder(Yii::$app->request->get('answers', 'supports'));
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
