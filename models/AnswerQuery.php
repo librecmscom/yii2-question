@@ -16,7 +16,7 @@ class AnswerQuery extends ActiveQuery
      * @param $order
      * @return string
      */
-    public static function applyOrder(ActiveQuery $query, $order)
+    public function applyOrder(ActiveQuery $query, $order)
     {
         switch ($order) {
             case 'time':
