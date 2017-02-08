@@ -231,6 +231,7 @@ class Question extends ActiveRecord
      */
     public function afterDelete()
     {
+        $this->user->userData->updateCounters(['questions' => -1]);
         Answer::deleteAll(['question_id' => $this->id]);
         parent::afterDelete();
     }

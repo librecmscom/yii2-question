@@ -17,11 +17,8 @@ use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\web\ForbiddenHttpException;
-use yuncms\question\models\QuestionQuery;
-use yuncms\question\models\Vote;
 use yuncms\question\models\Answer;
 use yuncms\question\models\Question;
-use yuncms\question\models\QuestionSearch;
 use yuncms\tag\models\Tag;
 use xutl\summernote\SummerNoteAction;
 
