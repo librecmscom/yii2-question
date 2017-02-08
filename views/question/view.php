@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ListView;
 use yii\bootstrap\Modal;
 use yii\helpers\HtmlPurifier;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 use yuncms\question\models\Answer;
 use yuncms\question\models\Question;
 use yuncms\question\Asset;
@@ -247,7 +247,7 @@ $this->registerJs('
         <div class="widget-box">
             <h2 class="h4 widget-box__title">相似问题</h2>
             <ul class="widget-links list-unstyled list-text">
-                <?= \frontend\widgets\GuessSearch::widget(['limit' => 10]); ?>
+                <?= \yuncms\question\widgets\Popular::widget(['limit' => 10]); ?>
             </ul>
         </div>
     </div>
@@ -280,7 +280,7 @@ Modal::begin([
 <div class="alert alert-success" role="alert" id="rewardAlert">
     <i class="fa fa-exclamation-circle"></i> 提高悬赏，以提高问题的关注度！
 </div>
-<?= ActiveForm::begin([
+<?php ActiveForm::begin([
     'layout' => 'inline',
     'action' => Url::to(['/question/question/append-reward', 'id' => $model->id]),
     'method' => 'post',
@@ -302,9 +302,9 @@ Modal::begin([
     </select> 个积分
 </div>
 <div class="form-group">
-    （您目前共有 <span class="text-gold"><?= Yii::$app->user->identity->point ?></span> 个积分）
+    （您目前共有 <span class="text-gold"><?= Yii::$app->user->identity->userData->coins ?></span> 个积分）
 </div>
-<?= ActiveForm::end() ?>
+<?php ActiveForm::end() ?>
 <?php
 Modal::end();
 ?>
