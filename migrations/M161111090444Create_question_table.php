@@ -25,6 +25,7 @@ class M161111090444Create_question_table extends Migration
             'views' => $this->integer()->notNull()->defaultValue(0),
             'followers' => $this->integer()->notNull()->defaultValue(0),
             'collections' => $this->integer()->notNull()->defaultValue(0),
+            'comments'=>$this->integer()->notNull()->defaultValue(0),
             'status' => $this->smallInteger()->notNull()->defaultValue(1),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
