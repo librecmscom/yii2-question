@@ -28,8 +28,8 @@ use yuncms\comment\widgets\Comment;
                         title="" data-original-title="已通过行家认证"></i>
                                 </span>
         </strong>
-        <?php if ($model->user->profile->company_position): ?>
-            <span class="text-muted"> - <?= $model->user->profile->company_position ?></span>
+        <?php if ($model->user->profile->city): ?>
+            <span class="text-muted"> - <?= $model->user->profile->city ?></span>
         <?php endif; ?>
         <span
             class="answer-time text-muted hidden-xs"><?= Yii::$app->formatter->asRelativeTime($model->updated_at) ?></span>

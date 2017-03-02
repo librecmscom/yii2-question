@@ -141,9 +141,9 @@ $this->registerJs('
                                             data-original-title="已通过行家认证"></i>
                                     </span>
                                 </strong>
-                                <?php if ($bestAnswer->user->profile->company_position): ?>
+                                <?php if ($bestAnswer->user->profile->city): ?>
                                     <span
-                                        class="text-muted"> - <?= $bestAnswer->user->profile->company_position ?></span>
+                                        class="text-muted"> - <?= $bestAnswer->user->profile->city ?></span>
                                 <?php endif; ?>
                             </div>
 

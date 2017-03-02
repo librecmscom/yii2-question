@@ -112,7 +112,6 @@ class AnswerController extends Controller
 
     /**
      * 采纳回答
-     * @param int $id
      * @return \yii\web\Response
      */
     public function actionAdopt()

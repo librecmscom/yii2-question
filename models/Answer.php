@@ -155,10 +155,10 @@ class Answer extends ActiveRecord
             Yii::$app->user->identity->userData->updateCounters(['answers' => 1]);
 
             /*记录动态*/
-            Yii::$app->getModule('user')->doing($this->user_id, 'answer', get_class($this->question), $this->question->id, $this->question->title, $this->content);
+            Yii::$app->getModule('user')->doing($this->user_id, 'answer_question', get_class($this->question), $this->question->id, $this->question->title, $this->content);
 
             /*记录通知*/
-            Yii::$app->getModule('user')->notify($this->user_id, $this->question->user_id, 'answer', $this->question->title, $this->question->id, $this->content);
+            Yii::$app->getModule('user')->notify($this->user_id, $this->question->user_id, 'answer_question', $this->question->title, $this->question->id, $this->content);
         }
     }
 
