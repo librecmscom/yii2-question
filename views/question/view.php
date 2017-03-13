@@ -270,42 +270,44 @@ Modal::end();
 
 
 <?php
-Modal::begin([
-    'header' => '<h4 class="modal-title" id="adoptModalLabel">追加悬赏</h4>',
-    'options' => ['id' => 'appendReward'],
-    'footer' => '<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+if(!Yii::$app->user->isGuest) {
+    Modal::begin([
+        'header' => '<h4 class="modal-title" id="adoptModalLabel">追加悬赏</h4>',
+        'options' => ['id' => 'appendReward'],
+        'footer' => '<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" id="appendRewardSubmit">确认追加</button>',
-]);
-?>
-<div class="alert alert-success" role="alert" id="rewardAlert">
-    <i class="fa fa-exclamation-circle"></i> 提高悬赏，以提高问题的关注度！
-</div>
-<?php ActiveForm::begin([
-    'layout' => 'inline',
-    'action' => Url::to(['/question/question/append-reward', 'id' => $model->id]),
-    'method' => 'post',
-    'options' => ['id' => 'rewardForm']
-]) ?>
-<div class="form-group">
-    <label for="reward">追加</label>
-    <select class="form-control" name="coins" id="question_coins">
-        <option value="1" selected="">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-        <option value="30">30</option>
-        <option value="50">50</option>
-        <option value="80">80</option>
-        <option value="100">100</option>
-    </select> 个积分
-</div>
-<div class="form-group">
-    （您目前共有 <span class="text-gold"><?= Yii::$app->user->identity->userData->coins ?></span> 个积分）
-</div>
-<?php ActiveForm::end() ?>
-<?php
-Modal::end();
+    ]);
+    ?>
+    <div class="alert alert-success" role="alert" id="rewardAlert">
+        <i class="fa fa-exclamation-circle"></i> 提高悬赏，以提高问题的关注度！
+    </div>
+    <?php ActiveForm::begin([
+        'layout' => 'inline',
+        'action' => Url::to(['/question/question/append-reward', 'id' => $model->id]),
+        'method' => 'post',
+        'options' => ['id' => 'rewardForm']
+    ]) ?>
+    <div class="form-group">
+        <label for="reward">追加</label>
+        <select class="form-control" name="coins" id="question_coins">
+            <option value="1" selected="">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="30">30</option>
+            <option value="50">50</option>
+            <option value="80">80</option>
+            <option value="100">100</option>
+        </select> 个积分
+    </div>
+    <div class="form-group">
+        （您目前共有 <span class="text-gold"><?= Yii::$app->user->identity->userData->coins ?></span> 个积分）
+    </div>
+    <?php ActiveForm::end() ?>
+    <?php
+    Modal::end();
+}
 ?>
 
