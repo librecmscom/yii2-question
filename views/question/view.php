@@ -16,21 +16,6 @@ use yuncms\question\Asset;
  */
 Asset::register($this);
 $this->title = Html::encode($model->title);
-$this->registerJs('
-    jQuery("#appendRewardSubmit").click(function(){
-        var user_total_conis = \'14\';
-        var reward = jQuery("#question_coins").val();
-
-        if(reward>parseInt(user_total_conis)){
-            jQuery("#rewardAlert").attr(\'class\',\'alert alert-warning\');
-            jQuery("#rewardAlert").html(\'积分数不能大于\'+user_total_conis);
-        }else{
-            jQuery("#rewardAlert").empty();
-            jQuery("#rewardAlert").attr(\'class\',\'\');
-            jQuery("#rewardForm").submit();
-        }
-    });
-');
 ?>
 <div class="row mt-10">
     <div class="col-xs-12 col-md-9 main">
@@ -253,30 +238,41 @@ $this->registerJs('
     </div>
 </div>
 <?php
-Modal::begin([
-    'header' => '<h4 class="modal-title" id="adoptModalLabel">采纳回答</h4>',
-    'options' => ['id' => 'adoptAnswer'],
-    'footer' => '<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+if (!Yii::$app->user->isGuest && $model->isAuthor()) {
+    Modal::begin([
+        'header' => '<h4 class="modal-title" id="adoptModalLabel">采纳回答</h4>',
+        'options' => ['id' => 'adoptAnswer'],
+        'footer' => '<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" id="adoptAnswerSubmit">采纳该回答</button>',
-]);
-?>
-<div class="alert alert-warning" role="alert" id="adoptAnswerAlert">
-    <i class="fa fa-exclamation-circle"></i> 确认采纳该回答为最佳答案？
-</div>
-<blockquote id="answer_quote"></blockquote>
-<?php
-Modal::end();
-?>
-
-
-<?php
-if(!Yii::$app->user->isGuest) {
+    ]);
+    ?>
+    <div class="alert alert-warning" role="alert" id="adoptAnswerAlert">
+        <i class="fa fa-exclamation-circle"></i> 确认采纳该回答为最佳答案？
+    </div>
+    <blockquote id="answer_quote"></blockquote>
+    <?php
+    Modal::end();
     Modal::begin([
         'header' => '<h4 class="modal-title" id="adoptModalLabel">追加悬赏</h4>',
         'options' => ['id' => 'appendReward'],
         'footer' => '<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 <button type="button" class="btn btn-primary" id="appendRewardSubmit">确认追加</button>',
     ]);
+    $this->registerJs('
+    jQuery("#appendRewardSubmit").click(function(){
+        var user_total_conis = \'14\';
+        var reward = jQuery("#question_coins").val();
+
+        if(reward>parseInt(user_total_conis)){
+            jQuery("#rewardAlert").attr(\'class\',\'alert alert-warning\');
+            jQuery("#rewardAlert").html(\'积分数不能大于\'+user_total_conis);
+        }else{
+            jQuery("#rewardAlert").empty();
+            jQuery("#rewardAlert").attr(\'class\',\'\');
+            jQuery("#rewardForm").submit();
+        }
+    });
+');
     ?>
     <div class="alert alert-success" role="alert" id="rewardAlert">
         <i class="fa fa-exclamation-circle"></i> 提高悬赏，以提高问题的关注度！
