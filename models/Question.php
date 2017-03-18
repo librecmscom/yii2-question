@@ -97,7 +97,7 @@ class Question extends ActiveRecord
                 'class' => TagBehavior::className(),
                 'tagValuesAsArray' => false,
                 'tagRelation' => 'tags',
-                'tagValueAttribute' => 'id',
+                'tagValueAttribute' => 'name',
                 'tagFrequencyAttribute' => 'frequency',
             ],
             'blameable' => [

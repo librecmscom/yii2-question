@@ -15,7 +15,7 @@ use xutl\summernote\SummerNote;
 ]); ?>
 <?= $form->field($model, 'tagValues')->widget(Select2::className(), [
     'options' => ['multiple' => true],
-    'items' => ArrayHelper::map($model->tags, 'id', 'name'),
+    'items' => ArrayHelper::map($model->tags, 'name', 'name'),
     'clientOptions' => [
         'placeholder' => Yii::t('app', 'Add the tag you are looking for'),
         'tags' => true,
