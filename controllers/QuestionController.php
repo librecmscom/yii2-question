@@ -73,17 +73,6 @@ class QuestionController extends Controller
                 'class' => 'yuncms\tag\actions\AutoCompleteAction',
                 'clientIdGetParamName' => 'query'
             ],
-            'sn-upload' => [
-                'class' => SummerNoteAction::className(),
-                'onComplete' => function (UploadedFile $uploadedFile, $params) {
-                    $fileSavePath = Yii::getAlias('@uploads/question/' . date("Y/") . date('md'));
-                    if (!is_dir($fileSavePath)) {
-                        FileHelper::createDirectory($fileSavePath);
-                    }
-                    $uploadedFile->saveAs($fileSavePath . '/' . $uploadedFile->name);
-                    return Url::to('@uploadUrl/question/' . date("Y/") . date('md') . '/' . $uploadedFile->name, true);
-                }
-            ],
         ];
     }
 

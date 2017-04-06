@@ -6,8 +6,8 @@ use yii\helpers\HtmlPurifier;
 use yuncms\question\models\Question;
 use yuncms\comment\widgets\Comment;
 /**
- * @var common\models\Answer $model
- * @var common\models\Question $question
+ * @var yuncms\question\models\Answer $model
+ * @var yuncms\question\models\Question $question
  */
 ?>
 

@@ -51,26 +51,6 @@ class AnswerController extends Controller
     }
 
     /**
-     * @return array
-     */
-    public function actions()
-    {
-        return [
-            'sn-upload' => [
-                'class' => SummerNoteAction::className(),
-                'onComplete' => function (UploadedFile $uploadedFile, $params) {
-                    $fileSavePath = Yii::getAlias('@uploads/question/' . date("Y/") . date('md'));
-                    if (!is_dir($fileSavePath)) {
-                        FileHelper::createDirectory($fileSavePath);
-                    }
-                    $uploadedFile->saveAs($fileSavePath . '/' . $uploadedFile->name);
-                    return Url::to('@uploadUrl/question/' . date("Y/") . date('md') . '/' . $uploadedFile->name, true);
-                }
-            ],
-        ];
-    }
-
-    /**
      * 提交回答
      * @return Response|string
      */
