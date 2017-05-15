@@ -16,10 +16,10 @@
   },
   "require": {
     "yiisoft/yii2": "~2.0.0",
-    "yuncms/yii2-tag": "~1.0 | dev-master",
-    "yuncms/yii2-user": "~1.0  | dev-master",
-    "yuncms/yii2-attachment": "~1.0 | dev-master",
-    "yuncms/yii2-comment": "~1.0 | dev-master",
+    "yuncms/yii2-tag": "~1.0",
+    "yuncms/yii2-user": "~1.0",
+    "yuncms/yii2-attachment": "~1.0",
+    "yuncms/yii2-comment": "~1.0",
     "xutl/yii2-select2-widget":"~1.0",
     "xutl/yii2-summernote-widget":"~1.0"
   },
