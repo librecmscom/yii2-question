@@ -107,7 +107,7 @@ $this->title = Html::encode($model->title);
                     <!-- 评论结束 -->
                     <div class="media user-info border-top">
                         <div class="media-left">
-                            <a href="<?= Url::to(['/user/profile/show', 'id' => $bestAnswer->user_id]) ?>"
+                            <a href="<?= Url::to(['/user/space/view', 'id' => $bestAnswer->user_id]) ?>"
                                target="_blank">
                                 <img class="avatar-40"
                                      src="<?= $bestAnswer->user->getAvatar('big') ?>"
@@ -117,7 +117,7 @@ $this->title = Html::encode($model->title);
                         <div class="media-body">
 
                             <div class="media-heading">
-                                <strong><a href="<?= Url::to(['/user/profile/show', 'id' => $bestAnswer->user_id]) ?>"
+                                <strong><a href="<?= Url::to(['/user/space/view', 'id' => $bestAnswer->user_id]) ?>"
                                            class="mr5"><?= $bestAnswer->user->username ?></a>
                                     <span class="text-gold">
                                         <i
@@ -223,7 +223,7 @@ $this->title = Html::encode($model->title);
                 <li>
                     <i class="fa fa-clock-o"></i>
                     <?php if (!$model->isHide()): ?>
-                        <a href="<?= Url::to(['/user/profile/show', 'id' => $model->user_id]) ?>"
+                        <a href="<?= Url::to(['/user/profile/view', 'id' => $model->user_id]) ?>"
                            target="_blank"><?= Html::encode($model->user->username) ?></a>
                     <?php endif; ?>
                     提出于 <?= Yii::$app->formatter->asRelativeTime($model->updated_at); ?></li>

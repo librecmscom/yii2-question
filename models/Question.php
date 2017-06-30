@@ -217,10 +217,10 @@ class Question extends ActiveRecord
         if ($insert) {
             /*悬赏提问*/
             if ($this->price > 0) {
-                Yii::$app->getModule('user')->credit($this->user_id, 'ask', -$this->price, $this->id, $this->title);
+                credit($this->user_id, 'ask', -$this->price, $this->id, $this->title);
             }
             //记录动态
-            Yii::$app->getModule('user')->doing($this->user_id, 'ask', get_class($this), $this->id, $this->title, mb_substr(strip_tags($this->content), 0, 200));
+            doing($this->user_id, 'ask', get_class($this), $this->id, $this->title, mb_substr(strip_tags($this->content), 0, 200));
             /* 用户提问数+1 */
             Yii::$app->user->identity->userData->updateCounters(['questions' => 1]);
         }

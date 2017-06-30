@@ -85,7 +85,7 @@ $this->title = Yii::t('question', 'Questions');
                     <li class="text-muted">
                         <img class="avatar-32"
                              src="<?= $topAnswerUser->user->getAvatar('big') ?>">
-                        <a href="<?= Url::to(['/user/profile/show', 'id' => $topAnswerUser->user_id]) ?>"
+                        <a href="<?= Url::to(['/user/space/view', 'id' => $topAnswerUser->user_id]) ?>"
                            class="ellipsis"><?= $topAnswerUser->user->username ?></a>
                         <span class="text-muted pull-right"><?= $topAnswerUser->answers ?> 回答</span>
                     </li>
