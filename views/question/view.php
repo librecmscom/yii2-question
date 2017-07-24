@@ -111,7 +111,7 @@ $this->title = Html::encode($model->title);
                                target="_blank">
                                 <img class="avatar-40"
                                      src="<?= $bestAnswer->user->getAvatar('big') ?>"
-                                     alt="<?= $bestAnswer->user->username ?>"></a>
+                                     alt="<?= $bestAnswer->user->name ?>"></a>
                             </a>
                         </div>
                         <div class="media-body">
@@ -224,7 +224,7 @@ $this->title = Html::encode($model->title);
                     <i class="fa fa-clock-o"></i>
                     <?php if (!$model->isHide()): ?>
                         <a href="<?= Url::to(['/user/space/view', 'id' => $model->user_id]) ?>"
-                           target="_blank"><?= Html::encode($model->user->username) ?></a>
+                           target="_blank"><?= Html::encode($model->user->name) ?></a>
                     <?php endif; ?>
                     提出于 <?= Yii::$app->formatter->asRelativeTime($model->updated_at); ?></li>
             </ul>
