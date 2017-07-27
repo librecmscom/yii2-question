@@ -1,6 +1,6 @@
 <?php
 
-namespace yuncms\question;
+namespace yuncms\question\frontend;
 
 use Yii;
 
@@ -23,29 +23,10 @@ use Yii;
  *
  * You can then access QA via URL: `http://localhost/path/to/index.php/question`
  */
-class Module extends \yii\base\Module
+class Module extends \yuncms\question\Module
 {
 
+    public $defaultRoute = 'question';
 
 
-    /**
-     * 初始化
-     */
-    public function init()
-    {
-        parent::init();
-        $this->registerTranslations();
-    }
-
-    /**
-     * 注册语言包
-     */
-    public function registerTranslations()
-    {
-        Yii::$app->i18n->translations['question*'] = [
-            'class' => 'yii\i18n\PhpMessageSource',
-            'sourceLanguage' => 'en-US',
-            'basePath' => __DIR__ . '/messages',
-        ];
-    }
 }

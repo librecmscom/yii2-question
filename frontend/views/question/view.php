@@ -8,7 +8,7 @@ use yii\helpers\HtmlPurifier;
 use yii\bootstrap\ActiveForm;
 use yuncms\question\models\Answer;
 use yuncms\question\models\Question;
-use yuncms\question\Asset;
+use yuncms\question\frontend\assets\Asset;
 
 /**
  * @var yii\web\View $this

@@ -4,7 +4,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\widgets\ListView;
-use yuncms\question\Asset;
+use yuncms\question\frontend\assets\Asset;
 use yuncms\question\widgets\Tags;
 use yuncms\question\widgets\Popular;
 use yuncms\question\models\Question;

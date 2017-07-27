@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\question\controllers;
+namespace yuncms\question\frontend\controllers;
 
 use yii\web\Controller;
 

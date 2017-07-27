@@ -1,6 +1,6 @@
 <?php
 
-namespace yuncms\question;
+namespace yuncms\question\frontend\assets;
 
 use yii\web\AssetBundle;
 
@@ -9,7 +9,7 @@ use yii\web\AssetBundle;
  */
 class Asset extends AssetBundle
 {
-    public $sourcePath = '@yuncms/question/assets';
+    public $sourcePath = '@yuncms/question/frontend/views/assets';
     public $css = [
         'css/question.css',
     ];

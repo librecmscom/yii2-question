@@ -25,7 +25,7 @@ Add following lines to your main configuration file:
 ``php
 'modules' => [
     'question' => [
-        'class' => 'yuncms\question\Module',
+        'class' => 'yuncms\question\frontend\Module',
     ],
 ],
 ```
