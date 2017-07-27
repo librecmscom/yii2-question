@@ -14,7 +14,7 @@ use yuncms\comment\widgets\Comment;
 <div class="media-left">
     <a href="<?= Url::to(['/user/space/view', 'id' => $model->user_id]) ?>" class="avatar-link user-card"
        target="_blank">
-        <img class="avatar-40" src="<?= $model->user->getAvatar('big') ?>" alt="<?= $model->user->username ?>"></a>
+        <img class="avatar-40" src="<?= $model->user->getAvatar('big') ?>" alt="<?= $model->user->name ?>"></a>
     </a>
 </div>
 <div class="media-body">
