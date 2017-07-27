@@ -2,6 +2,15 @@
 
 仿 segmentfault 的Yii2实现
 
+[![Latest Stable Version](https://poser.pugx.org/yuncms/yii2-question/v/stable.png)](https://packagist.org/packages/yuncms/yii2-question)
+[![Total Downloads](https://poser.pugx.org/yuncms/yii2-question/downloads.png)](https://packagist.org/packages/yuncms/yii2-question)
+[![Reference Status](https://www.versioneye.com/php/yuncms:yii2-question/reference_badge.svg)](https://www.versioneye.com/php/yuncms:yii2-question/references)
+[![Build Status](https://img.shields.io/travis/yiisoft/yii2-question.svg)](http://travis-ci.org/yuncms/yii2-question)
+[![Dependency Status](https://www.versioneye.com/php/yuncms:yii2-question/dev-master/badge.png)](https://www.versioneye.com/php/yuncms:yii2-question/dev-master)
+[![License](https://poser.pugx.org/yuncms/yii2-question/license.svg)](https://packagist.org/packages/yuncms/yii2-question)
+
+
+
 安装
 ----
 
