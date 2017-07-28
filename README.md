@@ -61,3 +61,8 @@ $ php yii migrate/up
 ----
 
 http::www.youname.com/index.php?r=question
+
+## License
+
+this is released under the MIT License. See the bundled [LICENSE.md](LICENSE.md)
+for details.

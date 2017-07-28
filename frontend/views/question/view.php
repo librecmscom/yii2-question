@@ -62,7 +62,7 @@ $this->title = Html::encode($model->title);
                     </ul>
                 </div>
 
-                <?= \yuncms\comment\widgets\Comment::widget(['source_type' => 'question', 'source_id' => $model->id, 'hide_cancel' => false]) ?>
+                <?= \yuncms\comment\frontend\widgets\Comment::widget(['source_type' => 'question', 'source_id' => $model->id, 'hide_cancel' => false]) ?>
 
                 <!-- 分享
                 <div class="mb-10">
@@ -103,7 +103,7 @@ $this->title = Html::encode($model->title);
                     </div>
 
                     <!-- 评论 -->
-                    <?= \yuncms\comment\widgets\Comment::widget(['source_type' => 'answer', 'source_id' => $bestAnswer->id, 'hide_cancel' => false]) ?>
+                    <?= \yuncms\comment\frontend\widgets\Comment::widget(['source_type' => 'answer', 'source_id' => $bestAnswer->id, 'hide_cancel' => false]) ?>
                     <!-- 评论结束 -->
                     <div class="media user-info border-top">
                         <div class="media-left">
