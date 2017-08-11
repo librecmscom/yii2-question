@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\helpers\HtmlPurifier;
 use yuncms\question\models\Question;
-use yuncms\comment\widgets\Comment;
+use yuncms\comment\frontend\widgets\Comment;
 /**
  * @var yuncms\question\models\Answer $model
  * @var yuncms\question\models\Question $question
@@ -21,7 +21,7 @@ use yuncms\comment\widgets\Comment;
     <div class="media-heading">
         <strong>
             <a href="<?= Url::to(['/user/space/view', 'id' => $model->user_id]) ?>"
-               class="mr-5 user-card"><?= $model->user->username ?></a>
+               class="mr-5 user-card"><?= $model->user->name ?></a>
                 <span class="text-gold">
                     <i
                         class="fa fa-graduation-cap" aria-hidden="true" data-toggle="tooltip" data-placement="right"

@@ -171,12 +171,12 @@ class Question extends ActiveRecord
     }
 
     /**
-     * Favorite Relation
+     * Collection Relation
      * @return \yii\db\ActiveQueryInterface
      */
-    public function getCollection()
+    public function getCollections()
     {
-        return $this->hasOne(Collection::className(), ['source_id' => 'id'])->onCondition(['source_type' => get_class($this)]);
+        return $this->hasMany(Collection::className(), ['model_id' => 'id'])->onCondition(['model' => static::className()]);
     }
 
     /**
@@ -196,17 +196,6 @@ class Question extends ActiveRecord
     {
         return $this->hide == 1;
     }
-
-    /**
-     * 收藏关系
-     * @return \yii\db\ActiveQueryInterface
-     */
-    public function getCollections()
-    {
-        return $this->hasMany(Collection::className(), ['source_id' => 'id'])->onCondition(['source_type' => get_class($this)]);
-    }
-
-    
 
     /**
      * @inheritdoc

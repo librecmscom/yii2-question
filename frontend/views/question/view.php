@@ -118,7 +118,7 @@ $this->title = Html::encode($model->title);
 
                             <div class="media-heading">
                                 <strong><a href="<?= Url::to(['/user/space/view', 'id' => $bestAnswer->user_id]) ?>"
-                                           class="mr5"><?= $bestAnswer->user->username ?></a>
+                                           class="mr5"><?= $bestAnswer->user->name ?></a>
                                     <span class="text-gold">
                                         <i
                                             class="fa fa-graduation-cap" aria-hidden="true" data-toggle="tooltip"
