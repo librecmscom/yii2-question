@@ -29,21 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             'url' => ['index'],
                         ],
                         [
-                            'label' => Yii::t('question', 'Create Question'),
-                            'url' => ['create'],
-                        ],
-                        [
-                            'label' => Yii::t('question', 'Update Question'),
-                            'url' => ['update', 'id' => $model->id],
-                            'options' => ['class' => 'btn btn-primary btn-sm']
-                        ],
-                        [
                             'label' => Yii::t('question', 'Delete Question'),
                             'url' => ['delete', 'id' => $model->id],
                             'options' => [
                                 'class' => 'btn btn-danger btn-sm',
                                 'data' => [
-                                    'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                    'confirm' => Yii::t('question', 'Are you sure you want to delete this item?'),
                                     'method' => 'post',
                                 ],
                             ]

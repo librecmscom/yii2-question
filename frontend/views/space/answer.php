@@ -9,9 +9,9 @@ use yii\widgets\ListView;
 $this->context->layout = '@yuncms/user/frontend/views/layouts/space';
 $this->params['user'] = $user;
 if (!Yii::$app->user->isGuest && Yii::$app->user->id == $user->id) {//Me
-    $this->title = Yii::t('article', 'My Answers');
+    $this->title = Yii::t('question', 'My Answers');
 } else {
-    $this->title = Yii::t('article', 'His Answers');
+    $this->title = Yii::t('question', 'His Answers');
 }
 ?>
 

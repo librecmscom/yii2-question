@@ -139,6 +139,13 @@ class Question extends ActiveRecord
             'content' => Yii::t('question', 'Content'),
             'tagValues' => Yii::t('question', 'Tags'),
             'status' => Yii::t('question', 'Status'),
+            'views' => Yii::t('question', 'Views'),
+            'answers' => Yii::t('question', 'Answers'),
+            'followers' => Yii::t('question', 'Followers'),
+            'collections' => Yii::t('question', 'Collections'),
+            'comments' => Yii::t('question', 'Comments'),
+            'created_at' => Yii::t('question', 'Created At'),
+            'updated_at'=> Yii::t('question', 'Updated At'),
         ];
     }
 
