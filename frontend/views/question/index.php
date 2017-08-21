@@ -49,14 +49,14 @@ $this->title = Yii::t('question', 'Questions');
             </h2>
             <ol class="widget-top10">
                 <?php
-                $topAnswerUsers = \yuncms\user\models\Data::top('answers', 8);
+                $topAnswerUsers = \yuncms\user\models\Extend::top('answers', 8);
                 ?>
                 <?php foreach ($topAnswerUsers as $index => $topAnswerUser): ?>
                     <li class="text-muted">
                         <img class="avatar-32"
                              src="<?= $topAnswerUser->user->getAvatar('big') ?>">
                         <a href="<?= Url::to(['/user/space/view', 'id' => $topAnswerUser->user_id]) ?>"
-                           class="ellipsis"><?= $topAnswerUser->user->name ?></a>
+                           class="ellipsis"><?= $topAnswerUser->user->username ?></a>
                         <span class="text-muted pull-right"><?= $topAnswerUser->answers ?> 回答</span>
                     </li>
                 <?php endforeach; ?>
