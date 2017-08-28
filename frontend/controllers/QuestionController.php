@@ -4,6 +4,7 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
+
 namespace yuncms\question\frontend\controllers;
 
 use Yii;
@@ -126,7 +127,7 @@ class QuestionController extends Controller
     {
         $model = new Question();
         if ($model->load(Yii::$app->request->post()) && $model->save() != null) {
-            Yii::$app->session->setFlash('success','question Submitted');
+            Yii::$app->session->setFlash('success', 'question Submitted');
             return $this->redirect(['view', 'id' => $model->id]);
         }
         return $this->render('create', ['model' => $model]);
@@ -146,7 +147,7 @@ class QuestionController extends Controller
         $model = $this->findModel($id);
         if ($model->isAuthor()) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                Yii::$app->session->setFlash('success','question Submitted');
+                Yii::$app->session->setFlash('success', 'question Submitted');
                 return $this->redirect(['view', 'id' => $model->id]);
             }
             return $this->render('update', ['model' => $model]);
@@ -172,10 +173,15 @@ class QuestionController extends Controller
             //此处开始扣钱
             $transaction = Question::getDb()->beginTransaction();
             try {
-                Yii::$app->getModule('user')->credit($model->user_id, 'answer_adopted', -$coins, 0, $model->id, $model->title);
+                if (function_exists('credit')) {
+                    credit($model->user_id, 'answer_adopted', -$coins, $model->id, $model->title);
+                }
+
                 $model->updateCounters(['price' => $coins]);
                 $model->save();
-                Yii::$app->getModule('user')->doing($model->user_id, 'append_reward', get_class($model), $model->id, $model->title, "追加了 " . $coins . " 个积分");
+                if (function_exists('doing')) {
+                    doing($model->user_id, 'append_reward', get_class($model), $model->id, $model->title, "追加了 " . $coins . " 个积分");
+                }
                 Yii::$app->session->setFlash('success', 'question Submitted');
                 $transaction->commit();
             } catch (\Exception $e) {

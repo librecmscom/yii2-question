@@ -4,6 +4,7 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
+
 namespace yuncms\question\frontend\controllers;
 
 use Yii;
@@ -42,7 +43,7 @@ class AnswerController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['create','update', 'adopt','sn-upload'],
+                        'actions' => ['create', 'update', 'adopt', 'sn-upload'],
                         'roles' => ['@'],
                     ],
                 ],
@@ -62,7 +63,7 @@ class AnswerController extends Controller
         }
         $model = new Answer(['question_id' => $question->id]);
         if ($model->load(Yii::$app->request->post()) && $model->save() != null) {
-            Yii::$app->session->setFlash('success',Yii::t('question','Operation completed.'));
+            Yii::$app->session->setFlash('success', Yii::t('question', 'Operation completed.'));
             return $this->redirect(['/question/question/view', 'id' => $id]);
         }
         return $this->render('create', ['model' => $model, 'question' => $question]);
@@ -80,7 +81,7 @@ class AnswerController extends Controller
         $model = $this->findModel($id);
         if ($model->isAuthor()) {
             if ($model->load(Yii::$app->request->post()) && $model->save() != null) {
-                Yii::$app->session->setFlash('success',Yii::t('question','Operation completed.'));
+                Yii::$app->session->setFlash('success', Yii::t('question', 'Operation completed.'));
                 return $this->redirect(['/question/question/view', 'id' => $model->question_id]);
             }
             return $this->render('update', ['model' => $model]);
@@ -100,7 +101,7 @@ class AnswerController extends Controller
         $answer = $this->findModel($answerId);
         if (Yii::$app->user->id !== $answer->question->user_id) {
             Yii::$app->session->setFlash('danger', Yii::t('question', 'You can not take your own answer.'));
-            return $this->redirect(['/question/question/view','id'=>$answer->question_id]);
+            return $this->redirect(['/question/question/view', 'id' => $answer->question_id]);
         }
 
         $transaction = Yii::$app->db->beginTransaction();
@@ -110,13 +111,16 @@ class AnswerController extends Controller
             $answer->question->status = Question::STATUS_END;
             $answer->question->save(false);
 
-            if (isset(Yii::$app->user->identity->userData->adoptions)) {
-                Yii::$app->user->identity->userData->updateCounters(['adoptions' => 1]);
+            if (isset(Yii::$app->user->identity->extend->adoptions)) {
+                Yii::$app->user->identity->extend->updateCounters(['adoptions' => 1]);
             }
-            /*悬赏处理*/
-            if ($answer->question->price > 0) {
-                Yii::$app->getModule('user')->credit($answer->user_id, 'answer_adopted',$answer->question->price,$answer->question->price,  $answer->question->id, $answer->question->title);
+            if (function_exists('credit')) {
+                /*悬赏处理*/
+                if ($answer->question->price > 0) {
+                    credit($answer->user_id, 'answer_adopted', $answer->question->price, $answer->question->id, $answer->question->title);
+                }
             }
+
             $transaction->commit();
             Yii::$app->session->setFlash('success', Yii::t('question', 'Answer to adopt success.'));
             return $this->redirect(['/question/question/view', 'id' => $answer->question_id]);
