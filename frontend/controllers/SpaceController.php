@@ -14,8 +14,8 @@ use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yuncms\question\models\Answer;
 use yuncms\question\models\Question;
-use yuncms\user\api\models\User;
-use yuncms\user\models\Collection;
+use yuncms\user\models\User;
+use yuncms\collection\models\Collection;
 
 /**
  * Class SpaceController
