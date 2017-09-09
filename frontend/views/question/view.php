@@ -111,14 +111,14 @@ $this->title = Html::encode($model->title);
                                target="_blank">
                                 <img class="avatar-40"
                                      src="<?= $bestAnswer->user->getAvatar('big') ?>"
-                                     alt="<?= $bestAnswer->user->name ?>"></a>
+                                     alt="<?= $bestAnswer->user->username ?>"></a>
                             </a>
                         </div>
                         <div class="media-body">
 
                             <div class="media-heading">
                                 <strong><a href="<?= Url::to(['/user/space/view', 'id' => $bestAnswer->user_id]) ?>"
-                                           class="mr5"><?= $bestAnswer->user->name ?></a>
+                                           class="mr5"><?= $bestAnswer->user->username ?></a>
                                     <span class="text-gold">
                                         <i
                                             class="fa fa-graduation-cap" aria-hidden="true" data-toggle="tooltip"
@@ -136,7 +136,7 @@ $this->title = Html::encode($model->title);
                                 <span class="answer-time text-muted hidden-xs">
                                     <!--@if($bestAnswer->user->authentication && $bestAnswer->user->authentication->status === 1)
                                     擅长：{{ $bestAnswer->user->authentication->skill }} | @endif-->
-                                    采纳率 <?= round($bestAnswer->user->userData->adoptions / $bestAnswer->user->userData->answers, 2) * 100 ?>
+                                    采纳率 <?= round($bestAnswer->user->userData->adoptions / $bestAnswer->user->extend->answers, 2) * 100 ?>
                                     % |
                                     回答于 <?= Yii::$app->formatter->asRelativeTime($bestAnswer->created_at); ?>
                                 </span>
@@ -224,7 +224,7 @@ $this->title = Html::encode($model->title);
                     <i class="fa fa-clock-o"></i>
                     <?php if (!$model->isHide()): ?>
                         <a href="<?= Url::to(['/user/space/view', 'id' => $model->user_id]) ?>"
-                           target="_blank"><?= Html::encode($model->user->name) ?></a>
+                           target="_blank"><?= Html::encode($model->user->username) ?></a>
                     <?php endif; ?>
                     提出于 <?= Yii::$app->formatter->asRelativeTime($model->updated_at); ?></li>
             </ul>
@@ -299,7 +299,7 @@ if (!Yii::$app->user->isGuest && $model->isAuthor()) {
         </select> 个积分
     </div>
     <div class="form-group">
-        （您目前共有 <span class="text-gold"><?= Yii::$app->user->identity->userData->coins ?></span> 个积分）
+        （您目前共有 <span class="text-gold"><?= Yii::$app->user->identity->extend->coins ?></span> 个积分）
     </div>
     <?php ActiveForm::end() ?>
     <?php

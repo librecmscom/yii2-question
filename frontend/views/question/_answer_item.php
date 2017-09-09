@@ -14,14 +14,14 @@ use yuncms\comment\frontend\widgets\Comment;
 <div class="media-left">
     <a href="<?= Url::to(['/user/space/view', 'id' => $model->user_id]) ?>" class="avatar-link user-card"
        target="_blank">
-        <img class="avatar-40" src="<?= $model->user->getAvatar('big') ?>" alt="<?= $model->user->name ?>"></a>
+        <img class="avatar-40" src="<?= $model->user->getAvatar('big') ?>" alt="<?= $model->user->username ?>"></a>
     </a>
 </div>
 <div class="media-body">
     <div class="media-heading">
         <strong>
             <a href="<?= Url::to(['/user/space/view', 'id' => $model->user_id]) ?>"
-               class="mr-5 user-card"><?= $model->user->name ?></a>
+               class="mr-5 user-card"><?= $model->user->username ?></a>
                 <span class="text-gold">
                     <i
                         class="fa fa-graduation-cap" aria-hidden="true" data-toggle="tooltip" data-placement="right"

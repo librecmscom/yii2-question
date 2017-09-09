@@ -14,7 +14,7 @@ use yii\helpers\HtmlPurifier;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use yuncms\user\models\Collection;
+use yuncms\collection\models\Collection;
 use yuncms\tag\behaviors\TagBehavior;
 use yuncms\tag\models\Tag;
 
@@ -218,7 +218,7 @@ class Question extends ActiveRecord
             //记录动态
             doing($this->user_id, 'ask', get_class($this), $this->id, $this->title, mb_substr(strip_tags($this->content), 0, 200));
             /* 用户提问数+1 */
-            Yii::$app->user->identity->userData->updateCounters(['questions' => 1]);
+            Yii::$app->user->identity->extend->updateCounters(['questions' => 1]);
         }
     }
 
