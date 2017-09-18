@@ -5,7 +5,7 @@ use yii\web\JsExpression;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use xutl\select2\Select2;
-use xutl\summernote\SummerNote;
+use yuncms\summernote\SummerNote;
 
 ?>
 <?php $form = ActiveForm::begin([]); ?>
@@ -25,7 +25,7 @@ use xutl\summernote\SummerNote;
             'delay' => 250,
             'cache' => true,
             'data' => new \yii\web\JsExpression('function (params) {return {query: params.term};}'),
-            'processResults' => new \yii\web\JsExpression('function (data) {return {results: data};}'),
+            //'processResults' => new \yii\web\JsExpression('function (data) {return {results: data};}'),
         ],
     ],
 ]) ?>

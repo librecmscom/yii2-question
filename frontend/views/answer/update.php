@@ -2,7 +2,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use xutl\summernote\SummerNote;
+use yuncms\summernote\SummerNote;
 
 $this->title = Yii::t('question', 'Edit Answer');
 $this->params['breadcrumbs'][] = [
