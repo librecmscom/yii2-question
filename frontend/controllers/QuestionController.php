@@ -56,7 +56,7 @@ class QuestionController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['create', 'append-reward', 'update', 'sn-upload', 'answer', 'answer-update', 'delete', 'favorite', 'answer-vote', 'vote', 'favorite', 'answer-correct'],
+                        'actions' => ['upload', 'create', 'append-reward', 'update', 'sn-upload', 'answer', 'answer-update', 'delete', 'favorite', 'answer-vote', 'vote', 'favorite', 'answer-correct'],
                         'roles' => ['@']
                     ],
                 ],
@@ -73,6 +73,10 @@ class QuestionController extends Controller
             'auto-complete' => [
                 'class' => 'yuncms\tag\actions\AutoCompleteAction',
                 'clientIdGetParamName' => 'query'
+            ],
+            'upload' => [
+                'class' => 'yuncms\summernote\SummerNoteAction',
+                //etc...
             ],
         ];
     }
