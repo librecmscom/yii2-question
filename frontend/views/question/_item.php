@@ -23,7 +23,7 @@ use yuncms\question\models\Question;
     <div class="summary">
         <ul class="author list-inline">
             <li>
-                <a href="<?= Url::to(['/user/space/view', 'id' => $model->user_id]) ?>"><?= Html::encode($model->user->username) ?></a>
+                <a href="<?= Url::to(['/user/space/view', 'id' => $model->user_id]) ?>"><?= Html::encode($model->user->nickname) ?></a>
                 <span class="split"></span>
                 <span class="askDate"><?= Yii::$app->formatter->asRelativeTime($model->updated_at) ?></span>
             </li>

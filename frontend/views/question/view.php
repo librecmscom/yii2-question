@@ -111,14 +111,14 @@ $this->title = Html::encode($model->title);
                                target="_blank">
                                 <img class="avatar-40"
                                      src="<?= $bestAnswer->user->getAvatar('big') ?>"
-                                     alt="<?= $bestAnswer->user->username ?>"></a>
+                                     alt="<?= $bestAnswer->user->nickname ?>"></a>
                             </a>
                         </div>
                         <div class="media-body">
 
                             <div class="media-heading">
                                 <strong><a href="<?= Url::to(['/user/space/view', 'id' => $bestAnswer->user_id]) ?>"
-                                           class="mr5"><?= $bestAnswer->user->username ?></a>
+                                           class="mr5"><?= $bestAnswer->user->nickname ?></a>
                                     <span class="text-gold">
                                         <i
                                             class="fa fa-graduation-cap" aria-hidden="true" data-toggle="tooltip"
@@ -224,7 +224,7 @@ $this->title = Html::encode($model->title);
                     <i class="fa fa-clock-o"></i>
                     <?php if (!$model->isHide()): ?>
                         <a href="<?= Url::to(['/user/space/view', 'id' => $model->user_id]) ?>"
-                           target="_blank"><?= Html::encode($model->user->username) ?></a>
+                           target="_blank"><?= Html::encode($model->user->nickname) ?></a>
                     <?php endif; ?>
                     提出于 <?= Yii::$app->formatter->asRelativeTime($model->updated_at); ?></li>
             </ul>
