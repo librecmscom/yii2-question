@@ -17,7 +17,7 @@
   "require": {
     "yiisoft/yii2": "~2.0.6",
     "yiisoft/yii2-jui": "~2.0.0",
-    "xutl/yii2-select2-widget":"~1.0",
+    "xutl/yii2-select2-widget": "~1.0",
     "yuncms/yii2-coin": "~1.0",
     "yuncms/yii2-tag": "~2.0",
     "yuncms/yii2-user": "~2.0",
@@ -31,6 +31,20 @@
     }
   },
   "extra": {
+    "yuncms": {
+      "name": "question",
+      "i18n": {
+        "class": "yii\\i18n\\PhpMessageSource",
+        "basePath": "@yuncms/question/message"
+      },
+      "migrationNamespace": "@yuncms/question/migrations",
+      "backend": {
+        "class": "yuncms\\question\\backend\\Module"
+      },
+      "frontend": {
+        "class": "yuncms\\question\\frontend\\Module"
+      }
+    },
     "branch-alias": {
       "dev-master": "2.0-dev"
     }
