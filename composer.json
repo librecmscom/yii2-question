@@ -35,6 +35,7 @@
       "name": "question",
       "i18n": {
         "class": "yii\\i18n\\PhpMessageSource",
+        "sourceLanguage": "en-US",
         "basePath": "@yuncms/question/message"
       },
       "migrationNamespace": "yuncms\\question\\migrations",
