@@ -16,7 +16,7 @@ class M161111090555Create_question_answer_table extends Migration
 
         $this->createTable('{{%question_answer}}', [
             'id' => $this->primaryKey(),
-            'user_id' => $this->integer()->notNull(),
+            'user_id' => $this->integer()->unsigned()->notNull(),
             'question_id' => $this->integer()->notNull(),
             'content' => $this->text()->notNull(),
             'adopted_at' => $this->integer()->unsigned()->defaultValue(0),

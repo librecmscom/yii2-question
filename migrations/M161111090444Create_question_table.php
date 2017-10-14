@@ -15,7 +15,7 @@ class M161111090444Create_question_table extends Migration
         }
         $this->createTable('{{%question}}', [
             'id' => $this->primaryKey(),
-            'user_id' => $this->integer()->notNull(),
+            'user_id' => $this->integer()->unsigned()->notNull(),
             'title' => $this->string(100)->notNull(),
             'alias' => $this->string(100)->notNull(),
             'price'=>$this->smallInteger(6)->unsigned()->defaultValue(0),
