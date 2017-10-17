@@ -6,7 +6,7 @@ use yii\widgets\ListView;
 /* @var yii\web\View $this */
 /* @var yuncms\user\models\User $model */
 
-$this->context->layout = '@yuncms/user/frontend/views/layouts/space';
+$this->context->layout = '@yuncms/space/frontend/views/layouts/space';
 $this->params['user'] = $user;
 if (!Yii::$app->user->isGuest && Yii::$app->user->id == $user->id) {//Me
     $this->title = Yii::t('question', 'My Answers');
