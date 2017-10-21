@@ -14,7 +14,7 @@ class M161111090444Create_question_table extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
         $this->createTable('{{%question}}', [
-            'id' => $this->primaryKey(),
+            'id' => $this->primaryKey()->unsigned(),
             'user_id' => $this->integer()->unsigned()->notNull(),
             'title' => $this->string(100)->notNull(),
             'alias' => $this->string(100)->notNull(),

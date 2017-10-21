@@ -15,15 +15,15 @@ class M161111090555Create_question_answer_table extends Migration
         }
 
         $this->createTable('{{%question_answer}}', [
-            'id' => $this->primaryKey(),
+            'id' => $this->primaryKey()->unsigned(),
             'user_id' => $this->integer()->unsigned()->notNull(),
-            'question_id' => $this->integer()->notNull(),
+            'question_id' => $this->integer()->unsigned()->notNull(),
             'content' => $this->text()->notNull(),
             'adopted_at' => $this->integer()->unsigned()->defaultValue(0),
             'supports' => $this->integer()->unsigned()->defaultValue(0),
             'comments'=>$this->integer()->unsigned()->defaultValue(0),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->integer()->unsigned()->notNull(),
+            'updated_at' => $this->integer()->unsigned()->notNull(),
         ], $tableOptions);
         $this->addForeignKey('answer_ibfk_1', '{{%question_answer}}', 'question_id', '{{%question}}', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey('answer_ibfk_2', '{{%question_answer}}', 'user_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE');

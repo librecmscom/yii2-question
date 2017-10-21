@@ -14,7 +14,7 @@ class M161111091655Create_question_tag_table extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
         $this->createTable('{{%question_tag}}', [
-            'question_id' => $this->integer()->notNull()->comment('Question ID'),
+            'question_id' => $this->integer()->unsigned()->notNull()->comment('Question ID'),
             'tag_id' => $this->integer()->unsigned()->notNull()->comment('Tag ID'),
         ], $tableOptions);
         $this->addPrimaryKey('', '{{%question_tag}}', ['question_id', 'tag_id']);
