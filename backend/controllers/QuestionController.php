@@ -80,7 +80,7 @@ class QuestionController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-        Yii::$app->getSession()->setFlash('success', Yii::t('app','Delete success.'));
+        Yii::$app->getSession()->setFlash('success', Yii::t('question','Delete success.'));
         return $this->redirect(['index']);
     }
      /**
@@ -95,9 +95,9 @@ class QuestionController extends Controller
                 $model = $this->findModel($id);
                 $model->delete();
             }
-            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Delete success.'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('question', 'Delete success.'));
         } else {
-            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Delete failed.'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('question', 'Delete failed.'));
         }
         return $this->redirect(['index']);
     }
@@ -114,7 +114,7 @@ class QuestionController extends Controller
         if (($model = Question::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException (Yii::t('app', 'The requested page does not exist.'));
+            throw new NotFoundHttpException (Yii::t('yii', 'The requested page does not exist.'));
         }
     }
 }
